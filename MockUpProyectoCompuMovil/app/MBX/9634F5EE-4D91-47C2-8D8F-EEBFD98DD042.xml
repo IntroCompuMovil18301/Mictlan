@@ -1,0 +1,154 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="9634F5EE-4D91-47C2-8D8F-EEBFD98DD042" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325" clipArea="(0,0,0,0)">
+  <controls controlCount="16">
+    <control controlID="730C54B5-008F-460E-A4F6-9A735A81A613" controlTypeID="ScrollView" x="-3" y="-3" w="378" h="670" zOrder="0">
+      <groupChildrenDescriptors>
+        <control controlID="AAF65DE7-B9C0-4ADA-B9E1-D186A2F9E496" controlTypeID="ScrollViewContentPanel" x="0" y="0" w="378" h="670" zOrder="0">
+          <alias>contentPanel</alias>
+          <groupChildrenDescriptors>
+            <control controlID="AC0C7977-36C1-4D88-83EF-EE437C36F2FA" controlTypeID="Shape" x="0" y="0" w="375" h="128" zOrder="0">
+              <color>4291559475</color>
+              <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False" useDefaultFontFamily="False"/>
+              <text>Mi+Cuenta</text>
+              <textColor>4294967295</textColor>
+              <textSize>20</textSize>
+              <textStyles>[fsBold]</textStyles>
+              <useDefaultTextSize>False</useDefaultTextSize>
+              <selectedIndex>-1</selectedIndex>
+            </control>
+            <control controlID="CFF670B4-A749-414B-B749-5F4057FDAF34" controlTypeID="IconButton2" x="271" y="189" w="60" h="60" zOrder="1">
+              <groupChildrenDescriptors>
+                <control controlID="C449F174-2F13-489D-9A68-99E45AAAFDAB" controlTypeID="Shape" x="0" y="0" w="60" h="60" zOrder="0">
+                  <color>4291559475</color>
+                  <borderVisible>False</borderVisible>
+                  <canMove>False</canMove>
+                  <alias>shape</alias>
+                  <font family="" displayName="" postScript="" weightStyle="Normal" weight="0" isBold="False" isItalic="False"/>
+                  <selectedIndex>-1</selectedIndex>
+                  <shapeBorderType>SbEllipse</shapeBorderType>
+                </control>
+                <control controlID="6F9FB8C0-8E75-43D2-8786-E5C8004389D4" controlTypeID="Icon" x="11" y="11" w="38" h="38" zOrder="1">
+                  <color>4294967295</color>
+                  <canMove>False</canMove>
+                  <alias>icon</alias>
+                  <icon>
+                    <ID/>
+                    <iconFontName>jdIonicons</iconFontName>
+                    <iconCode>62453</iconCode>
+                  </icon>
+                  <URL>10307378C3F9AF59F9516A936811A4BC.svg</URL>
+                </control>
+                <control controlID="47A410BB-6455-469E-8B1D-DA8E2D377A4E" controlTypeID="Label" x="3" y="64" w="44" h="16" zOrder="2">
+                  <canMove>False</canMove>
+                  <alias>label</alias>
+                  <font family="" displayName="" postScript="" weightStyle="Normal" weight="0" isBold="False" isItalic="False"/>
+                  <text>Postcard</text>
+                  <textColor>4281545523</textColor>
+                  <textSize>12</textSize>
+                  <textVAlign>VaTop</textVAlign>
+                  <lineSpacing>0</lineSpacing>
+                  <selectedIndex>-1</selectedIndex>
+                </control>
+                <control controlID="EF4E4CC2-B3CD-44C8-B139-0C4ACF6EF1E3" controlTypeID="Shape" x="40" y="0" w="20" h="20" zOrder="3">
+                  <color>4294901760</color>
+                  <borderVisible>False</borderVisible>
+                  <canMove>False</canMove>
+                  <alias>alarm</alias>
+                  <font family="" displayName="" postScript="" weightStyle="Normal" weight="0" isBold="False" isItalic="False"/>
+                  <text>2</text>
+                  <textColor>4294967295</textColor>
+                  <textSize>13</textSize>
+                  <selectedIndex>-1</selectedIndex>
+                  <radius>100</radius>
+                  <radiusIsPercent>True</radiusIsPercent>
+                </control>
+              </groupChildrenDescriptors>
+              <iconSize>38</iconSize>
+            </control>
+            <control controlID="4F70C548-9750-4263-98C2-A100FCC9C4E6" controlTypeID="AvatarEx2" x="100" y="88" w="161" h="161" zOrder="2">
+              <icon>
+                <ID/>
+                <iconFontName>jdiconfontB</iconFontName>
+                <iconCode>59652</iconCode>
+              </icon>
+              <URL>467605F5F90D9FF65132C1A6EF883F26.svg</URL>
+            </control>
+            <control controlID="64851385-6343-4FD3-A5DD-43AA52EE5875" controlTypeID="Label" x="23" y="260" w="176" h="27" zOrder="3">
+              <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False"/>
+              <text>Nombre%3A+Jonh+Doe</text>
+              <textSize>20</textSize>
+              <lineSpacing>0</lineSpacing>
+              <textStyles>[fsBold]</textStyles>
+              <useDefaultTextSize>False</useDefaultTextSize>
+            </control>
+            <control controlID="E3E92616-0C75-45EC-B967-9B31EEF7702D" controlTypeID="Label" x="23" y="297" w="77" h="27" zOrder="4">
+              <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False"/>
+              <text>Edad%3A+21</text>
+              <textSize>20</textSize>
+              <lineSpacing>0</lineSpacing>
+              <textStyles>[fsBold]</textStyles>
+              <useDefaultTextSize>False</useDefaultTextSize>
+              <selectedIndex>-1</selectedIndex>
+            </control>
+            <control controlID="9D251C7F-E29D-475A-A3B3-52A945DCD489" controlTypeID="TextArea" x="23" y="368" w="314" h="130" zOrder="5">
+              <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False"/>
+              <text>Duis+eget+sagittis+nunc.+Aenean+quis+aliquet+nisi%2C+in+porttitor+lectus.+Praesent+ac+placerat+lectus%2C+finibus+condimentum+tortor.+Integer+posuere+at+neque+a+ornare.+Duis+sapien+eros%2C+euismod+quis+ligula+in%2C+semper+ultricies+velit.+Nunc+lorem+elit%2C+varius+nec+metus+vel%2C+commodo+euismod+nunc.+Fusce+nec+arcu+imperdiet%2C+porta+lacus+a%2C+feugiat+elit.+Mauris+fringilla+ante+sit+amet+arcu+vestibulum%2C+eu+maximus+dolor+varius.+Aliquam+arcu+augue%2C+elementum+et+est+et%2C+convallis+sodales+neque.%0D%0A</text>
+              <textSize>16</textSize>
+              <useDefaultTextSize>False</useDefaultTextSize>
+            </control>
+            <control controlID="D7D8F288-B4CC-430A-BA93-1465461506FA" controlTypeID="Label" x="23" y="331" w="119" h="27" zOrder="6">
+              <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False"/>
+              <text>Aserca+de+mi</text>
+              <textSize>20</textSize>
+              <lineSpacing>0</lineSpacing>
+              <textStyles>[fsBold]</textStyles>
+              <useDefaultTextSize>False</useDefaultTextSize>
+              <selectedIndex>-1</selectedIndex>
+            </control>
+            <control controlID="2E6B923E-6531-4D86-8C75-170C1FA9010A" controlTypeID="Button" x="23" y="595" w="120" h="38" zOrder="7">
+              <color>4291559475</color>
+              <borderColor>4294967295</borderColor>
+              <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+                <link targetPageID="B8F23592-0F65-4CED-A274-468396F43FEB" linkType="ltPageLink" isApplyIncludePage="False" title="Cuenta">
+                  <area shape="0" alt="" ID="{B107DE74-648B-4798-9D4F-C3C62508F2ED}" coords="(0,0,120,38)"/>
+                </link>
+              </links>
+              <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False"/>
+              <text>Modificar</text>
+              <textColor>4294967295</textColor>
+              <lineSpacing>0</lineSpacing>
+              <radius>15</radius>
+              <thickness>2</thickness>
+            </control>
+            <control controlID="8F4A95F7-A583-4468-8EA2-A5A97AA1E207" controlTypeID="Button" x="191" y="595" w="120" h="38" zOrder="8">
+              <color>4291559475</color>
+              <borderColor>4294967295</borderColor>
+              <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+                <link targetPageID="B8F23592-0F65-4CED-A274-468396F43FEB" linkType="ltPageLink" isApplyIncludePage="False" title="Cuenta">
+                  <area shape="0" alt="" ID="{34D46C8C-D3AB-4F93-AC9C-1F6BC62F8351}" coords="(0,0,120,38)"/>
+                </link>
+              </links>
+              <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False"/>
+              <text>Cancelar</text>
+              <textColor>4294967295</textColor>
+              <lineSpacing>0</lineSpacing>
+              <selectedIndex>-1</selectedIndex>
+              <radius>15</radius>
+              <thickness>2</thickness>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+        <control controlID="C0A57C3A-026C-4B9A-B3D5-0E75EC9062F4" controlTypeID="Border" x="0" y="0" w="378" h="670" zOrder="1">
+          <color>4284900966</color>
+          <borderColor>4278190080</borderColor>
+          <alias>borderLayer</alias>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>14</fontSize>
+    <fontFamily>Segoe+UI</fontFamily>
+    <guideLines/>
+  </param>
+</mockup>

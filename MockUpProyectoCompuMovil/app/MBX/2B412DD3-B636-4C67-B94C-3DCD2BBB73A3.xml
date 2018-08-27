@@ -1,0 +1,179 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="3894DE0B-4BD1-4D01-9BB8-CE2A97FA2F1B" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325" clipArea="(0,0,0,0)">
+  <controls controlCount="18">
+    <control controlID="F697D609-3D34-4918-8C13-3C03756E9648" controlTypeID="Shape" x="0" y="0" w="375" h="128" zOrder="0">
+      <color>4291559475</color>
+      <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False" useDefaultFontFamily="False"/>
+      <text>Crear+Cuenta</text>
+      <textColor>4294967295</textColor>
+      <textSize>20</textSize>
+      <textStyles>[fsBold]</textStyles>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="62708817-789E-4125-9953-CBD442CD6ECE" controlTypeID="TextArea" x="30" y="302" w="106" h="35" zOrder="1">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False" useDefaultFontFamily="False"/>
+      <text>Nombre%3A</text>
+      <textSize>24</textSize>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="9B1E3DB0-5225-4BE4-B274-009C68FFBB66" controlTypeID="TextArea" x="146" y="302" w="182" h="35" zOrder="2">
+      <borderColor>4291559475</borderColor>
+      <borderVisible>True</borderVisible>
+      <remarkText>Digite+%C3%BAnicamente+caracteres</remarkText>
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False"/>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="BE326EBE-C900-42F4-B6E1-984B62675A20" controlTypeID="TextArea" x="30" y="361" w="106" h="34" zOrder="3">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False" useDefaultFontFamily="False"/>
+      <text>Edad%3A</text>
+      <textSize>24</textSize>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="3B4BE509-E955-4DFD-B267-93E0E3A0FFE5" controlTypeID="TextArea" x="146" y="360" w="182" h="35" zOrder="4">
+      <borderColor>4291559475</borderColor>
+      <borderVisible>True</borderVisible>
+      <remarkText>Digite+solo+n%C3%BAmeros</remarkText>
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False"/>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="93BD17D4-3A8A-411F-B038-C0BAA1D1C7E1" controlTypeID="IconButton2" x="271" y="189" w="60" h="60" zOrder="5">
+      <groupChildrenDescriptors>
+        <control controlID="AADB7591-9B72-4321-9280-7B5D6B3C9FE4" controlTypeID="Shape" x="0" y="0" w="60" h="60" zOrder="0">
+          <color>4291559475</color>
+          <borderVisible>False</borderVisible>
+          <canMove>False</canMove>
+          <alias>shape</alias>
+          <font family="" displayName="" postScript="" weightStyle="Normal" weight="0" isBold="False" isItalic="False"/>
+          <selectedIndex>-1</selectedIndex>
+          <shapeBorderType>SbEllipse</shapeBorderType>
+        </control>
+        <control controlID="0A350CFC-2C87-4888-9A3F-B0E6C7FAEF52" controlTypeID="Icon" x="11" y="11" w="38" h="38" zOrder="1">
+          <color>4294967295</color>
+          <canMove>False</canMove>
+          <alias>icon</alias>
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>62453</iconCode>
+          </icon>
+          <URL>10307378C3F9AF59F9516A936811A4BC.svg</URL>
+        </control>
+        <control controlID="F7467B33-C9D2-4771-A295-1E6F84286C10" controlTypeID="Label" x="3" y="64" w="44" h="16" zOrder="2">
+          <canMove>False</canMove>
+          <alias>label</alias>
+          <font family="" displayName="" postScript="" weightStyle="Normal" weight="0" isBold="False" isItalic="False"/>
+          <text>Postcard</text>
+          <textColor>4281545523</textColor>
+          <textSize>12</textSize>
+          <textVAlign>VaTop</textVAlign>
+          <lineSpacing>0</lineSpacing>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="61DF97A6-5F54-4EC7-8FF1-A6F7876AD763" controlTypeID="Shape" x="40" y="0" w="20" h="20" zOrder="3">
+          <color>4294901760</color>
+          <borderVisible>False</borderVisible>
+          <canMove>False</canMove>
+          <alias>alarm</alias>
+          <font family="" displayName="" postScript="" weightStyle="Normal" weight="0" isBold="False" isItalic="False"/>
+          <text>2</text>
+          <textColor>4294967295</textColor>
+          <textSize>13</textSize>
+          <selectedIndex>-1</selectedIndex>
+          <radius>100</radius>
+          <radiusIsPercent>True</radiusIsPercent>
+        </control>
+      </groupChildrenDescriptors>
+      <iconSize>38</iconSize>
+    </control>
+    <control controlID="343EA6EE-8516-4D64-BCC6-0457FDB0624B" controlTypeID="AvatarEx2" x="100" y="88" w="161" h="161" zOrder="6">
+      <icon>
+        <ID/>
+        <iconFontName>jdiconfontB</iconFontName>
+        <iconCode>59652</iconCode>
+      </icon>
+      <URL>467605F5F90D9FF65132C1A6EF883F26.svg</URL>
+    </control>
+    <control controlID="D4328DEE-0711-4618-8B89-B0F6FAD639D3" controlTypeID="TextArea" x="35" y="425" w="106" h="34" zOrder="7">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False" useDefaultFontFamily="False"/>
+      <text>G%C3%A9nero%3A</text>
+      <textSize>24</textSize>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="975EA772-2948-48CE-ABCA-AC26BC4C4630" controlTypeID="Button" x="173" y="531" w="141" h="56" zOrder="8">
+      <borderColor>4291559475</borderColor>
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="B8F23592-0F65-4CED-A274-468396F43FEB" linkType="ltPageLink" isApplyIncludePage="False" title="Cuenta">
+          <area shape="0" alt="" ID="{3083933C-2DE5-4E1B-BC18-21E013B6B5CC}" coords="(0,0,141,56)"/>
+        </link>
+      </links>
+      <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False" useDefaultFontFamily="False"/>
+      <text>Crear</text>
+      <textColor>4291559475</textColor>
+      <textSize>18</textSize>
+      <lineSpacing>0</lineSpacing>
+      <textStyles>[fsBold]</textStyles>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+      <radius>24</radius>
+      <thickness>5</thickness>
+    </control>
+    <control controlID="30101B00-B569-4BCA-ACAD-522B09BB3A0F" controlTypeID="Icon" x="41" y="537" w="54" h="54" zOrder="9">
+      <color>4291559475</color>
+      <icon>
+        <ID/>
+        <iconFontName>jdIonicons</iconFontName>
+        <iconCode>62418</iconCode>
+      </icon>
+      <URL>91852B86E51F760894554368302F9800.svg</URL>
+    </control>
+    <control controlID="4109DAB7-93B8-4ABC-9FA4-DC5B54D507CF" controlTypeID="CompositeComboBox" x="147" y="420" w="181" h="39" zOrder="10">
+      <borderColor>4291559475</borderColor>
+      <groupChildrenDescriptors>
+        <control controlID="BBB9689C-EDCA-415E-8240-2964DAC077BA" controlTypeID="TextInput" x="0" y="0" w="158" h="39" zOrder="0">
+          <locked>True</locked>
+          <borderColor>4291559475</borderColor>
+          <canMove>False</canMove>
+          <alias>input</alias>
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False"/>
+          <text>Femenino</text>
+          <lineSpacing>0</lineSpacing>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="BB51D4BA-5C45-4FF7-A431-B15D8DE6628A" controlTypeID="Button" x="157" y="0" w="24" h="39" zOrder="1">
+          <locked>True</locked>
+          <borderColor>4291559475</borderColor>
+          <canMove>False</canMove>
+          <alias>button</alias>
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False"/>
+          <lineSpacing>0</lineSpacing>
+          <selectedIndex>-1</selectedIndex>
+          <radius>0</radius>
+        </control>
+        <control controlID="4969FB35-358F-46E3-ADF6-F550BA9B73FA" controlTypeID="List" x="0" y="39" w="181" h="80" zOrder="2">
+          <isShow>False</isShow>
+          <borderColor>4291559475</borderColor>
+          <canMove>False</canMove>
+          <alias>dropDown</alias>
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False"/>
+          <text>Femenino%0D%0AMasculino</text>
+          <textSize>14</textSize>
+          <lineSpacing>0</lineSpacing>
+          <itemHeight>39</itemHeight>
+          <interlaceColor>4294967295</interlaceColor>
+        </control>
+      </groupChildrenDescriptors>
+      <canInput>True</canInput>
+      <font family="Segoe+UI"/>
+      <textSize>14</textSize>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>

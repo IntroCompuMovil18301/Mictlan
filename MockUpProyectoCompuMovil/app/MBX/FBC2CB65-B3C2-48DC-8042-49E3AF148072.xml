@@ -1,0 +1,79 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="3CE09B1B-10BC-4BC6-96D9-107D33A1CCAD" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325" clipArea="(0,0,0,0)">
+  <controls controlCount="7">
+    <control controlID="573B70CB-3CE4-4F9D-8E14-0E4B9D6F14FD" controlTypeID="Shape" x="0" y="0" w="375" h="63" zOrder="0">
+      <color>4291559475</color>
+      <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False" useDefaultFontFamily="False"/>
+      <text>Hospedarse</text>
+      <textColor>4294967295</textColor>
+      <textSize>20</textSize>
+      <textStyles>[fsBold]</textStyles>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="896A7AA4-CC11-4308-86E9-DE5652010CD2" controlTypeID="Calendar" x="0" y="63" w="375" h="361" zOrder="1"/>
+    <control controlID="81613A78-D33D-4646-9D98-B3A07982455A" controlTypeID="Icon" x="24" y="24" w="24" h="24" zOrder="2">
+      <color>4294967295</color>
+      <icon>
+        <ID/>
+        <iconFontName>jdIonicons</iconFontName>
+        <iconCode>62161</iconCode>
+      </icon>
+      <URL>524D9A41776CD1EF98956BB68F9875AC.svg</URL>
+    </control>
+    <control controlID="150853EF-7B4B-44F8-9B18-E1DF6D39A16C" controlTypeID="Button" x="71" y="441" w="218" h="50" zOrder="3">
+      <borderColor>4291559475</borderColor>
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="E8FAA38C-6091-4E66-8999-E71D32AABBBA" linkType="ltPageLink" isApplyIncludePage="False" title="Home">
+          <area shape="0" alt="" ID="{09F4C9EB-FA08-4BF8-BC53-0C899E08A15D}" coords="(0,0,218,50)"/>
+        </link>
+      </links>
+      <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False" useDefaultFontFamily="False"/>
+      <text>Finalizar</text>
+      <textColor>4291559475</textColor>
+      <lineSpacing>0</lineSpacing>
+      <textStyles>[fsBold]</textStyles>
+      <selectedIndex>-1</selectedIndex>
+      <radius>24</radius>
+      <thickness>3</thickness>
+    </control>
+    <control controlID="819F9DEF-9993-48CF-A3F7-EC67154ED0A7" controlTypeID="Button" x="71" y="491" w="218" h="50" zOrder="4">
+      <borderColor>4291559475</borderColor>
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="322123DD-2E31-453D-B68F-6FB0C1906F6C" linkType="ltPageLink" isApplyIncludePage="False" title="Ruta">
+          <area shape="0" alt="" ID="{1B3AA9C4-C2C3-4404-BBE8-14BA6749737A}" coords="(0,0,218,50)"/>
+        </link>
+      </links>
+      <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False" useDefaultFontFamily="False"/>
+      <text>Crear+Ruta</text>
+      <textColor>4291559475</textColor>
+      <lineSpacing>0</lineSpacing>
+      <textStyles>[fsBold]</textStyles>
+      <selectedIndex>-1</selectedIndex>
+      <radius>24</radius>
+      <thickness>3</thickness>
+    </control>
+    <control controlID="01015CD6-8B38-4A45-8A62-13F364ABCB2B" controlTypeID="Shape" x="0" y="581" w="375" h="52" zOrder="5">
+      <color>4291559475</color>
+      <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False" useDefaultFontFamily="False"/>
+      <text>Total%3A+$75</text>
+      <textColor>4294967295</textColor>
+      <textSize>20</textSize>
+      <textStyles>[fsBold]</textStyles>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="221A0211-C110-472C-8EAF-79BC6CE0226D" controlTypeID="Button" x="37" y="307" w="120" h="41" zOrder="6">
+      <color>16777215</color>
+      <borderColor>4291559475</borderColor>
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False"/>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>

@@ -1,0 +1,19 @@
+﻿<master version="5.3" minAllowVersion="5.3" ID="569B9EBA-826E-4CB4-83D9-FF9E74D0B14B">
+  <controls>
+    <control controlID="84CCB970-BE63-4CB0-BDFB-BA8F2D90805A" controlTypeID="Master" x="20" y="20" w="25" h="25" zOrder="0" masterID="569B9EBA-826E-4CB4-83D9-FF9E74D0B14B">
+      <ShadowBlur>0,5</ShadowBlur>
+      <groupChildrenDescriptors>
+        <control controlID="60411520-ADB6-4E9C-957D-A7614D851975" controlTypeID="Icon" x="0" y="0" w="25" h="25" zOrder="0">
+          <caption>Icon+Menu</caption>
+          <ShadowBlur>0</ShadowBlur>
+          <icon>
+            <ID/>
+            <iconFontName>jdIcoFont</iconFontName>
+            <iconCode>59125</iconCode>
+          </icon>
+          <URL>2273EE38561E50A58D1F65796DD55138.svg</URL>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+</master>

@@ -1,0 +1,125 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="E8E56639-A525-44AB-8CF0-83B7538A71CB" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325" clipArea="(0,0,0,0)">
+  <controls controlCount="8">
+    <control controlID="AD9EE78E-6A3E-49C5-9931-30A6C14D1BF1" controlTypeID="Panel" x="-1" y="0" w="362" h="640" zOrder="0">
+      <color>4291559475</color>
+      <groupChildrenDescriptors>
+        <control controlID="C466FD6B-A771-458B-BB33-B3DF947B1D5F" controlTypeID="Border" x="0" y="0" w="362" h="640" zOrder="0">
+          <alias>borderLayer</alias>
+        </control>
+      </groupChildrenDescriptors>
+      <thinkness>1</thinkness>
+    </control>
+    <control controlID="ADA46CD3-7F3F-41CE-86AB-EF2CC1C96A82" controlTypeID="Image" x="52" y="132" w="256" h="260" zOrder="1">
+      <URL>0CEA039BEB8475DBBC5606404A0AF622.png</URL>
+    </control>
+    <control controlID="9BF4A9DC-C575-45B1-B7A1-B665F69B1221" controlTypeID="NavigationBar" x="0" y="592" w="360" h="48" zOrder="2"/>
+    <control controlID="33383082-84CE-44A5-983A-FD84754F066D" controlTypeID="StatusBar(Android)" x="0" y="0" w="360" h="20" zOrder="3"/>
+    <control controlID="1EB4038C-E0D8-4800-89BC-05DC5A1C8E92" controlTypeID="Button" x="64" y="483" w="243" h="40" zOrder="4">
+      <color>4291559475</color>
+      <borderColor>4294967295</borderColor>
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="2B412DD3-B636-4C67-B94C-3DCD2BBB73A3" linkType="ltPageLink" isApplyIncludePage="False" title="Crear+Cuenta">
+          <area shape="0" alt="" ID="{4976EE49-9494-4DDA-A2D4-836987C0A414}" coords="(0,0,243,40)"/>
+        </link>
+      </links>
+      <interactiveData>
+        <entry title="">
+          <area shape="0" alt="" ID="{AC9633AB-3F9A-4611-80F8-88CF0060C939}" coords="(0,0,243,40)"/>
+          <events title="">
+            <event eventType="atClick" isChecked="True">
+              <behaviour title="" isChecked="True" isWait="False" isLoop="False" execMode="emParallel">
+                <target targetID="AD9EE78E-6A3E-49C5-9931-30A6C14D1BF1" isChecked="True" isAutoRecovery="False" isLoop="False" execMode="emSequence">
+                  <command name="Change Visibility" isChecked="True" descrition="">
+                    <param name="AniInterpolation" value="1" varType="3" description=""/>
+                    <param name="AniDuration" value="200" varType="3" description=""/>
+                    <param name="AniAutoReverse" value="False" varType="11" description=""/>
+                    <param name="AniLoop" value="False" varType="11" description=""/>
+                    <param name="AniInterpolationTypeOut" value="False" varType="11" description=""/>
+                    <param name="Delay" value="0" varType="3" description=""/>
+                    <param name="ValueFromCurrent" value="True" varType="11" description=""/>
+                    <param name="ForceFromInitValue" value="False" varType="11" description=""/>
+                    <param name="ForceSetVisible" value="False" varType="11" description=""/>
+                    <param name="Value" value="2" varType="3" description=""/>
+                    <param name="TerminateLoopByClick" value="True" varType="11" description=""/>
+                  </command>
+                </target>
+              </behaviour>
+            </event>
+          </events>
+        </entry>
+      </interactiveData>
+      <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False" useDefaultFontFamily="False"/>
+      <text>Crear+Cuenta</text>
+      <textColor>4294967295</textColor>
+      <textSize>18</textSize>
+      <lineSpacing>0</lineSpacing>
+      <textStyles>[fsBold]</textStyles>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+      <radius>20</radius>
+      <thickness>3</thickness>
+    </control>
+    <control controlID="27207818-E47B-446C-B439-3F306E21E72D" controlTypeID="Button" x="64" y="414" w="243" h="40" zOrder="5">
+      <color>4291559475</color>
+      <borderColor>4294967295</borderColor>
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="FAB080F7-6873-4349-A37D-0876502E2CC5" linkType="ltPageLink" isApplyIncludePage="False" title="Ingreso">
+          <area shape="0" alt="" ID="{A5D9EF7E-3B3D-42B9-88DF-3BA5C02B5CDD}" coords="(0,0,243,40)"/>
+        </link>
+      </links>
+      <interactiveData>
+        <entry title="">
+          <area shape="0" alt="" ID="{6B62CE5E-3894-4BBC-ADCE-0A33A7265A5F}" coords="(0,0,243,40)"/>
+          <events title="">
+            <event eventType="atClick" isChecked="True">
+              <behaviour title="" isChecked="True" isWait="False" isLoop="False" execMode="emParallel">
+                <target targetID="27207818-E47B-446C-B439-3F306E21E72D" IsNeedReplaceAsSelfID="True" isChecked="True" isAutoRecovery="False" isLoop="False" execMode="emSequence">
+                  <command name="Change Visibility" isChecked="True" descrition="">
+                    <param name="AniInterpolation" value="1" varType="3" description=""/>
+                    <param name="AniDuration" value="200" varType="3" description=""/>
+                    <param name="AniAutoReverse" value="False" varType="11" description=""/>
+                    <param name="AniLoop" value="False" varType="11" description=""/>
+                    <param name="AniInterpolationTypeOut" value="False" varType="11" description=""/>
+                    <param name="Delay" value="0" varType="3" description=""/>
+                    <param name="ValueFromCurrent" value="True" varType="11" description=""/>
+                    <param name="ForceFromInitValue" value="False" varType="11" description=""/>
+                    <param name="ForceSetVisible" value="False" varType="11" description=""/>
+                    <param name="Value" value="2" varType="3" description=""/>
+                    <param name="TerminateLoopByClick" value="True" varType="11" description=""/>
+                  </command>
+                </target>
+              </behaviour>
+            </event>
+          </events>
+        </entry>
+      </interactiveData>
+      <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False" useDefaultFontFamily="False"/>
+      <text>Ingresar</text>
+      <textColor>4294967295</textColor>
+      <textSize>18</textSize>
+      <lineSpacing>0</lineSpacing>
+      <textStyles>[fsBold]</textStyles>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+      <radius>20</radius>
+      <thickness>3</thickness>
+    </control>
+    <control controlID="6178CD6E-1885-45DC-B1FB-1BB4D5E17AB5" controlTypeID="TextArea" x="68" y="107" w="223" h="35" zOrder="6">
+      <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False" useDefaultFontFamily="False"/>
+      <text>MICTLAN</text>
+      <textColor>4294967295</textColor>
+      <textSize>40</textSize>
+      <textAlign>HaCenter</textAlign>
+      <textVAlign>VaMiddle</textVAlign>
+      <textStyles>[fsBold]</textStyles>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>

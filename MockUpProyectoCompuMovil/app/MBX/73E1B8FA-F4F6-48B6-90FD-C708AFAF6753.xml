@@ -1,0 +1,79 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="73E1B8FA-F4F6-48B6-90FD-C708AFAF6753" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325" clipArea="(0,0,0,0)">
+  <controls controlCount="7">
+    <control controlID="0FB104AD-A3AC-49C6-B5AF-63B9360DAE9E" controlTypeID="Map" x="20" y="20" w="335" h="316" zOrder="0"/>
+    <control controlID="2ADC795B-F164-465B-92C0-294E407C00B9" controlTypeID="Line" x="48" y="241" w="237" h="74" zOrder="1">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False"/>
+      <textColor>4288217088</textColor>
+      <textSize>14</textSize>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+      <controlPoint>(-66,-7)</controlPoint>
+      <startPoint>(21,72)</startPoint>
+      <endPoint>(237,3)</endPoint>
+      <thickness>4</thickness>
+      <isCurved>False</isCurved>
+    </control>
+    <control controlID="E57B05CF-B385-4905-947C-B42CB78A7A11" controlTypeID="Icon" x="59" y="295" w="24" h="24" zOrder="2">
+      <color>4291559475</color>
+      <icon>
+        <ID/>
+        <iconFontName>jdIcoFont</iconFontName>
+        <iconCode>59171</iconCode>
+      </icon>
+      <URL>033060A4746B78F670C2398647EB85C1.svg</URL>
+    </control>
+    <control controlID="B3AECAE2-8692-4C0E-96ED-AD47AFCDC98B" controlTypeID="Icon" x="271" y="217" w="24" h="24" zOrder="3">
+      <color>4278229248</color>
+      <icon>
+        <ID/>
+        <iconFontName>jdIcoFont</iconFontName>
+        <iconCode>59171</iconCode>
+      </icon>
+      <URL>033060A4746B78F670C2398647EB85C1.svg</URL>
+    </control>
+    <control controlID="5622F2D6-26C8-46D3-AC2E-B3CCEEC887B0" controlTypeID="Button" x="74" y="369" w="221" h="48" zOrder="4">
+      <borderColor>4291559424</borderColor>
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="E8FAA38C-6091-4E66-8999-E71D32AABBBA" linkType="ltPageLink" isApplyIncludePage="False" title="Home">
+          <area shape="0" alt="" ID="{BF1F8F33-18C5-4CE4-80B1-C42B019A328E}" coords="(0,0,221,48)"/>
+        </link>
+      </links>
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False"/>
+      <text>OK</text>
+      <textColor>4291559424</textColor>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+      <radius>24</radius>
+    </control>
+    <control controlID="53217C68-8390-4CED-B6DD-EB1E2693B38C" controlTypeID="Button" x="74" y="441" w="221" h="48" zOrder="5">
+      <borderColor>4291559424</borderColor>
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="E04C6785-3DE5-4051-829D-D2EE121E4389" linkType="ltPageLink" isApplyIncludePage="False" title="Busqueda">
+          <area shape="0" alt="" ID="{CE99C46D-6950-435C-9A5F-26161B5D652E}" coords="(0,0,221,48)"/>
+        </link>
+      </links>
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Normal" weight="400" isBold="False" isItalic="False"/>
+      <text>Cancelar</text>
+      <textColor>4291559424</textColor>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+      <radius>24</radius>
+    </control>
+    <control controlID="B938395B-037D-4C6D-B353-926CF4454F1C" controlTypeID="Shape" x="0" y="581" w="375" h="52" zOrder="6">
+      <color>4291559475</color>
+      <font family="Segoe+UI" displayName="Segoe+UI_%26_Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False" useDefaultFontFamily="False"/>
+      <text>Total%3A+$75</text>
+      <textColor>4294967295</textColor>
+      <textSize>20</textSize>
+      <textStyles>[fsBold]</textStyles>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>14</fontSize>
+    <fontFamily>Segoe+UI</fontFamily>
+    <guideLines/>
+  </param>
+</mockup>

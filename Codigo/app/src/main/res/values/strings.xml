@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">MICTLAN</string>
+    <string name="Log_in">Ingresar</string>
+    <string name="Sign_in">Crear Cuenta</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_mi_cuenta">MiCuenta</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_crear_alojamiento">CrearAlojamiento</string>
+    <string name="title_activity_home">Home</string>
+
+    <string-array name="tipos_alojamiento">
+        <item>Otro</item>
+        <item>Casa</item>
+        <item>Apartamento</item>
+        <item>Aparta Estudio</item>
+        <item>Cabaña</item>
+        <item>Alcoba</item>
+        <item>Suite</item>
+    </string-array>
+
+    <string-array name="Prueba">
+        <item>Andres Martinez 12-Ago-2014 a 17-Ago-2014</item>
+        <item>Laura Morales 3-Ago-2014 a 7-Ago-2014</item>
+        <item>Nicolas Mendez 22-Jul-2014 a 27-Jul-2014</item>
+        <item>Santiago Chamizo 11-Jul-2014 a 15-Jul-2014</item>
+    </string-array>
+
+    <string-array name="Prueba_califi">
+        <item>Maria Martinez
+            \n12-Ago-2014
+            \nEl lugar fue bueno</item>
+        <item>Andres Martinez
+            \n12-Ago-2014
+            \nEl lugar fue malo</item>
+    </string-array>
+
+    <string-array name="filtro">
+        <item>Fecha</item>
+        <item>Ubicacion</item>
+    </string-array>
+
+</resources>

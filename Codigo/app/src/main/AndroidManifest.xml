@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="javeriana.edu.co.mockups">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logom"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.ReverseTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LogInActivity"
+            android:theme="@style/AppTheme.ReverseTheme.NoActionBar" />
+        <activity
+            android:name=".InfoReseActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".InfoAlojaActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".FechaReservaActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".CrearCuenta" />
+        <activity android:name=".MiPerfilActivity" />
+        <activity
+            android:name=".MiCuentaActivity"
+            android:label="Opciones"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CrearAlojamiento"
+            android:label="@string/title_activity_crear_alojamiento"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Home"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FinalizarActivity" />
+        <activity android:name=".RutaActivity" />
+        <activity android:name=".HistoricoAlojamientoActivity" />
+        <activity android:name=".anfitrion_alojamientos" />
+        <activity android:name=".reservas_anfitrion" />
+        <activity android:name=".biografia_anfitrion" />
+        <activity android:name=".buscar_actividad" />
+        <activity android:name=".historial_usuario" />
+        <activity android:name=".reservas_usuarios" />
+        <activity android:name=".rutas_usuario" />
+        <activity android:name=".CalificacionesActivity"></activity>
+    </application>
+
+</manifest>

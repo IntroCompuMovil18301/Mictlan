@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#a21a1a</color>
+    <color name="primaryLightColor">#da5042</color>
+    <color name="primaryDarkColor">#6c0000</color>
+    <color name="secondaryColor">#fafafa</color>
+    <color name="secondaryLightColor">#ffffff</color>
+    <color name="secondaryDarkColor">#c7c7c7</color>
+    <color name="accentColor">#1A9DEE</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
+    <color name="buttonShadow">#ba000d</color>
+    <color name="shadowImage">#cfcfcf</color>
+    <color name="editTextBorder">#a4a4a4</color>
+</resources>

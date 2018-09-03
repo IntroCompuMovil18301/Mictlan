@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".biografia_anfitrion">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iV_BiografiaAnfitrion"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/circle_border_image"
+            app:layout_constraintEnd_toStartOf="@+id/tV_NameAnfitrion"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/jovanotti00" />
+
+        <TextView
+            android:id="@+id/tV_NameAnfitrion"
+            style="@style/Titles"
+            android:layout_width="147dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="Jhon Doe"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iV_BiografiaAnfitrion"
+            app:layout_constraintTop_toTopOf="@+id/iV_BiografiaAnfitrion" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="42 Años"
+            app:layout_constraintStart_toStartOf="@+id/tV_NameAnfitrion"
+            app:layout_constraintTop_toBottomOf="@+id/tV_NameAnfitrion" />
+
+        <RatingBar
+            android:id="@+id/ratingBar2"
+            android:layout_width="241dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/iV_BiografiaAnfitrion"
+            app:layout_constraintTop_toBottomOf="@+id/iV_BiografiaAnfitrion" />
+
+        <TextView
+            android:id="@+id/tv_AnfitrionBio"
+            android:layout_width="321dp"
+            android:layout_height="109dp"
+            android:layout_marginTop="16dp"
+            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+            app:layout_constraintStart_toStartOf="@+id/iV_BiografiaAnfitrion"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
+
+        <LinearLayout
+            android:layout_width="314dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_AnfitrionBio">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" />
+            </HorizontalScrollView>
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

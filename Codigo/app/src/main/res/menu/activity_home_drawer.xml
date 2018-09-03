@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_opciones"
+            android:icon="@drawable/baseline_menu_24"
+            android:title="Opciones" />
+
+        <item
+            android:id="@+id/nav_Home"
+            android:icon="@drawable/baseline_home_24"
+            android:title="Inicio" />
+
+
+    </group>
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_misDatos"
+                android:icon="@drawable/baseline_account_circle_24"
+                android:title="Mis datos" />
+            <item
+                android:id="@+id/nav_Salir"
+                android:icon="@drawable/baseline_arrow_back_24"
+                android:title="Salir" />
+        </menu>
+    </item>
+</menu>

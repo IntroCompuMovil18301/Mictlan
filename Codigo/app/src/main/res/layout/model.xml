@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- As the name suggests, this layout models our viewitem, in this case our listviewitem.
+- We define how each Card shall appear in our List.
+- So at the root level we have a CardView widget.
+- We can also customize our CardView by specifying cardCornerRadius,cardElevation,width,height etc.
+- Each Card shall comprise an imageview, a ratingbar and a textview.
+- For our ratingbar we are using simpleratingbar library so we add the simpleratingbar tag.
+- Take note that we can specify and customize the ratingbar's properties like stepsize,color,star size etc
+-->
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:layout_margin="5dp"
+    android:orientation="horizontal"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/spacecraftImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:padding="5dp"
+            android:src="@drawable/enterprise" />
+
+        <TextView
+            android:id="@+id/dato1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/dato2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/dat03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/dato4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <com.iarcuschin.simpleratingbar.SimpleRatingBar
+            android:id="@+id/ratingBarID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/spacecraftImage"
+            android:layout_alignParentRight="true"
+            android:padding="5dp"
+            app:srb_borderColor="@color/primaryDarkColor"
+            app:srb_fillColor="@color/primaryColor"
+            app:srb_numberOfStars="5"
+            app:srb_rating="3"
+            app:srb_starSize="40dp"
+            app:srb_stepSize="1" />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
+
+
+

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".CrearAlojamiento"
+    tools:showIn="@layout/app_bar_crear_alojamiento">
+
+
+    android:id="@+id/SV_CrearAlojamiento"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="0dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tV_NombreAlojamiento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="24dp"
+            android:text="Nombre:"
+            app:layout_constraintEnd_toStartOf="@+id/eT_NombreAlojamiento"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/eT_NombreAlojamiento"
+            android:layout_width="184dp"
+            android:layout_height="41dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edit_text_shape"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/tV_NombreAlojamiento"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tV_NombreAlojamiento"
+            app:layout_constraintTop_toTopOf="@+id/tV_NombreAlojamiento" />
+
+        <TextView
+            android:id="@+id/tV_TipoAlojamiento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Tipo:"
+            app:layout_constraintStart_toStartOf="@+id/tV_NombreAlojamiento"
+            app:layout_constraintTop_toBottomOf="@+id/tV_NombreAlojamiento" />
+
+        <Spinner
+            android:id="@+id/spinner_TipoAl"
+            android:layout_width="184dp"
+            android:layout_height="41dp"
+            android:background="@drawable/spinner_shape"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/tV_TipoAlojamiento"
+            app:layout_constraintStart_toStartOf="@+id/eT_NombreAlojamiento"
+            app:layout_constraintTop_toTopOf="@+id/tV_TipoAlojamiento" />
+
+        <TextView
+            android:id="@+id/tV_Ubicación"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Ubicación:"
+            app:layout_constraintStart_toStartOf="@+id/tV_TipoAlojamiento"
+            app:layout_constraintTop_toBottomOf="@+id/tV_TipoAlojamiento" />
+
+        <EditText
+            android:id="@+id/eT_Ubicacion"
+            android:layout_width="184dp"
+            android:layout_height="41dp"
+            android:background="@drawable/edit_text_shape"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Ubicación"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/tV_Ubicación"
+            app:layout_constraintStart_toStartOf="@+id/spinner_TipoAl"
+            app:layout_constraintTop_toTopOf="@+id/tV_Ubicación" />
+
+        <TextView
+            android:id="@+id/tV_PrecioNoche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Precio por noche:"
+            app:layout_constraintStart_toStartOf="@+id/tV_Ubicación"
+            app:layout_constraintTop_toBottomOf="@+id/tV_Ubicación" />
+
+        <EditText
+            android:id="@+id/eT_Precio"
+            android:layout_width="184dp"
+            android:layout_height="41dp"
+            android:background="@drawable/edit_text_shape"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="$$$$"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/tV_PrecioNoche"
+            app:layout_constraintStart_toStartOf="@+id/eT_Ubicacion"
+            app:layout_constraintTop_toTopOf="@+id/tV_PrecioNoche" />
+
+        <ImageView
+            android:id="@+id/iV_Personas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/circle_border_icon"
+            app:layout_constraintStart_toStartOf="@+id/tV_PrecioNoche"
+            app:layout_constraintTop_toBottomOf="@+id/tV_PrecioNoche"
+            app:srcCompat="@drawable/baseline_people_24" />
+
+        <TextView
+            android:id="@+id/tV_Personas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Personas:"
+            app:layout_constraintBottom_toBottomOf="@+id/iV_Personas"
+            app:layout_constraintStart_toEndOf="@+id/iV_Personas"
+            app:layout_constraintTop_toTopOf="@+id/iV_Personas" />
+
+        <Spinner
+            android:id="@+id/spinner_Personas"
+            android:layout_width="62dp"
+            android:layout_height="23dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/spinner_shape"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/tV_Personas"
+            app:layout_constraintEnd_toEndOf="@+id/eT_NombreAlojamiento"
+            app:layout_constraintStart_toStartOf="@+id/eT_NombreAlojamiento"
+            app:layout_constraintTop_toTopOf="@+id/tV_Personas" />
+
+        <ImageView
+            android:id="@+id/iV_Camas"
+            android:layout_width="29dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle_border_icon"
+            app:layout_constraintStart_toStartOf="@+id/iV_Personas"
+            app:layout_constraintTop_toBottomOf="@+id/iV_Personas"
+            app:srcCompat="@drawable/baseline_hotel_24" />
+
+        <TextView
+            android:id="@+id/tV_Camas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Camas:"
+            app:layout_constraintBottom_toBottomOf="@+id/iV_Camas"
+            app:layout_constraintStart_toStartOf="@+id/tV_Personas"
+            app:layout_constraintTop_toTopOf="@+id/iV_Camas" />
+
+        <Spinner
+            android:id="@+id/spinner_Camas"
+            android:layout_width="62dp"
+            android:layout_height="23dp"
+            android:background="@drawable/spinner_shape"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/tV_Camas"
+            app:layout_constraintStart_toStartOf="@+id/spinner_Personas"
+            app:layout_constraintTop_toTopOf="@+id/tV_Camas" />
+
+        <ImageView
+            android:id="@+id/iV_puerta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle_border_icon"
+            app:layout_constraintStart_toStartOf="@+id/iV_Camas"
+            app:layout_constraintTop_toBottomOf="@+id/iV_Camas"
+            app:srcCompat="@drawable/baseline_meeting_room_24" />
+
+        <TextView
+            android:id="@+id/tV_Alcobas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Habitaciones:"
+            app:layout_constraintBottom_toBottomOf="@+id/iV_puerta"
+            app:layout_constraintStart_toStartOf="@+id/tV_Camas"
+            app:layout_constraintTop_toTopOf="@+id/iV_puerta" />
+
+        <Spinner
+            android:id="@+id/spinner_Alcobas"
+            android:layout_width="62dp"
+            android:layout_height="23dp"
+            android:background="@drawable/spinner_shape"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/tV_Alcobas"
+            app:layout_constraintStart_toStartOf="@+id/spinner_Camas"
+            app:layout_constraintTop_toTopOf="@+id/tV_Alcobas" />
+
+        <ImageView
+            android:id="@+id/iV_bano"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle_border_icon"
+            app:layout_constraintStart_toStartOf="@+id/iV_puerta"
+            app:layout_constraintTop_toBottomOf="@+id/iV_puerta"
+            app:srcCompat="@drawable/baseline_hot_tub_24" />
+
+        <TextView
+            android:id="@+id/tV_bano"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Baños:"
+            app:layout_constraintBottom_toBottomOf="@+id/iV_bano"
+            app:layout_constraintStart_toStartOf="@+id/tV_Alcobas"
+            app:layout_constraintTop_toTopOf="@+id/iV_bano" />
+
+        <Spinner
+            android:id="@+id/spinner_Banos"
+            android:layout_width="62dp"
+            android:layout_height="23dp"
+            android:background="@drawable/spinner_shape"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/tV_bano"
+            app:layout_constraintStart_toStartOf="@+id/spinner_Alcobas"
+            app:layout_constraintTop_toTopOf="@+id/tV_bano" />
+
+        <ImageView
+            android:id="@+id/iV_galeria"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/squared_border_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/iV_bano"
+            app:layout_constraintTop_toBottomOf="@+id/tV_bano"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/baseline_add_photo_alternate_24" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_marginEnd="164dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/circle_border_button"
+            android:src="@drawable/baseline_add_a_photo_24"
+            app:layout_constraintBottom_toBottomOf="@+id/iV_galeria"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/iV_galeria"
+            app:layout_constraintTop_toTopOf="@+id/iV_galeria"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/btn_CrearAloj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_shape_white"
+            android:text="Crear "
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.292"
+            app:layout_constraintStart_toStartOf="@+id/spinner_Banos"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_Banos"
+            app:layout_constraintVertical_bias="0.804" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>

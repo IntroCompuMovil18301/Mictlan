@@ -9,6 +9,14 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logom"
@@ -30,7 +38,7 @@
             android:theme="@style/AppTheme.ReverseTheme.NoActionBar" />
         <activity
             android:name=".InfoReseActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".InfoAlojaActivity"
             android:theme="@style/AppTheme" />
@@ -50,16 +58,16 @@
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".FinalizarActivity" />
-        <activity android:name=".RutaActivity" />
-        <activity android:name=".HistoricoAlojamientoActivity" />
+        <activity android:name=".RutaActivity"></activity>
+        <activity android:name=".HistoricoAlojamientoActivity"></activity>
         <activity android:name=".AnfitrionAlojamientosActivity" />
         <activity android:name=".ReservasAnfitrionActivity" />
         <activity android:name=".BiografiaAnfitrionActivity" />
-        <activity android:name=".BuscarAlojamientoActivity" />
+        <activity android:name=".BuscarActividadActivity" />
         <activity android:name=".HistorialUsuarioActivity" />
-        <activity android:name=".ReservasUsuariosActivity" />
+        <activity android:name=".ReservasUsuarios" />
         <activity android:name=".RutasUsuarioActivity" />
         <activity android:name=".CalificacionesActivity" />
         <!--
@@ -76,7 +84,7 @@
 
         <activity
             android:name=".AlojamientoMapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_alojamiento_maps"></activity>
     </application>
 
 </manifest>

@@ -1,23 +1,75 @@
 package javeriana.edu.co.mockups;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javeriana.edu.co.mockups.mData.Alojamiento;
+
 public class CrearAlojamientoActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final int REQUEST_READ_EXTERNAL_STORAGE = 392;
+    private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 758;
+    private static final int REQUEST_CAMERA = 485;
+    private static final int REQUEST_IMAGE_CAPTURE = 615;
+    private static final int IMAGE_PICKER_REQUEST = 31;
+
+    private static final String PATH_ALOJ = "alojamientos/";
+
+    public static final double lowerLeftLatitude = 4.475113;
+    public static final double lowerLeftLongitude = -74.216308;
+    public static final double upperRightLatitude = 4.815938;
+    public static final double upperRigthLongitude = -73.997955;
+
+    private FirebaseDatabase database;
+
+    Geocoder mGeocoder;
+
+    private EditText nombreAlojamiento;
+    private Spinner tipoAl;
+    private EditText ubicacion;
+    private EditText precio;
+    private EditText personas;
+    private EditText alcobas;
+    private EditText camas;
+    private EditText banos;
+    private Button cargarImagen;
+    private Button tomarFoto;
+    private Button crear;
+
+    private List<String> images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,31 +87,6 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        List<String> spinnerArrayNum =  new ArrayList<String>();
-        spinnerArrayNum.add("1");
-        spinnerArrayNum.add("2");
-        spinnerArrayNum.add("3");
-        spinnerArrayNum.add("4");
-        spinnerArrayNum.add("5");
-        spinnerArrayNum.add("6");
-        spinnerArrayNum.add("7");
-        spinnerArrayNum.add("8");
-        spinnerArrayNum.add("9");
-        spinnerArrayNum.add("10");
-        spinnerArrayNum.add("+ 10");
-        ArrayAdapter<String> adapterNum = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, spinnerArrayNum);
-        adapterNum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner sPersonas = (Spinner) findViewById(R.id.spinner_Personas);
-        Spinner sCamas = (Spinner)findViewById(R.id.spinner_Camas);
-        Spinner sHabitaciones = (Spinner)findViewById(R.id.spinner_Alcobas);
-        Spinner sBanos = (Spinner)findViewById(R.id.spinner_Banos);
-
-        sPersonas.setAdapter(adapterNum);
-        sCamas.setAdapter(adapterNum);
-        sHabitaciones.setAdapter(adapterNum);
-        sBanos.setAdapter(adapterNum);
-
         List<String> spinnerArrayTipo = new ArrayList<String>();
         spinnerArrayTipo.add("Casa entera");
         spinnerArrayTipo.add("Habitación privada");
@@ -70,8 +97,87 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         ArrayAdapter<String> adapterTipo = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_dropdown_item, spinnerArrayTipo);
         adapterTipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner sTipo = (Spinner)findViewById(R.id.spinner_TipoAl);
-        sTipo.setAdapter(adapterTipo);
+        tipoAl = (Spinner)findViewById(R.id.spinner_TipoAl);
+        tipoAl.setAdapter(adapterTipo);
+
+        database = FirebaseDatabase.getInstance();
+
+        nombreAlojamiento = findViewById(R.id.eT_NombreAlojamiento);
+        tipoAl = findViewById(R.id.spinner_TipoAl);
+        ubicacion = findViewById(R.id.eT_Ubicacion);
+        precio = findViewById(R.id.eT_Precio);
+        personas = findViewById(R.id.spinner_Personas);
+        alcobas = findViewById(R.id.spinner_Alcobas);
+        camas = findViewById(R.id.spinner_Camas);
+        banos = findViewById(R.id.spinner_Banos);
+
+        cargarImagen = findViewById(R.id.cca_cargar_img);
+        tomarFoto = findViewById(R.id.cca_tomar_foto);
+        crear = findViewById(R.id.btn_CrearAloj);
+
+        images = new ArrayList<String>();
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE,
+                    "Para seleccionar una imagen",
+                    REQUEST_READ_EXTERNAL_STORAGE);
+        } else {
+            updateCargarImagen();
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+            requestPermission(this, Manifest.permission.CAMERA,
+                    "Para tomar una foto", REQUEST_CAMERA);
+            requestPermission(this, Manifest.permission.CAMERA,
+                    "Para tomar una foto", REQUEST_WRITE_EXTERNAL_STORAGE);
+        } else {
+            updateTomarFoto();
+        }
+
+        mGeocoder = new Geocoder(getBaseContext());
+
+        crear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validateForm()) {
+                    String usuario = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    String titulo = nombreAlojamiento.getText().toString();
+                    String ubi = ubicacion.getText().toString();
+                    float valorNoche = Float.parseFloat(precio.getText().toString());
+                    String tipo = tipoAl.getSelectedItem().toString();
+                    int per = Integer.parseInt(personas.getText().toString());
+                    int cam = Integer.parseInt(camas.getText().toString());
+                    int alc = Integer.parseInt(alcobas.getText().toString());
+                    int bno = Integer.parseInt(banos.getText().toString());
+
+                    try {
+                        List<Address> addresses = mGeocoder.getFromLocationName(
+                                ubi, 2,
+                                lowerLeftLatitude,
+                                lowerLeftLongitude,
+                                upperRightLatitude,
+                                upperRigthLongitude);
+                        if (addresses != null && !addresses.isEmpty()) {
+                            Address addressResult = addresses.get(0);
+                            Alojamiento aloja = new Alojamiento(usuario, titulo, ubi, addressResult.getLatitude(), addressResult.getLongitude(), valorNoche, tipo, per,
+                                    cam, alc, bno, images);
+                            DatabaseReference crearAlojRef = database.getReference(PATH_ALOJ);
+                            String key = crearAlojRef.push().getKey();
+                            crearAlojRef.child(key).setValue(aloja);
+                            Intent crear_intent = new Intent(v.getContext(), Home.class);
+                            startActivity(crear_intent);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -131,5 +237,161 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void requestPermission(Activity context, String permission, String explanation, int requestId ){
+        if (ContextCompat.checkSelfPermission(context,permission)!= PackageManager.PERMISSION_GRANTED) {
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(context,permission)) {
+                Toast.makeText(context, explanation, Toast.LENGTH_LONG).show();
+            }
+            ActivityCompat.requestPermissions(context, new String[]{permission}, requestId);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_READ_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    updateCargarImagen();
+                }
+                break;
+            }
+
+            case REQUEST_WRITE_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    updateTomarFoto();
+                }
+                break;
+            }
+
+            case REQUEST_CAMERA: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    updateTomarFoto();
+                }
+                break;
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case IMAGE_PICKER_REQUEST: {
+                if (resultCode == RESULT_OK) {
+                    try {
+                        final Uri image_uri = data.getData();
+                        if (image_uri != null) {
+                            images.add(image_uri.toString());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            case REQUEST_IMAGE_CAPTURE: {
+                if (resultCode == RESULT_OK) {
+
+                }
+            }
+        }
+    }
+
+    private void updateCargarImagen() {
+        cargarImagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cargarImagen_intent = new Intent(Intent.ACTION_PICK);
+                cargarImagen_intent.setType("image/*");
+                startActivityForResult(cargarImagen_intent, IMAGE_PICKER_REQUEST);
+            }
+        });
+    }
+
+    private void updateTomarFoto() {
+        tomarFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tomarFoto_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (tomarFoto_intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(tomarFoto_intent, REQUEST_IMAGE_CAPTURE);
+                }
+            }
+        });
+    }
+
+    private boolean validateForm() {
+        boolean valid = true;
+
+        String titulo = nombreAlojamiento.getText().toString();
+        String ubi = ubicacion.getText().toString();
+        String valorNoche = precio.getText().toString();
+        String per = personas.getText().toString();
+        String alc = alcobas.getText().toString();
+        String cam = camas.getText().toString();
+        String bno = banos.getText().toString();
+
+        if (TextUtils.isEmpty(titulo)) {
+            nombreAlojamiento.setError("Required.");
+            valid =false;
+        } else {
+            nombreAlojamiento.setError(null);
+        }
+
+        if (TextUtils.isEmpty(ubi)) {
+            ubicacion.setError("Required.");
+            valid = false;
+        } else {
+            ubicacion.setError(null);
+        }
+
+        if (TextUtils.isEmpty(valorNoche)) {
+            precio.setError("Required.");
+            valid = false;
+        } else {
+            precio.setError(null);
+        }
+
+        if (TextUtils.isEmpty(per)) {
+            personas.setError("Required.");
+            valid = false;
+        } else {
+            personas.setError(null);
+        }
+
+        if (TextUtils.isEmpty(cam)) {
+            camas.setError("Required.");
+            valid = false;
+        } else {
+            camas.setError(null);
+        }
+
+        if (TextUtils.isEmpty(alc)) {
+            alcobas.setError("Required.");
+            valid = false;
+        } else {
+            alcobas.setError(null);
+        }
+
+        if (TextUtils.isEmpty(bno)) {
+            banos.setError("Required.");
+            valid = false;
+        } else {
+            banos.setError(null);
+        }
+
+        if (images.size() < 4) {
+            Toast.makeText(this,"Necesitas " + (4 - images.size())+ " imagenes",
+                    Toast.LENGTH_LONG).show();
+            valid = false;
+        }
+
+        return valid;
     }
 }

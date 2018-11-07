@@ -9,275 +9,355 @@
     tools:showIn="@layout/app_bar_crear_alojamiento">
 
 
-    android:id="@+id/SV_CrearAlojamiento"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="0dp">
-
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tV_NombreAlojamiento"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="8dp"
             android:text="Nombre:"
+            app:layout_constraintBottom_toBottomOf="@+id/eT_NombreAlojamiento"
             app:layout_constraintEnd_toStartOf="@+id/eT_NombreAlojamiento"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_weight="0.3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/eT_NombreAlojamiento" />
 
         <EditText
             android:id="@+id/eT_NombreAlojamiento"
-            android:layout_width="184dp"
+            android:layout_width="0dp"
             android:layout_height="41dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_text_shape"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/secondaryColor"
             android:ems="10"
+            android:hint="Apto en Chapinero"
             android:inputType="textPersonName"
-            android:text="Name"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/tV_NombreAlojamiento"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.7"
             app:layout_constraintStart_toEndOf="@+id/tV_NombreAlojamiento"
-            app:layout_constraintTop_toTopOf="@+id/tV_NombreAlojamiento" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tV_TipoAlojamiento"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="8dp"
             android:text="Tipo:"
-            app:layout_constraintStart_toStartOf="@+id/tV_NombreAlojamiento"
-            app:layout_constraintTop_toBottomOf="@+id/tV_NombreAlojamiento" />
+            app:layout_constraintBottom_toBottomOf="@+id/spinner_TipoAl"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_TipoAl"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/spinner_TipoAl" />
 
         <Spinner
             android:id="@+id/spinner_TipoAl"
-            android:layout_width="184dp"
+            android:layout_width="0dp"
             android:layout_height="41dp"
-            android:background="@drawable/spinner_shape"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/secondaryColor"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/tV_TipoAlojamiento"
-            app:layout_constraintStart_toStartOf="@+id/eT_NombreAlojamiento"
-            app:layout_constraintTop_toTopOf="@+id/tV_TipoAlojamiento" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.7"
+            app:layout_constraintStart_toEndOf="@+id/tV_TipoAlojamiento"
+            app:layout_constraintTop_toBottomOf="@+id/eT_NombreAlojamiento" />
 
         <TextView
             android:id="@+id/tV_Ubicación"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="8dp"
             android:text="Ubicación:"
-            app:layout_constraintStart_toStartOf="@+id/tV_TipoAlojamiento"
-            app:layout_constraintTop_toBottomOf="@+id/tV_TipoAlojamiento" />
+            app:layout_constraintBottom_toBottomOf="@+id/eT_Ubicacion"
+            app:layout_constraintEnd_toStartOf="@+id/eT_Ubicacion"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/eT_Ubicacion" />
 
         <EditText
             android:id="@+id/eT_Ubicacion"
-            android:layout_width="184dp"
+            android:layout_width="0dp"
             android:layout_height="41dp"
-            android:background="@drawable/edit_text_shape"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/secondaryColor"
             android:ems="10"
+            android:hint="Calle 70 # 13 - 50"
             android:inputType="textPersonName"
-            android:text="Ubicación"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/tV_Ubicación"
-            app:layout_constraintStart_toStartOf="@+id/spinner_TipoAl"
-            app:layout_constraintTop_toTopOf="@+id/tV_Ubicación" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.7"
+            app:layout_constraintStart_toEndOf="@+id/tV_Ubicación"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_TipoAl" />
 
         <TextView
             android:id="@+id/tV_PrecioNoche"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="8dp"
             android:text="Precio por noche:"
-            app:layout_constraintStart_toStartOf="@+id/tV_Ubicación"
-            app:layout_constraintTop_toBottomOf="@+id/tV_Ubicación" />
+            app:layout_constraintBottom_toBottomOf="@+id/eT_Precio"
+            app:layout_constraintEnd_toStartOf="@+id/eT_Precio"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/eT_Precio" />
 
         <EditText
             android:id="@+id/eT_Precio"
-            android:layout_width="184dp"
+            android:layout_width="0dp"
             android:layout_height="41dp"
-            android:background="@drawable/edit_text_shape"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/secondaryColor"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="$$$$"
+            android:hint="En USD"
+            android:inputType="numberDecimal"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/tV_PrecioNoche"
-            app:layout_constraintStart_toStartOf="@+id/eT_Ubicacion"
-            app:layout_constraintTop_toTopOf="@+id/tV_PrecioNoche" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.7"
+            app:layout_constraintStart_toEndOf="@+id/tV_PrecioNoche"
+            app:layout_constraintTop_toBottomOf="@+id/eT_Ubicacion" />
 
         <ImageView
             android:id="@+id/iV_Personas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/circle_border_icon"
-            app:layout_constraintStart_toStartOf="@+id/tV_PrecioNoche"
-            app:layout_constraintTop_toBottomOf="@+id/tV_PrecioNoche"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/spinner_Personas"
+            app:layout_constraintEnd_toStartOf="@+id/tV_Personas"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.07"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/spinner_Personas"
             app:srcCompat="@drawable/baseline_people_24" />
 
         <TextView
             android:id="@+id/tV_Personas"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Personas:"
             app:layout_constraintBottom_toBottomOf="@+id/iV_Personas"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_Personas"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.21"
             app:layout_constraintStart_toEndOf="@+id/iV_Personas"
             app:layout_constraintTop_toTopOf="@+id/iV_Personas" />
 
-        <Spinner
+        <EditText
             android:id="@+id/spinner_Personas"
-            android:layout_width="62dp"
-            android:layout_height="23dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:background="@drawable/spinner_shape"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/secondaryColor"
+            android:inputType="numberDecimal"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/tV_Personas"
-            app:layout_constraintEnd_toEndOf="@+id/eT_NombreAlojamiento"
-            app:layout_constraintStart_toStartOf="@+id/eT_NombreAlojamiento"
-            app:layout_constraintTop_toTopOf="@+id/tV_Personas" />
-
-        <ImageView
-            android:id="@+id/iV_Camas"
-            android:layout_width="29dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/circle_border_icon"
-            app:layout_constraintStart_toStartOf="@+id/iV_Personas"
-            app:layout_constraintTop_toBottomOf="@+id/iV_Personas"
-            app:srcCompat="@drawable/baseline_hotel_24" />
-
-        <TextView
-            android:id="@+id/tV_Camas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Camas:"
-            app:layout_constraintBottom_toBottomOf="@+id/iV_Camas"
-            app:layout_constraintStart_toStartOf="@+id/tV_Personas"
-            app:layout_constraintTop_toTopOf="@+id/iV_Camas" />
-
-        <Spinner
-            android:id="@+id/spinner_Camas"
-            android:layout_width="62dp"
-            android:layout_height="23dp"
-            android:background="@drawable/spinner_shape"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/tV_Camas"
-            app:layout_constraintStart_toStartOf="@+id/spinner_Personas"
-            app:layout_constraintTop_toTopOf="@+id/tV_Camas" />
+            app:layout_constraintEnd_toStartOf="@+id/iV_puerta"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.22"
+            app:layout_constraintStart_toEndOf="@+id/tV_Personas"
+            app:layout_constraintTop_toBottomOf="@+id/eT_Precio" />
 
         <ImageView
             android:id="@+id/iV_puerta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/circle_border_icon"
-            app:layout_constraintStart_toStartOf="@+id/iV_Camas"
-            app:layout_constraintTop_toBottomOf="@+id/iV_Camas"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/spinner_Personas"
+            app:layout_constraintEnd_toStartOf="@+id/tV_Alcobas"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.07"
+            app:layout_constraintStart_toEndOf="@+id/spinner_Personas"
+            app:layout_constraintTop_toTopOf="@+id/spinner_Personas"
             app:srcCompat="@drawable/baseline_meeting_room_24" />
 
         <TextView
             android:id="@+id/tV_Alcobas"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Habitaciones:"
+            android:layout_marginBottom="8dp"
+            android:text="Alcobas:"
             app:layout_constraintBottom_toBottomOf="@+id/iV_puerta"
-            app:layout_constraintStart_toStartOf="@+id/tV_Camas"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_Alcobas"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.21"
+            app:layout_constraintStart_toEndOf="@+id/iV_puerta"
             app:layout_constraintTop_toTopOf="@+id/iV_puerta" />
 
-        <Spinner
+        <EditText
             android:id="@+id/spinner_Alcobas"
-            android:layout_width="62dp"
-            android:layout_height="23dp"
-            android:background="@drawable/spinner_shape"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/secondaryColor"
+            android:inputType="numberDecimal"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="@+id/tV_Alcobas"
-            app:layout_constraintStart_toStartOf="@+id/spinner_Camas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.22"
+            app:layout_constraintStart_toEndOf="@+id/tV_Alcobas"
             app:layout_constraintTop_toTopOf="@+id/tV_Alcobas" />
 
         <ImageView
-            android:id="@+id/iV_bano"
-            android:layout_width="wrap_content"
+            android:id="@+id/iV_Camas"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/tV_Camas"
+            app:layout_constraintEnd_toStartOf="@+id/tV_Camas"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.07"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tV_Camas"
+            app:srcCompat="@drawable/baseline_hotel_24" />
+
+        <TextView
+            android:id="@+id/tV_Camas"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/circle_border_icon"
-            app:layout_constraintStart_toStartOf="@+id/iV_puerta"
-            app:layout_constraintTop_toBottomOf="@+id/iV_puerta"
+            android:layout_marginStart="8dp"
+            android:text="Camas:"
+            app:layout_constraintBottom_toBottomOf="@+id/spinner_Camas"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_Camas"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.21"
+            app:layout_constraintStart_toEndOf="@+id/iV_Camas"
+            app:layout_constraintTop_toTopOf="@+id/spinner_Camas" />
+
+        <EditText
+            android:id="@+id/spinner_Camas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/secondaryColor"
+            android:inputType="numberDecimal"
+            android:selectAllOnFocus="false"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@+id/iV_bano"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.22"
+            app:layout_constraintStart_toEndOf="@+id/tV_Camas"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_Personas" />
+
+        <ImageView
+            android:id="@+id/iV_bano"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/iV_Camas"
+            app:layout_constraintEnd_toStartOf="@+id/tV_bano"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.07"
+            app:layout_constraintStart_toEndOf="@+id/spinner_Camas"
+            app:layout_constraintTop_toTopOf="@+id/iV_Camas"
             app:srcCompat="@drawable/baseline_hot_tub_24" />
 
         <TextView
             android:id="@+id/tV_bano"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="Baños:"
             app:layout_constraintBottom_toBottomOf="@+id/iV_bano"
-            app:layout_constraintStart_toStartOf="@+id/tV_Alcobas"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_Banos"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.21"
+            app:layout_constraintStart_toEndOf="@+id/iV_bano"
             app:layout_constraintTop_toTopOf="@+id/iV_bano" />
 
-        <Spinner
+        <EditText
             android:id="@+id/spinner_Banos"
-            android:layout_width="62dp"
-            android:layout_height="23dp"
-            android:background="@drawable/spinner_shape"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/secondaryColor"
+            android:inputType="numberDecimal"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="@+id/tV_bano"
-            app:layout_constraintStart_toStartOf="@+id/spinner_Alcobas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.22"
+            app:layout_constraintStart_toEndOf="@+id/tV_bano"
             app:layout_constraintTop_toTopOf="@+id/tV_bano" />
 
-        <ImageView
-            android:id="@+id/iV_galeria"
-            android:layout_width="100dp"
-            android:layout_height="80dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/squared_border_image"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/iV_bano"
-            app:layout_constraintTop_toBottomOf="@+id/tV_bano"
-            app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/baseline_add_photo_alternate_24" />
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_marginEnd="164dp"
+        <Button
+            android:id="@+id/cca_cargar_img"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:background="@drawable/circle_border_button"
-            android:src="@drawable/baseline_add_a_photo_24"
-            app:layout_constraintBottom_toBottomOf="@+id/iV_galeria"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/button_shape"
+            android:text="Cargar imagen"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/cca_tomar_foto"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_Camas" />
+
+        <Button
+            android:id="@+id/cca_tomar_foto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/button_shape"
+            android:textColor="@color/primaryTextColor"
+            android:text="tomar foto"
+            app:layout_constraintBottom_toBottomOf="@+id/cca_cargar_img"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/iV_galeria"
-            app:layout_constraintTop_toTopOf="@+id/iV_galeria"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/cca_cargar_img"
+            app:layout_constraintTop_toTopOf="@+id/cca_cargar_img"
+            app:layout_constraintHorizontal_weight="0.5" />
 
         <Button
             android:id="@+id/btn_CrearAloj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/button_shape_white"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_shape"
             android:text="Crear "
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.292"
-            app:layout_constraintStart_toStartOf="@+id/spinner_Banos"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_Banos"
-            app:layout_constraintVertical_bias="0.804" />
+            app:layout_constraintTop_toBottomOf="@+id/cca_cargar_img" />
 
     </android.support.constraint.ConstraintLayout>
 

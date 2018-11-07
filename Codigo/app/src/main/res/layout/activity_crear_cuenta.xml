@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,230 +8,340 @@
     tools:layout_editor_absoluteY="81dp"
     tools:context=".CrearCuentaActivity">
 
-    <ScrollView
-        android:id="@+id/sV_Cuenta"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp">
 
-
-        <android.support.constraint.ConstraintLayout
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tV_HeaderCrearCuenta"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="82dp"
-                android:background="@color/primaryColor"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent">
 
-            <ImageView
-                android:id="@+id/iV_FotoCuenta"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/circle_border_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/sharp_person_24" />
+                <TextView
+                    android:id="@+id/tV_HeaderCrearCuenta"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/primaryColor"
+                    app:layout_constraintBottom_toTopOf="@+id/tV_Header2CrearCuenta"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="spread_inside"
+                    app:layout_constraintVertical_weight="0.5" />
 
-            <ImageButton
-                android:id="@+id/iBtn_SubirFotoCuenta"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/circle_border_button"
-                android:src="@drawable/baseline_add_a_photo_24"
-                app:layout_constraintBottom_toBottomOf="@+id/iV_FotoCuenta"
-                app:layout_constraintStart_toEndOf="@+id/iV_FotoCuenta" />
+                <TextView
+                    android:id="@+id/tV_Header2CrearCuenta"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tV_HeaderCrearCuenta"
+                    app:layout_constraintVertical_weight="0.5" />
 
-            <EditText
-                android:id="@+id/eT_NombreCuenta"
-                style="@style/Body"
-                android:layout_width="168dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/edit_text_shape"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tV_Nombre"
-                app:layout_constraintTop_toBottomOf="@+id/iV_FotoCuenta" />
+                <ImageView
+                    android:id="@+id/iV_FotoCuenta"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/circle_border_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/sharp_person_24" />
 
-            <TextView
-                android:id="@+id/tV_Genero"
-                android:layout_width="73dp"
-                android:layout_height="28dp"
-                android:text="Género"
-                style="@style/Body"
-                app:layout_constraintBottom_toBottomOf="@+id/spinner_Genero"
-                app:layout_constraintStart_toStartOf="@+id/tV_Edad"
-                app:layout_constraintTop_toTopOf="@+id/spinner_Genero" />
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/circle_border_button"
+                    android:scaleType="centerInside"
+                    app:layout_constraintBottom_toBottomOf="@+id/iV_FotoCuenta"
+                    app:layout_constraintEnd_toEndOf="@+id/iV_FotoCuenta"
+                    app:srcCompat="@drawable/baseline_add_a_photo_24" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/tV_Edad"
-                android:layout_width="73dp"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Edad:"
-                style="@style/Body"
-                app:layout_constraintBottom_toBottomOf="@+id/eT_Edad"
-                app:layout_constraintStart_toStartOf="@+id/tV_Correo"
-                app:layout_constraintTop_toTopOf="@+id/eT_Edad" />
+        <TextView
+            android:id="@+id/tV_Correo"
+            style="@style/Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Correo:"
+            app:layout_constraintBottom_toBottomOf="@+id/eT_Correo"
+            app:layout_constraintEnd_toStartOf="@+id/eT_Correo"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_weight="0.35"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/eT_Correo" />
 
-            <TextView
-                android:id="@+id/tV_Correo"
-                android:layout_width="73dp"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Correo:"
-                style="@style/Body"
-                app:layout_constraintBottom_toBottomOf="@+id/eT_Correo"
-                app:layout_constraintStart_toStartOf="@+id/tV_Nombre"
-                app:layout_constraintTop_toTopOf="@+id/eT_Correo" />
+        <EditText
+            android:id="@+id/eT_Correo"
+            style="@style/Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/secondaryColor"
+            android:ems="10"
+            android:hint="correo@correos.com"
+            android:inputType="textEmailAddress"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.65"
+            app:layout_constraintStart_toEndOf="@+id/tV_Correo"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-            <TextView
-                android:id="@+id/tV_Nombre"
-                android:layout_width="73dp"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Nombre:"
-                style="@style/Body"
-                app:layout_constraintBottom_toBottomOf="@+id/eT_NombreCuenta"
-                app:layout_constraintEnd_toStartOf="@+id/eT_NombreCuenta"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/eT_NombreCuenta" />
+        <TextView
+            android:id="@+id/et_contras"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Contraseña"
+            app:layout_constraintBottom_toBottomOf="@+id/acc_contra"
+            app:layout_constraintEnd_toStartOf="@+id/acc_contra"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.35"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/acc_contra" />
 
-            <EditText
-                android:id="@+id/eT_Correo"
-                style="@style/Body"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
-                android:background="@drawable/edit_text_shape"
-                android:ems="10"
-                android:hint="xxxxx@gmail.com"
-                android:inputType="textEmailAddress"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="@+id/eT_NombreCuenta"
-                app:layout_constraintTop_toBottomOf="@+id/eT_NombreCuenta" />
+        <EditText
+            android:id="@+id/acc_contra"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/secondaryColor"
+            android:ems="10"
+            android:hint="******"
+            android:inputType="textPassword"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.65"
+            app:layout_constraintStart_toEndOf="@+id/et_contras"
+            app:layout_constraintTop_toBottomOf="@+id/eT_Correo" />
 
-            <EditText
-                android:id="@+id/eT_Edad"
-                style="@style/Body"
-                android:layout_width="168dp"
-                android:layout_height="36dp"
-                android:background="@drawable/edit_text_shape"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Age"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="@+id/eT_Correo"
-                app:layout_constraintTop_toBottomOf="@+id/eT_Correo" />
+        <TextView
+            android:id="@+id/tV_Nombre"
+            style="@style/Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Nombre:"
+            app:layout_constraintBottom_toBottomOf="@+id/eT_NombreCuenta"
+            app:layout_constraintEnd_toStartOf="@+id/eT_NombreCuenta"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.35"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/eT_NombreCuenta" />
 
-            <Spinner
-                android:id="@+id/spinner_Genero"
-                android:layout_width="168dp"
-                android:layout_height="36dp"
-                android:background="@drawable/spinner_shape"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="@+id/eT_Edad"
-                app:layout_constraintTop_toBottomOf="@+id/eT_Edad" />
+        <EditText
+            android:id="@+id/eT_NombreCuenta"
+            style="@style/Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/secondaryColor"
+            android:ems="10"
+            android:hint="Jhon Doe"
+            android:inputType="textPersonName"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.65"
+            app:layout_constraintStart_toEndOf="@+id/tV_Nombre"
+            app:layout_constraintTop_toBottomOf="@+id/acc_contra" />
 
-            <Button
-                android:id="@+id/btn_Crear"
-                android:layout_width="150dp"
-                android:layout_height="54dp"
-                android:background="@drawable/button_shape_white"
-                android:text="Crear Cuenta"
-                android:textAlignment="center"
-                android:textColor="@color/primaryColor"
-                app:layout_constraintBottom_toBottomOf="@+id/iBtn_Back"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.656"
-                app:layout_constraintStart_toEndOf="@+id/iBtn_Back"
-                app:layout_constraintTop_toTopOf="@+id/iBtn_Back"
-                app:layout_constraintVertical_bias="0.458" />
+        <TextView
+            android:id="@+id/tV_Edad"
+            style="@style/Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Edad:"
+            app:layout_constraintBottom_toBottomOf="@+id/eT_Edad"
+            app:layout_constraintEnd_toStartOf="@+id/eT_Edad"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_weight="0.35"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/eT_Edad" />
 
-            <ImageButton
-                android:id="@+id/iBtn_Back"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="124dp"
-                android:background="@drawable/round_arrow_back_ios_24"
-                app:layout_constraintStart_toStartOf="@+id/tV_Genero"
-                app:layout_constraintTop_toBottomOf="@+id/tV_Opcion" />
+        <EditText
+            android:id="@+id/eT_Edad"
+            style="@style/Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/secondaryColor"
+            android:ems="10"
+            android:hint="18"
+            android:inputType="numberDecimal"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.65"
+            app:layout_constraintStart_toEndOf="@+id/tV_Edad"
+            app:layout_constraintTop_toBottomOf="@+id/eT_NombreCuenta" />
 
-            <TextView
-                android:id="@+id/tV_Opcion"
-                style="@style/Body"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Convertirse en:"
-                app:layout_constraintStart_toStartOf="@+id/tV_Genero"
-                app:layout_constraintTop_toBottomOf="@+id/tV_Genero" />
+        <TextView
+            android:id="@+id/tV_Opcion"
+            style="@style/Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Convertirse en:"
+            app:layout_constraintEnd_toStartOf="@+id/radioGroup"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_weight="0.35"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/radioGroup" />
 
-            <RadioButton
-                android:id="@+id/radioButton_Anfitrion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:text="Anfitrión"
-                app:layout_constraintStart_toStartOf="@+id/spinner_Genero"
-                app:layout_constraintTop_toBottomOf="@+id/tV_Opcion" />
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tV_Opcion"
+            app:layout_constraintTop_toBottomOf="@+id/eT_Edad"
+            app:layout_constraintHorizontal_weight="0.65">
 
             <RadioButton
                 android:id="@+id/radioButton_Huesped"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Huesped"
-                app:layout_constraintStart_toStartOf="@+id/radioButton_Anfitrion"
-                app:layout_constraintTop_toBottomOf="@+id/radioButton_Anfitrion" />
+                android:text="Huesped" />
 
-            <TextView
-                android:id="@+id/tV_Nacionalidad"
+            <RadioButton
+                android:id="@+id/radioButton_Anfitrion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Nacionalidad:"
-                style="@style/Body"
-                app:layout_constraintStart_toStartOf="@+id/tV_Opcion"
-                app:layout_constraintTop_toBottomOf="@+id/radioButton_Huesped" />
+                android:text="Anfitrión" />
+        </RadioGroup>
 
-            <EditText
-                android:id="@+id/eT_Nacionalidad"
-                style="@style/Body"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Nacionalidad"
-                app:layout_constraintBottom_toBottomOf="@+id/tV_Nacionalidad"
-                app:layout_constraintStart_toStartOf="@+id/radioButton_Huesped"
-                app:layout_constraintTop_toTopOf="@+id/tV_Nacionalidad" />
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
+        <TextView
+            android:id="@+id/tV_Genero"
+            style="@style/Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Género"
+            app:layout_constraintBottom_toBottomOf="@+id/spinner_Genero"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_Genero"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.35"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/spinner_Genero" />
 
+        <Spinner
+            android:id="@+id/spinner_Genero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/secondaryColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.65"
+            app:layout_constraintStart_toEndOf="@+id/tV_Genero"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/tV_Nacionalidad"
+            style="@style/Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Nacionalidad:"
+            app:layout_constraintBottom_toBottomOf="@+id/eT_Nacionalidad"
+            app:layout_constraintEnd_toStartOf="@+id/eT_Nacionalidad"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.35"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/eT_Nacionalidad" />
+
+        <EditText
+            android:id="@+id/eT_Nacionalidad"
+            style="@style/Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/secondaryColor"
+            android:ems="10"
+            android:hint="Nacionalidad"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="0.65"
+            app:layout_constraintStart_toEndOf="@+id/tV_Nacionalidad"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_Genero" />
+
+        <ImageButton
+            android:id="@+id/iBtn_Back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/round_arrow_back_ios_24"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_Crear"
+            app:layout_constraintEnd_toStartOf="@+id/btn_Crear"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_Crear" />
+
+        <Button
+            android:id="@+id/btn_Crear"
+            android:layout_width="150dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_shape"
+            android:text="Crear Cuenta"
+            android:textAlignment="center"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iBtn_Back"
+            app:layout_constraintTop_toBottomOf="@+id/eT_Nacionalidad" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

@@ -43,6 +43,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_Cuenta" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_home" />
 
 </android.support.constraint.ConstraintLayout>

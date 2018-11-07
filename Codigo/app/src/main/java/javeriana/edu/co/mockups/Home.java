@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,14 +29,27 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
+import javeriana.edu.co.mockups.mAdapterView.CustomAdapter;
+import javeriana.edu.co.mockups.mData.Alojamiento;
 import javeriana.edu.co.mockups.mData.Usuario;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String PATH_ALOJ = "alojamientos/";
+    private static final String LEER_TAG = "LeerActivity";
+
     Button hospedarse;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
+    FirebaseDatabase database;
+
+    private ListView lv;
+
+    ArrayList<Alojamiento> aloj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +57,8 @@ public class Home extends AppCompatActivity
         setContentView(R.layout.activity_home);
         mAuth = FirebaseAuth.getInstance();
 
+        database = FirebaseDatabase.getInstance();
+        aloj = new ArrayList<Alojamiento>();
 
         hospedarse = (Button)findViewById(R.id.botonHospedarse);
         final FirebaseUser Fuser = mAuth.getCurrentUser();
@@ -62,9 +78,24 @@ public class Home extends AppCompatActivity
             }
         });
 
+        DatabaseReference leerRef = database.getReference(PATH_ALOJ);
+        leerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot singleSnap : dataSnapshot.getChildren()) {
+                    Alojamiento aux = singleSnap.getValue(Alojamiento.class);
+                    aloj.add(aux);
+                }
+                updateListView();
+            }
 
-        ListView lv= (ListView) findViewById(R.id.lvHome);
-        //lv.setAdapter(new CustomAdapter(this, ColeccionAlojamientos.getAlojamiento()));
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(LEER_TAG, "error en la consulta", databaseError.toException());
+            }
+        });
+
+        lv= (ListView) findViewById(R.id.lvHome);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -96,6 +127,10 @@ public class Home extends AppCompatActivity
         }
         });
 
+    }
+
+    private void updateListView() {
+        lv.setAdapter(new CustomAdapter(this,aloj));
     }
 
     public void setUsuario(Usuario usuario) {

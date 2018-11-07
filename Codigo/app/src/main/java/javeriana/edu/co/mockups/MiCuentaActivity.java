@@ -1,7 +1,11 @@
 package javeriana.edu.co.mockups;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,28 +16,127 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import javeriana.edu.co.mockups.mData.Usuario;
 
 public class MiCuentaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private FirebaseAuth mAuth;
 
-    private ImageButton crearAloj;
-    private ImageButton consultarAloj;
-    private ImageButton rutas;
-    private ImageButton reservas;
-    private ImageButton misAlojamientos;
-    private ImageButton alojamientosReser;
+
+    private CardView card1;
+    private ImageView IOp1;
+    private TextView TOp1;
+    private ImageView I2Op1;
+
+    private CardView card2;
+    private ImageView IOp2;
+    private TextView I2Op2;
+    private ImageView TOp2;
+
+    private CardView card3;
+    private ImageView IOp3;
+    private TextView TOp3;
+    private ImageView I2Op3;
+
+
+    private String tipo;
+    private DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_cuenta);
 
-        crearAloj =(ImageButton)findViewById(R.id.iBtn_CrearAlojamiento);
-        consultarAloj = findViewById( R.id.iBtn_Consultar );
-        rutas = findViewById( R.id.iBtn_Rutas );
-        reservas = findViewById( R.id.iBtn_Reservas);
-        misAlojamientos = findViewById( R.id.iBtn_MisAlojamientos );
-        alojamientosReser = findViewById( R.id.iBtn_Reservados );
+        mAuth = FirebaseAuth.getInstance();
+
+
+        card1 = (CardView) findViewById(R.id.card1);
+        IOp1 = (ImageView) findViewById(R.id.imageOP1);
+        TOp1 = (TextView) findViewById(R.id.textOP1);
+        I2Op1 = (ImageView) findViewById(R.id.image2OP1);
+
+        card2 = (CardView) findViewById(R.id.card2);
+        IOp2 = (ImageView) findViewById(R.id.imageOP2);
+        I2Op2 = (TextView) findViewById(R.id.textOP2);
+        TOp2 = (ImageView) findViewById(R.id.image2OP2);
+
+        card3 = (CardView) findViewById(R.id.card3);
+        IOp3 = (ImageView) findViewById(R.id.imageOP3);
+        TOp3 = (TextView) findViewById(R.id.textOP3);
+        I2Op3 = (ImageView) findViewById(R.id.image2OP3);
+
+
+        final FirebaseUser Fuser = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        Log.d("-------", "onDataChange: "+ Fuser.getEmail());
+        Query myTopPostsQuery = mDatabase.child("usuarios").child(Fuser.getUid());
+        myTopPostsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Usuario aux = dataSnapshot.getValue(Usuario.class);
+                Log.d("-------", "onDataChange: "+ aux.getTipo());
+                tipo = aux.getTipo();
+
+                if (tipo.equals("Huesped")){
+
+
+
+                    IOp1.setImageResource(R.drawable.round_seach_w);
+                    TOp1.setText("Consultar Alojamiento");
+                    I2Op1.setImageResource(R.drawable.baseline_chevron_right_24);
+
+                    IOp2.setImageResource(R.drawable.twotone_map_24);
+                    I2Op2.setText("Rutas");
+                    TOp2.setImageResource(R.drawable.baseline_chevron_right_24);;
+
+                    IOp3.setImageResource(R.drawable.baseline_event_note_24);
+                    TOp3.setText("Reservas");
+                    I2Op3.setImageResource(R.drawable.baseline_chevron_right_24);;
+
+
+                }else {
+
+                    IOp1.setImageResource(R.drawable.baseline_create_24);
+                    TOp1.setText("Crear Alojamiento");
+                    I2Op1.setImageResource(R.drawable.baseline_chevron_right_24);
+
+                    IOp2.setImageResource(R.drawable.baseline_format_list_numbered_24);
+                    I2Op2.setText("Mis Alojamientos");
+                    TOp2.setImageResource(R.drawable.baseline_chevron_right_24);;
+
+                    IOp3.setImageResource(R.drawable.baseline_event_available_24);
+                    TOp3.setText("Reservas");
+                    I2Op3.setImageResource(R.drawable.baseline_chevron_right_24);;
+
+                }
+                setUsuario(aux);
+                setTipo(tipo);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,54 +150,63 @@ public class MiCuentaActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        TextView navUsername = (TextView) navigationView.findViewById(R.id.NombreNavHome);
 
-        crearAloj.setOnClickListener(new View.OnClickListener() {
+
+    }
+
+    public void setTipo(String tipo) {
+         final String auxTipo=tipo;
+        card1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),CrearAlojamientoActivity.class);
-                startActivity(intent);
+                if (auxTipo.equals("Huesped")){
+                    Intent consultar_intent = new Intent(view.getContext(), BuscarActividadActivity.class);
+                    startActivity(consultar_intent);
+                }else {
+                    Intent intent = new Intent(view.getContext(),CrearAlojamientoActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 
-        consultarAloj.setOnClickListener(new View.OnClickListener() {
+        card2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent consultar_intent = new Intent(view.getContext(), BuscarAlojamientoActivity.class);
-                startActivity(consultar_intent);
+                if (auxTipo.equals("Huesped")){
+                    Intent rutas_intent = new Intent(view.getContext(), RutasUsuarioActivity.class);
+                    startActivity(rutas_intent);
+                }else {
+                    Intent misAloj_intent = new Intent(view.getContext(), AnfitrionAlojamientosActivity.class);
+                    startActivity(misAloj_intent);
+                }
             }
         });
 
-        rutas.setOnClickListener(new View.OnClickListener() {
+        card3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent rutas_intent = new Intent(view.getContext(), RutasUsuarioActivity.class);
-                startActivity(rutas_intent);
+                if (auxTipo.equals("Huesped")){
+                    Intent reservas_intent = new Intent(view.getContext(), ReservasUsuarios.class);
+                    startActivity(reservas_intent);
+                }else {
+                    Intent alojaReser_intent = new Intent(view.getContext(), ReservasAnfitrionActivity.class);
+                    startActivity(alojaReser_intent);
+                }
             }
         });
+    }
 
-        reservas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent reservas_intent = new Intent(view.getContext(), ReservasUsuariosActivity.class);
-                startActivity(reservas_intent);
-            }
-        });
-
-        misAlojamientos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent misAloj_intent = new Intent(view.getContext(), AnfitrionAlojamientosActivity.class);
-                startActivity(misAloj_intent);
-            }
-        });
-
-        alojamientosReser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent alojaReser_intent = new Intent(view.getContext(), ReservasAnfitrionActivity.class);
-                startActivity(alojaReser_intent);
-            }
-        });
+    public void setUsuario(Usuario usuario) {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        TextView navUsername = (TextView) navigationView.findViewById(R.id.NombreNavCuenta);
+        navUsername.setText(usuario.getNombre());
+        if (usuario.getImagen()!= null) {
+            ImageView navImage = (ImageView) navigationView.findViewById(R.id.iv_Cuenta);
+            navImage.setImageURI(Uri.parse(usuario.getImagen()));
+        }
     }
 
     @Override
@@ -147,6 +259,8 @@ public class MiCuentaActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_Salir) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(MiCuentaActivity.this, MainActivity.class));
             finish();
 
         }

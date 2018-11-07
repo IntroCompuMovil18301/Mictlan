@@ -5,8 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="colorAccent">@color/accentColor</item>
-        <item name="android:colorBackground">@color/secondaryColor</item>
+        <item name="colorAccent">@color/secondaryColor</item>
         <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="android:textColorHint">@color/primaryLightColor</item>
 
@@ -15,7 +14,7 @@
     <style name="AppTheme.ReverseTheme">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="colorAccent">@color/accentColor</item>
+        <item name="colorAccent">@color/secondaryColor</item>
         <item name="android:colorBackground">@color/primaryColor</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:textColorHint">@color/primaryTextColor</item>

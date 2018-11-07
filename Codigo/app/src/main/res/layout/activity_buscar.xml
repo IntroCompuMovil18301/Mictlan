@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BuscarAlojamientoActivity">
+    tools:context=".BuscarActividadActivity">
 
     <EditText
         android:id="@+id/searchViewBuscar"
@@ -63,5 +63,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/boton_de_fecha"
         app:layout_constraintTop_toTopOf="@+id/boton_de_fecha" />
+
 
 </android.support.constraint.ConstraintLayout>

@@ -2,7 +2,8 @@
     <string name="app_name">MICTLAN</string>
     <string name="Log_in">Ingresar</string>
     <string name="Sign_in">Crear Cuenta</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="MHint_user">Username</string>
+    <string name="MHint_pass">Password</string>
     <string name="title_activity_mi_cuenta">MiCuenta</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -43,6 +44,6 @@
         <item>Fecha</item>
         <item>Ubicacion</item>
     </string-array>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_alojamiento_maps">Map</string>
 
 </resources>

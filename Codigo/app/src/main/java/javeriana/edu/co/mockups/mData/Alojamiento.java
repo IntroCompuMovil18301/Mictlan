@@ -27,8 +27,8 @@ public class Alojamiento implements Serializable {
     }
 
     public Alojamiento(String usuario, String titulo, String ubicacion, double latitud, double longitud,
-                       float valorNoche, String tipo, int personas, int camas, int alcobas, int banos,
-                       List<String> images) {
+                float valorNoche, String tipo, int personas, int camas, int alcobas, int banos,
+                List<String> images) {
         this.usuario = usuario;
         this.titulo = titulo;
         this.ubicacion = ubicacion;

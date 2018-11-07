@@ -25,17 +25,27 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
+
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import android.widget.Toast;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javeriana.edu.co.mockups.mData.Alojamiento;
+import javeriana.edu.co.mockups.mData.Usuario;
 
 public class CrearAlojamientoActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,6 +64,8 @@ public class CrearAlojamientoActivity extends AppCompatActivity
     public static final double upperRigthLongitude = -73.997955;
 
     private FirebaseDatabase database;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
     Geocoder mGeocoder;
 
@@ -77,7 +89,7 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         setContentView(R.layout.activity_crear_alojamiento);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        mAuth = FirebaseAuth.getInstance();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -115,6 +127,22 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         tomarFoto = findViewById(R.id.cca_tomar_foto);
         crear = findViewById(R.id.btn_CrearAloj);
 
+        final FirebaseUser Fuser = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        Query myTopPostsQuery = mDatabase.child("usuarios").child(Fuser.getUid());
+        myTopPostsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Usuario aux = dataSnapshot.getValue(Usuario.class);
+                setUsuario(aux);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         images = new ArrayList<String>();
 
         if (ContextCompat.checkSelfPermission(this,
@@ -140,6 +168,7 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         }
 
         mGeocoder = new Geocoder(getBaseContext());
+
 
         crear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,6 +209,16 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         });
     }
 
+    public void setUsuario(Usuario usuario) {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        TextView navUsername = (TextView) navigationView.findViewById(R.id.NombreNavCrear);
+        navUsername.setText(usuario.getNombre());
+        if (usuario.getImagen()!= null) {
+            ImageView navImage = (ImageView) navigationView.findViewById(R.id.iv_Cuenta);
+            navImage.setImageURI(Uri.parse(usuario.getImagen()));
+        }
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -230,6 +269,8 @@ public class CrearAlojamientoActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_Salir) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(CrearAlojamientoActivity.this, MainActivity.class));
             finish();
 
         }

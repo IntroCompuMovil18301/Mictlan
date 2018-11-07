@@ -8,235 +8,128 @@
     tools:context=".MiCuentaActivity"
     tools:showIn="@layout/app_bar_mi_cuenta">
 
-    <ScrollView
-        android:id="@+id/SV_MiCuenta"
+    <android.support.v7.widget.CardView
+        android:id="@+id/card1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/card2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tV_Huesped"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:text="Huesped"
-                app:layout_constraintBottom_toTopOf="@+id/iV_Consultar"
-                app:layout_constraintStart_toStartOf="@+id/iV_Consultar"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/iV_Consultar"
+                android:id="@+id/imageOP1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/circle_border_icon"
-                app:layout_constraintBottom_toTopOf="@+id/iV_Rutas"
-                app:layout_constraintEnd_toStartOf="@+id/tV_Consultar"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tV_Huesped"
-                app:srcCompat="@drawable/round_search_24" />
+                android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/tV_Consultar"
-                android:layout_width="wrap_content"
+                android:id="@+id/textOP1"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Consultar Alojamiento"
-                app:layout_constraintBottom_toBottomOf="@+id/iV_Consultar"
-                app:layout_constraintEnd_toStartOf="@+id/iBtn_Consultar"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/iV_Consultar"
-                app:layout_constraintTop_toTopOf="@+id/iV_Consultar" />
-
-            <ImageButton
-                android:id="@+id/iBtn_Consultar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/baseline_chevron_right_24"
-                app:layout_constraintBottom_toBottomOf="@+id/tV_Consultar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tV_Consultar"
-                app:layout_constraintTop_toTopOf="@+id/tV_Consultar" />
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:textSize="18sp" />
 
             <ImageView
-                android:id="@+id/iV_Rutas"
+                android:id="@+id/image2OP1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/circle_border_icon"
-                app:layout_constraintBottom_toTopOf="@+id/iV_Reservas"
-                app:layout_constraintStart_toStartOf="@+id/iV_Consultar"
-                app:layout_constraintTop_toBottomOf="@+id/iV_Consultar"
-                app:srcCompat="@drawable/twotone_map_24" />
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/baseline_chevron_right_24" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/tV_Rutas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rutas"
-                app:layout_constraintBottom_toBottomOf="@+id/iV_Rutas"
-                app:layout_constraintStart_toStartOf="@+id/tV_Consultar"
-                app:layout_constraintTop_toTopOf="@+id/iV_Rutas" />
+    </android.support.v7.widget.CardView>
 
-            <ImageButton
-                android:id="@+id/iBtn_Rutas"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/baseline_chevron_right_24"
-                app:layout_constraintBottom_toBottomOf="@+id/tV_Rutas"
-                app:layout_constraintStart_toStartOf="@+id/iBtn_Consultar"
-                app:layout_constraintTop_toTopOf="@+id/tV_Rutas" />
+    <android.support.v7.widget.CardView
+        android:id="@+id/card2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/card3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="0dp"
+            android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/iV_Reservas"
+                android:id="@+id/imageOP2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/circle_border_icon"
-                app:layout_constraintBottom_toTopOf="@+id/space"
-                app:layout_constraintStart_toStartOf="@+id/iV_Rutas"
-                app:layout_constraintTop_toBottomOf="@+id/iV_Rutas"
-                app:srcCompat="@drawable/baseline_event_note_24" />
+                android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/tV_Reservas"
-                android:layout_width="wrap_content"
+                android:id="@+id/textOP2"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="Reservas"
-                app:layout_constraintBottom_toBottomOf="@+id/iV_Reservas"
-                app:layout_constraintStart_toStartOf="@+id/tV_Rutas"
-                app:layout_constraintTop_toTopOf="@+id/iV_Reservas" />
-
-            <ImageButton
-                android:id="@+id/iBtn_Reservas"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/baseline_chevron_right_24"
-                app:layout_constraintBottom_toBottomOf="@+id/tV_Reservas"
-                app:layout_constraintStart_toStartOf="@+id/iBtn_Rutas"
-                app:layout_constraintTop_toTopOf="@+id/tV_Reservas" />
-
-            <Space
-                android:id="@+id/space"
-                android:layout_width="298dp"
-                android:layout_height="2dp"
-                android:layout_marginTop="30dp"
-                app:layout_constraintBottom_toTopOf="@+id/tV_Anfitrion"
-                app:layout_constraintEnd_toEndOf="@+id/iBtn_Reservas"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/iV_Reservas"
-                app:layout_constraintTop_toBottomOf="@+id/iV_Reservas" />
-
-            <TextView
-                android:id="@+id/tV_Anfitrion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Anfitrión"
-                app:layout_constraintBottom_toTopOf="@+id/iV_CrearAlojamiento"
-                app:layout_constraintStart_toStartOf="@+id/iV_Reservas"
-                app:layout_constraintTop_toBottomOf="@+id/space" />
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:textSize="18sp" />
 
             <ImageView
-                android:id="@+id/iV_CrearAlojamiento"
+                android:id="@+id/image2OP2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/circle_border_icon"
-                app:layout_constraintBottom_toTopOf="@+id/iV_MisAlojamientos"
-                app:layout_constraintStart_toStartOf="@+id/tV_Anfitrion"
-                app:layout_constraintTop_toBottomOf="@+id/tV_Anfitrion"
-                app:srcCompat="@drawable/baseline_create_24" />
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/baseline_chevron_right_24" />
 
-            <TextView
-                android:id="@+id/tV_CrearAlojamiento"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Crear Alojamiento"
-                app:layout_constraintBottom_toBottomOf="@+id/iV_CrearAlojamiento"
-                app:layout_constraintStart_toStartOf="@+id/tV_Reservas"
-                app:layout_constraintTop_toTopOf="@+id/iV_CrearAlojamiento" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
-            <ImageButton
-                android:id="@+id/iBtn_CrearAlojamiento"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/baseline_chevron_right_24"
-                app:layout_constraintBottom_toBottomOf="@+id/tV_CrearAlojamiento"
-                app:layout_constraintStart_toStartOf="@+id/iBtn_Reservas"
-                app:layout_constraintTop_toTopOf="@+id/tV_CrearAlojamiento" />
+    <android.support.v7.widget.CardView
+        android:id="@+id/card3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/iV_MisAlojamientos"
+                android:id="@+id/imageOP3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/circle_border_icon"
-                app:layout_constraintBottom_toTopOf="@+id/iV_Reservados"
-                app:layout_constraintStart_toStartOf="@+id/iV_CrearAlojamiento"
-                app:layout_constraintTop_toBottomOf="@+id/iV_CrearAlojamiento"
-                app:srcCompat="@drawable/baseline_format_list_numbered_24" />
+                android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/tV_MisAlojamientos"
-                android:layout_width="wrap_content"
+                android:id="@+id/textOP3"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="Mis Alojamientos"
-                app:layout_constraintBottom_toBottomOf="@+id/iV_MisAlojamientos"
-                app:layout_constraintStart_toStartOf="@+id/tV_CrearAlojamiento"
-                app:layout_constraintTop_toTopOf="@+id/iV_MisAlojamientos" />
-
-            <ImageButton
-                android:id="@+id/iBtn_MisAlojamientos"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/baseline_chevron_right_24"
-                app:layout_constraintBottom_toBottomOf="@+id/tV_MisAlojamientos"
-                app:layout_constraintStart_toStartOf="@+id/iBtn_CrearAlojamiento"
-                app:layout_constraintTop_toTopOf="@+id/tV_MisAlojamientos" />
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:textSize="18sp" />
 
             <ImageView
-                android:id="@+id/iV_Reservados"
+                android:id="@+id/image2OP3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/circle_border_icon"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/iV_MisAlojamientos"
-                app:layout_constraintTop_toBottomOf="@+id/iV_MisAlojamientos"
-                app:layout_constraintVertical_bias="1.0"
-                app:srcCompat="@drawable/baseline_event_available_24" />
-
-            <TextView
-                android:id="@+id/tV_Reservados"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Alojamientos Reservados"
-                app:layout_constraintBottom_toBottomOf="@+id/iV_Reservados"
-                app:layout_constraintStart_toStartOf="@+id/tV_MisAlojamientos"
-                app:layout_constraintTop_toTopOf="@+id/iV_Reservados" />
-
-            <ImageButton
-                android:id="@+id/iBtn_Reservados"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/baseline_chevron_right_24"
-                app:layout_constraintBottom_toBottomOf="@+id/tV_Reservados"
-                app:layout_constraintStart_toStartOf="@+id/iBtn_MisAlojamientos"
-                app:layout_constraintTop_toTopOf="@+id/tV_Reservados" />
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/baseline_chevron_right_24" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 </android.support.constraint.ConstraintLayout>

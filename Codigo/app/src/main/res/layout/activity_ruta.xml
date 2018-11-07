@@ -11,11 +11,7 @@
         android:id="@+id/SV_Ruta"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,10 +22,10 @@
             <ImageView
                 android:id="@+id/iV_Ruta"
                 android:layout_width="310dp"
-                android:layout_height="236dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="276dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ruta" />
@@ -38,13 +34,12 @@
                 android:id="@+id/btn_OkRuta"
                 android:layout_width="149dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/button_shape"
                 android:text="Ok"
-                android:textColor="@color/primaryColor"
-                android:textStyle="bold"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintEnd_toEndOf="@+id/spinner_AlojamientosRuta"
                 app:layout_constraintStart_toStartOf="@+id/spinner_AlojamientosRuta"
                 app:layout_constraintTop_toBottomOf="@+id/spinner_AlojamientosRuta" />
@@ -53,13 +48,12 @@
                 android:id="@+id/btn_CancelarRuta"
                 android:layout_width="146dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/button_shape"
                 android:text="Cancelar"
-                android:textColor="@color/primaryColor"
-                android:textStyle="bold"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintEnd_toEndOf="@+id/spinner_AlojamientosRuta"
                 app:layout_constraintStart_toStartOf="@+id/spinner_AlojamientosRuta"
                 app:layout_constraintTop_toBottomOf="@+id/btn_OkRuta" />
@@ -80,36 +74,35 @@
                 android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@color/primaryColor"
+                android:background="@android:color/transparent"
                 android:text="Alojamientos en la Ruta"
                 android:textAlignment="center"
-                android:textColor="@color/secondaryLightColor"
+                android:textColor="@color/secondaryColor"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/iV_Ruta"
                 app:layout_constraintStart_toStartOf="@+id/iV_Ruta"
                 app:layout_constraintTop_toBottomOf="@+id/iV_Ruta" />
 
-            <TextView
-                android:id="@+id/tV_TotalRuta"
-                android:layout_width="310dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/primaryColor"
-                android:text="Total: $150000"
-                android:textAlignment="center"
-                android:textColor="@color/secondaryLightColor"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/spinner_AlojamientosRuta"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/spinner_AlojamientosRuta"
-                app:layout_constraintTop_toBottomOf="@+id/btn_CancelarRuta"
-                app:layout_constraintVertical_bias="1.0" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/tV_TotalRuta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/primaryTextColor"
+        android:text="Total: $150000"
+        android:textAlignment="center"
+        android:textColor="@color/primaryColor"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>

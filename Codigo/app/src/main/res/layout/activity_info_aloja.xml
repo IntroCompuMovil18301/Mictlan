@@ -9,57 +9,65 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="450dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout10"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/iaa_foto_aloj"
+                android:layout_width="match_parent"
+                android:layout_height="213dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/casa" />
+
             <TextView
                 android:id="@+id/iaa_titulo_aloj"
                 style="@style/Titles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Casa Bonita en Alderwood Ave" />
-
-            <ImageView
-                android:id="@+id/iaa_foto_aloj"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/casa" />
+                android:layout_marginLeft="8dp"
+                android:text="Casa Bonita en Alderwood Ave"
+                android:textAlignment="textStart" />
 
             <TextView
                 android:id="@+id/iaa_tipo_aloj"
                 style="@style/Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tipo: Casa" />
+                android:layout_marginLeft="8dp"
+                android:text="Tipo: Casa"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/iaa_ubicac_aloj"
-                style="@style/Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ubicación: 7433 Alderwood Ave Summerfield, FL 34491" />
+                android:layout_marginLeft="8dp"
+                android:text="Direccion: 7433 Alderwood Ave Summerfield, FL 34491"
+                android:textSize="18sp" />
+
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp">
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/constraintLayout8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/constraintLayout9"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
@@ -67,8 +75,8 @@
                         style="@style/Body"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:text="6 Personas"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -79,10 +87,9 @@
                         android:id="@+id/imageView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/circle_border_icon"
+                        android:layout_marginEnd="8dp"
                         android:src="@drawable/baseline_group_24"
                         app:layout_constraintEnd_toEndOf="@+id/iV_BiografiaAnfitrion"
                         app:layout_constraintStart_toStartOf="@+id/iV_BiografiaAnfitrion"
@@ -93,10 +100,10 @@
                         style="@style/Body"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
                         android:text="5 Camas"
                         app:layout_constraintBottom_toBottomOf="@+id/iV_BiografiaAnfitrion"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -107,10 +114,9 @@
                         android:id="@+id/iV_BiografiaAnfitrion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/circle_border_icon"
+                        android:layout_marginBottom="8dp"
                         android:src="@drawable/baseline_hotel_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -123,16 +129,17 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="@+id/constraintLayout8"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.337"
                     app:layout_constraintStart_toEndOf="@+id/constraintLayout8"
-                    app:layout_constraintTop_toTopOf="@+id/constraintLayout8">
+                    app:layout_constraintTop_toTopOf="@+id/constraintLayout8"
+                    app:layout_constraintVertical_bias="0.0">
 
                     <TextView
                         android:id="@+id/iaa_numbañ_aloj"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:text="3 Baños"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -143,10 +150,9 @@
                         android:id="@+id/imageView7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/circle_border_icon"
+                        android:layout_marginEnd="8dp"
                         android:src="@drawable/baseline_hot_tub_24"
                         app:layout_constraintEnd_toEndOf="@+id/imageView8"
                         app:layout_constraintStart_toStartOf="@+id/imageView8"
@@ -156,10 +162,10 @@
                         android:id="@+id/iaa_numalc_aloj"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
                         android:text="4 Alcobas"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView8"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -170,10 +176,9 @@
                         android:id="@+id/imageView8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/circle_border_icon"
+                        android:layout_marginBottom="8dp"
                         android:src="@drawable/baseline_meeting_room_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -182,35 +187,42 @@
 
             </android.support.constraint.ConstraintLayout>
 
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Anfitrion:"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="59dp" />
+
             <Button
                 android:id="@+id/iaa_biogra_anfi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_shape_white"
+                android:background="@android:color/transparent"
                 android:drawableEnd="@android:drawable/btn_star_big_on"
                 android:gravity="start|center_vertical"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:text="Ron Swanson Perez" />
-
-            <TextView
-                android:id="@+id/haa_texcal_aloj"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Calificación" />
-
-            <RatingBar
-                android:id="@+id/iaa_rating_aloj"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:numStars="5" />
+                android:text="Ron Swanson Perez"
+                android:textAlignment="gravity"
+                android:textColor="@color/secondaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <Button
                 android:id="@+id/iaa_califi_aloj"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_shape_white"
-                android:text="Ver Calificaciones" />
+                android:background="@android:color/transparent"
+                android:gravity="start|center_vertical"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="Ver Calificaciones"
+                android:textColor="@color/secondaryColor"
+                android:textSize="12sp" />
 
         </LinearLayout>
     </ScrollView>
@@ -219,38 +231,63 @@
         android:id="@+id/constraintLayout10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/iaa_precio_aloj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="20 USD Noche"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text=" 20 USD Noche"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iaa_reserv_aloj"
+            app:layout_constraintHorizontal_bias="0.157"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.iarcuschin.simpleratingbar.SimpleRatingBar
+            android:id="@+id/iaa_rating_aloj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="0.5dp"
+            android:layout_marginBottom="8dp"
+            android:padding="2dp"
+            app:srb_starBorderWidth="0.6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/iaa_precio_aloj"
+            app:layout_constraintTop_toBottomOf="@+id/iaa_precio_aloj"
+            app:srb_borderColor="@color/primaryColor"
+            app:srb_fillColor="@color/primaryColor"
+            app:srb_numberOfStars="5"
+            app:srb_rating="3"
+            app:srb_starSize="13dp"
+            app:srb_stepSize="0.7" />
 
         <Button
             android:id="@+id/iaa_reserv_aloj"
             style="@style/Button"
-            android:background="@drawable/button_shape_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/button_shape"
             android:text="Reservar"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintBottom_toBottomOf="@+id/iaa_precio_aloj"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iaa_precio_aloj" />
+            app:layout_constraintTop_toTopOf="@+id/iaa_precio_aloj"
+            app:layout_constraintVertical_bias="0.0" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

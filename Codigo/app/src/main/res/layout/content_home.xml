@@ -7,16 +7,20 @@
     android:orientation="horizontal"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Home"
-    tools:showIn="@layout/app_bar_home">
+    tools:showIn="@layout/app_bar_home"
+    >
+
 
     <SearchView
         android:id="@+id/searchViewHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/search_view_shape"
+        android:layout_marginEnd="8dp"
+        android:iconifiedByDefault="false"
+        android:isScrollContainer="false"
+        android:searchIcon="@drawable/round_search_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,10 +29,11 @@
         android:id="@+id/botonHospedarse"
         android:layout_width="119dp"
         android:layout_height="35dp"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/button_shape_white"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/button_shape"
         android:text="Hospedarse"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewHome" />
 
@@ -47,11 +52,9 @@
         android:id="@+id/lvHome"
         android:layout_width="match_parent"
         android:layout_height="354dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ha_pueint_home" />

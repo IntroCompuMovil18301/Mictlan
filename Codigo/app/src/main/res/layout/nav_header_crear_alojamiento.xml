@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <ImageView
-        android:id="@+id/iv_CrearCuenta"
+        android:id="@+id/iv_Cuenta"
         android:layout_width="62dp"
         android:layout_height="60dp"
         android:layout_marginBottom="8dp"
@@ -29,19 +29,20 @@
         app:layout_constraintVertical_bias="0.69" />
 
     <TextView
+        android:id="@+id/NombreNavCrear"
         android:layout_width="325dp"
         android:layout_height="27dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Joe Doe"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/secondaryLightColor"
+        android:textColor="@color/primaryTextColor"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_CrearCuenta" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_Cuenta" />
 
 </android.support.constraint.ConstraintLayout>

@@ -56,7 +56,7 @@ public class Home extends AppCompatActivity
         hospedarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),buscar_actividad.class);
+                Intent intent = new Intent(view.getContext(),BuscarAlojamientoActivity.class);
                 startActivity(intent);
         }
         });

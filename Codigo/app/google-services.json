@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "240953997538",
+    "firebase_url": "https://mockups-4bd37.firebaseio.com",
+    "project_id": "mockups-4bd37",
+    "storage_bucket": "mockups-4bd37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240953997538:android:008aa47b268964ca",
+        "android_client_info": {
+          "package_name": "javeriana.edu.co.mockups"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "240953997538-6kph8bmae3ld42b8emuci292mgf4d5bt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "javeriana.edu.co.mockups",
+            "certificate_hash": "d2f6d2178650adef05fad0af3393abd700227f3f"
+          }
+        },
+        {
+          "client_id": "240953997538-lm0m11dqtuuhej7ddmp8f2hjvvsebnfc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "javeriana.edu.co.mockups",
+            "certificate_hash": "4864e22745abf1a57aca5abdb10de6da7ff15020"
+          }
+        },
+        {
+          "client_id": "240953997538-68jal5u7s0a4q5qho910har0q7c01fdo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT-l3Mr_Usy0CWQwxV6-2r5HD9v5AAjV8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "240953997538-68jal5u7s0a4q5qho910har0q7c01fdo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

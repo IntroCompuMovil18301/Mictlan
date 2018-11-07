@@ -22,7 +22,7 @@ public class InfoReseActivity extends AppCompatActivity {
         bioInfoReseAnfitrion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),biografia_anfitrion.class);
+                Intent intent = new Intent(view.getContext(),BiografiaAnfitrionActivity.class);
                 startActivity(intent);
             }
         });

@@ -12,7 +12,7 @@ import android.widget.ListView;
 import javeriana.edu.co.mockups.mAdapterView.CustomAdapter;
 import javeriana.edu.co.mockups.mData.ColeccionAlojamientos;
 
-    public class reservas_usuarios extends AppCompatActivity {
+    public class ReservasUsuariosActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

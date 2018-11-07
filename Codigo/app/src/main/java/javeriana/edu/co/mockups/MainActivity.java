@@ -20,7 +20,7 @@ Button logIn;
         crearCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),CrearCuenta.class);
+                Intent intent = new Intent(view.getContext(),CrearCuentaActivity.class);
                 startActivity(intent);
             }
         });

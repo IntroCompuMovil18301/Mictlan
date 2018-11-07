@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:layout_editor_absoluteY="81dp"
-    tools:context=".CrearCuenta">
+    tools:context=".CrearCuentaActivity">
 
     <ScrollView
         android:id="@+id/sV_Cuenta"

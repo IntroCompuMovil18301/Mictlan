@@ -23,7 +23,7 @@ public class InfoAlojaActivity extends AppCompatActivity {
         biogra_but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent biogra_intent = new Intent( view.getContext(), biografia_anfitrion.class );
+                Intent biogra_intent = new Intent( view.getContext(), BiografiaAnfitrionActivity.class );
                 startActivity( biogra_intent );
             }
         });

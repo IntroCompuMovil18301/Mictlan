@@ -8,7 +8,7 @@ import android.widget.ListView;
 import javeriana.edu.co.mockups.mAdapterView.CustomAdapter;
 import javeriana.edu.co.mockups.mData.ColeccionAlojamientos;
 
-public class historial_usuario extends AppCompatActivity {
+public class HistorialUsuarioActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

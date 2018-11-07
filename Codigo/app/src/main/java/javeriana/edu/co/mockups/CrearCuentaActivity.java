@@ -15,7 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CrearCuenta extends AppCompatActivity {
+public class CrearCuentaActivity extends AppCompatActivity {
     Button crear;
     ImageButton backToMain;
     TextView nacionalidad;

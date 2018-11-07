@@ -11,15 +11,14 @@ import android.widget.ListView;
 import javeriana.edu.co.mockups.mAdapterView.CustomAdapter;
 import javeriana.edu.co.mockups.mData.ColeccionAlojamientos;
 
-public class reservas_anfitrion extends AppCompatActivity {
+public class AnfitrionAlojamientosActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservas_anfitrion);
+        setContentView(R.layout.activity_anfitrion_alojamientos);
 
-
-        ListView lv= (ListView) findViewById(R.id.lv4);
+        ListView lv= (ListView) findViewById(R.id.lv1);
         lv.setAdapter(new CustomAdapter(this, ColeccionAlojamientos.getAlojamiento()));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -28,6 +27,5 @@ public class reservas_anfitrion extends AppCompatActivity {
                 startActivity( lv_intent );
             }
         });
-
     }
 }

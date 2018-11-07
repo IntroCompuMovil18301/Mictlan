@@ -51,7 +51,7 @@ public class MiCuentaActivity extends AppCompatActivity
         crearAloj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),CrearAlojamiento.class);
+                Intent intent = new Intent(view.getContext(),CrearAlojamientoActivity.class);
                 startActivity(intent);
             }
         });
@@ -59,7 +59,7 @@ public class MiCuentaActivity extends AppCompatActivity
         consultarAloj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent consultar_intent = new Intent(view.getContext(), buscar_actividad.class);
+                Intent consultar_intent = new Intent(view.getContext(), BuscarAlojamientoActivity.class);
                 startActivity(consultar_intent);
             }
         });
@@ -67,7 +67,7 @@ public class MiCuentaActivity extends AppCompatActivity
         rutas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent rutas_intent = new Intent(view.getContext(), rutas_usuario.class);
+                Intent rutas_intent = new Intent(view.getContext(), RutasUsuarioActivity.class);
                 startActivity(rutas_intent);
             }
         });
@@ -75,7 +75,7 @@ public class MiCuentaActivity extends AppCompatActivity
         reservas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent reservas_intent = new Intent(view.getContext(), reservas_usuarios.class);
+                Intent reservas_intent = new Intent(view.getContext(), ReservasUsuariosActivity.class);
                 startActivity(reservas_intent);
             }
         });
@@ -83,7 +83,7 @@ public class MiCuentaActivity extends AppCompatActivity
         misAlojamientos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent misAloj_intent = new Intent(view.getContext(), anfitrion_alojamientos.class);
+                Intent misAloj_intent = new Intent(view.getContext(), AnfitrionAlojamientosActivity.class);
                 startActivity(misAloj_intent);
             }
         });
@@ -91,7 +91,7 @@ public class MiCuentaActivity extends AppCompatActivity
         alojamientosReser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent alojaReser_intent = new Intent(view.getContext(), reservas_anfitrion.class);
+                Intent alojaReser_intent = new Intent(view.getContext(), ReservasAnfitrionActivity.class);
                 startActivity(alojaReser_intent);
             }
         });

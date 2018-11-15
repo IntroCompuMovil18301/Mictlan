@@ -61,12 +61,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
     CardView agImagen;
     private String imagen;
 
-
-
-
-
-
-
+    private boolean huesped;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +110,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
         resnacionalidad.setAlpha(0.0f);
         sItems.setAlpha(0.0f);
         genero.setAlpha(0.0f);
+        huesped = true;
 
         crear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,8 +172,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
                 resnacionalidad.setAlpha(1.0f);
                 sItems.setAlpha(1.0f);
                 genero.setAlpha(1.0f);
-
-
+                huesped = true;
             }
         });
 
@@ -188,6 +183,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
                 resnacionalidad.setAlpha(0.0f);
                 sItems.setAlpha(0.0f);
                 genero.setAlpha(0.0f);
+                huesped = false;
             }
         });
 
@@ -291,11 +287,13 @@ public class CrearCuentaActivity extends AppCompatActivity {
             edad.setError(null);
         }
 
-        if (TextUtils.isEmpty(nacionalidad)) {
-            resnacionalidad.setError("Required.");
-            valid = false;
-        } else {
-            resnacionalidad.setError(null);
+        if (huesped) {
+            if (TextUtils.isEmpty(nacionalidad)) {
+                resnacionalidad.setError("Required.");
+                valid = false;
+            } else {
+                resnacionalidad.setError(null);
+            }
         }
 
 

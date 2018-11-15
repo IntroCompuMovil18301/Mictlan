@@ -27,6 +27,7 @@
         android:id="@+id/boton_de_fecha"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_shape"
         android:text="Fecha"

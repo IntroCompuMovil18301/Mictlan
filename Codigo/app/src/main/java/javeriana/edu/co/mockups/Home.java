@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -41,11 +42,11 @@ public class Home extends AppCompatActivity
     private static final String PATH_ALOJ = "alojamientos/";
     private static final String LEER_TAG = "LeerActivity";
 
-    Button hospedarse;
+    private FloatingActionButton hospedarse;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
-    FirebaseDatabase database;
+    private FirebaseDatabase database;
 
     private ListView lv;
 
@@ -60,7 +61,7 @@ public class Home extends AppCompatActivity
         database = FirebaseDatabase.getInstance();
         aloj = new ArrayList<Alojamiento>();
 
-        hospedarse = (Button)findViewById(R.id.botonHospedarse);
+        hospedarse = findViewById(R.id.botonHospedarse);
         final FirebaseUser Fuser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Query myTopPostsQuery = mDatabase.child("usuarios").child(Fuser.getUid());
@@ -100,7 +101,10 @@ public class Home extends AppCompatActivity
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Bundle alojamiento = new Bundle();
+                alojamiento.putSerializable("alojamiento", aloj.get(i));
                 Intent lv_intent = new Intent( view.getContext(), InfoAlojaActivity.class );
+                lv_intent.putExtras(alojamiento);
                 startActivity( lv_intent );
             }
         });

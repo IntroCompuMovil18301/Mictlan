@@ -9,6 +9,7 @@ import java.util.List;
 public class Alojamiento implements Serializable {
 
     private String usuario;
+    private String id;
     private String titulo;
     private String ubicacion;
     private double latitud;
@@ -26,10 +27,11 @@ public class Alojamiento implements Serializable {
 
     }
 
-    public Alojamiento(String usuario, String titulo, String ubicacion, double latitud, double longitud,
-                float valorNoche, String tipo, int personas, int camas, int alcobas, int banos,
-                List<String> images) {
+    public Alojamiento(String usuario, String id, String titulo, String ubicacion, double latitud,
+                       double longitud, float valorNoche, String tipo, int personas, int camas,
+                       int alcobas, int banos, List<String> images) {
         this.usuario = usuario;
+        this.id = id;
         this.titulo = titulo;
         this.ubicacion = ubicacion;
         this.latitud = latitud;
@@ -49,6 +51,14 @@ public class Alojamiento implements Serializable {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitulo() {

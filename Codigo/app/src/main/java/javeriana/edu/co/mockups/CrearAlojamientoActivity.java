@@ -22,10 +22,12 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import android.widget.TextView;
@@ -44,6 +46,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javeriana.edu.co.mockups.mAdapterView.ImageAddAdapter;
 import javeriana.edu.co.mockups.mData.Alojamiento;
 import javeriana.edu.co.mockups.mData.Usuario;
 
@@ -80,8 +83,10 @@ public class CrearAlojamientoActivity extends AppCompatActivity
     private Button cargarImagen;
     private Button tomarFoto;
     private Button crear;
+    private ListView lv_images;
 
     private List<String> images;
+    private ImageAddAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +132,8 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         tomarFoto = findViewById(R.id.cca_tomar_foto);
         crear = findViewById(R.id.btn_CrearAloj);
 
+        lv_images = findViewById(R.id.lv_images);
+
         final FirebaseUser Fuser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Query myTopPostsQuery = mDatabase.child("usuarios").child(Fuser.getUid());
@@ -169,7 +176,6 @@ public class CrearAlojamientoActivity extends AppCompatActivity
 
         mGeocoder = new Geocoder(getBaseContext());
 
-
         crear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,11 +199,10 @@ public class CrearAlojamientoActivity extends AppCompatActivity
                                 upperRigthLongitude);
                         if (addresses != null && !addresses.isEmpty()) {
                             Address addressResult = addresses.get(0);
-                            Alojamiento aloja = new Alojamiento(usuario, titulo, ubi, addressResult.getLatitude(), addressResult.getLongitude(), valorNoche, tipo, per,
-                                    cam, alc, bno, images);
                             DatabaseReference crearAlojRef = database.getReference(PATH_ALOJ);
-                            String key = crearAlojRef.push().getKey();
-                            crearAlojRef.child(key).setValue(aloja);
+                            Alojamiento aloja = new Alojamiento(usuario, crearAlojRef.push().getKey(), titulo, ubi, addressResult.getLatitude(), addressResult.getLongitude(), valorNoche, tipo, per,
+                                    cam, alc, bno, images);
+                            crearAlojRef.child(aloja.getId()).setValue(aloja);
                             Intent crear_intent = new Intent(v.getContext(), Home.class);
                             startActivity(crear_intent);
                         }
@@ -329,19 +334,25 @@ public class CrearAlojamientoActivity extends AppCompatActivity
                     try {
                         final Uri image_uri = data.getData();
                         if (image_uri != null) {
-                            images.add(image_uri.toString());
+                            String aux = image_uri.toString();
+                            images.add(aux.substring(aux.lastIndexOf("/") + 1));
+
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
+                break;
             }
             case REQUEST_IMAGE_CAPTURE: {
                 if (resultCode == RESULT_OK) {
 
                 }
+                break;
             }
         }
+        adapter = new ImageAddAdapter(images, this);
+        lv_images.setAdapter(adapter);
     }
 
     private void updateCargarImagen() {

@@ -15,9 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,17 +38,14 @@ public class MiCuentaActivity extends AppCompatActivity
     private CardView card1;
     private ImageView IOp1;
     private TextView TOp1;
-    private ImageView I2Op1;
 
     private CardView card2;
     private ImageView IOp2;
-    private TextView I2Op2;
-    private ImageView TOp2;
+    private TextView TOp2;
 
     private CardView card3;
     private ImageView IOp3;
     private TextView TOp3;
-    private ImageView I2Op3;
 
 
     private String tipo;
@@ -66,17 +63,14 @@ public class MiCuentaActivity extends AppCompatActivity
         card1 = (CardView) findViewById(R.id.card1);
         IOp1 = (ImageView) findViewById(R.id.imageOP1);
         TOp1 = (TextView) findViewById(R.id.textOP1);
-        I2Op1 = (ImageView) findViewById(R.id.image2OP1);
 
         card2 = (CardView) findViewById(R.id.card2);
         IOp2 = (ImageView) findViewById(R.id.imageOP2);
-        I2Op2 = (TextView) findViewById(R.id.textOP2);
-        TOp2 = (ImageView) findViewById(R.id.image2OP2);
+        TOp2 = (TextView) findViewById(R.id.textOP2);
 
         card3 = (CardView) findViewById(R.id.card3);
         IOp3 = (ImageView) findViewById(R.id.imageOP3);
         TOp3 = (TextView) findViewById(R.id.textOP3);
-        I2Op3 = (ImageView) findViewById(R.id.image2OP3);
 
 
         final FirebaseUser Fuser = mAuth.getCurrentUser();
@@ -91,40 +85,28 @@ public class MiCuentaActivity extends AppCompatActivity
                 tipo = aux.getTipo();
 
                 if (tipo.equals("Huesped")){
-
-
-
                     IOp1.setImageResource(R.drawable.round_seach_w);
                     TOp1.setText("Consultar Alojamiento");
-                    I2Op1.setImageResource(R.drawable.baseline_chevron_right_24);
 
                     IOp2.setImageResource(R.drawable.twotone_map_24);
-                    I2Op2.setText("Rutas");
-                    TOp2.setImageResource(R.drawable.baseline_chevron_right_24);;
+                    TOp2.setText("Rutas");
 
                     IOp3.setImageResource(R.drawable.baseline_event_note_24);
                     TOp3.setText("Reservas");
-                    I2Op3.setImageResource(R.drawable.baseline_chevron_right_24);;
 
 
-                }else {
-
+                } else {
                     IOp1.setImageResource(R.drawable.baseline_create_24);
                     TOp1.setText("Crear Alojamiento");
-                    I2Op1.setImageResource(R.drawable.baseline_chevron_right_24);
 
                     IOp2.setImageResource(R.drawable.baseline_format_list_numbered_24);
-                    I2Op2.setText("Mis Alojamientos");
-                    TOp2.setImageResource(R.drawable.baseline_chevron_right_24);;
+                    TOp2.setText("Mis Alojamientos");
 
                     IOp3.setImageResource(R.drawable.baseline_event_available_24);
                     TOp3.setText("Reservas");
-                    I2Op3.setImageResource(R.drawable.baseline_chevron_right_24);;
-
                 }
                 setUsuario(aux);
                 setTipo(tipo);
-
 
             }
 
@@ -133,10 +115,6 @@ public class MiCuentaActivity extends AppCompatActivity
 
             }
         });
-
-
-
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

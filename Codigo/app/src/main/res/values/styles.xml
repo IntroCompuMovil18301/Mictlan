@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/secondaryColor</item>
         <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="android:textColorHint">@color/primaryLightColor</item>
+        <item name="colorError">@color/accentColor</item>
 
     </style>
 
@@ -18,6 +19,7 @@
         <item name="android:colorBackground">@color/primaryColor</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:textColorHint">@color/primaryTextColor</item>
+        <item name="colorError">@color/accentColor</item>
     </style>
 
     <style name="AppTheme.ReverseTheme.NoActionBar">

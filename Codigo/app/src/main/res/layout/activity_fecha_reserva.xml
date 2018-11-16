@@ -6,68 +6,109 @@
     android:layout_height="match_parent"
     tools:context=".FechaReservaActivity">
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+    <TextView
+        android:id="@+id/fra_caltit"
+        style="@style/SubTitle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/fra_total_rese"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/fra_calend"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="0.1" />
 
-        <Button
-            android:id="@+id/fra_finali_rese"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/button_shape_white"
-            android:text="Finalizar"
-            app:layout_constraintBottom_toTopOf="@+id/fra_crerut_rese"
-            app:layout_constraintEnd_toEndOf="@+id/fra_crerut_rese"
-            app:layout_constraintStart_toStartOf="@+id/fra_crerut_rese"
-            app:layout_constraintTop_toTopOf="parent" />
+    <sun.bob.mcalendarview.views.ExpCalendarView
+        android:id="@+id/fra_calend"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/fra_fecini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fra_caltit"
+        tools:context=".FechaReservaActivity"
+        app:layout_constraintVertical_weight="0.9"/>
 
-        <Button
-            android:id="@+id/fra_crerut_rese"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/button_shape_white"
-            android:text="Crear ruta"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/fra_fecini"
+        style="@style/SubTitle"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
+        android:text="Fecha Inicio"
+        android:textColor="@color/secondaryColor"
+        app:layout_constraintBottom_toTopOf="@+id/fra_finali_rese"
+        app:layout_constraintEnd_toStartOf="@+id/fra_fecfin"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fra_calend" />
+
+    <TextView
+        android:id="@+id/fra_fecfin"
+        style="@style/SubTitle"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:text="Fecha Fin"
+        android:textColor="@color/secondaryColor"
+        app:layout_constraintBottom_toBottomOf="@+id/fra_fecini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fra_fecini"
+        app:layout_constraintTop_toTopOf="@+id/fra_fecini" />
+
+    <Button
+        android:id="@+id/fra_finali_rese"
+        style="@style/Button"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Finalizar"
+        app:layout_constraintBottom_toTopOf="@+id/fra_total_rese"
+        app:layout_constraintEnd_toStartOf="@+id/fra_crerut_rese"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fra_fecini" />
+
+    <Button
+        android:id="@+id/fra_crerut_rese"
+        style="@style/Button"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:text="Crear ruta"
+        app:layout_constraintBottom_toBottomOf="@+id/fra_finali_rese"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fra_finali_rese"
+        app:layout_constraintTop_toTopOf="@+id/fra_finali_rese" />
 
     <TextView
         android:id="@+id/fra_total_rese"
-        android:layout_width="match_parent"
+        style="@style/SubTitle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/primaryColor"
-        android:textColor="@color/secondaryColor"
         android:text="Total: $"
-        android:textSize="25sp"
         android:textAlignment="center"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fra_finali_rese"
+        app:layout_constraintVertical_weight="0.1" />
 
 </android.support.constraint.ConstraintLayout>

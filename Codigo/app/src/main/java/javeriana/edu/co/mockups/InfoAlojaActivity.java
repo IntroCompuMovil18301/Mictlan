@@ -45,7 +45,7 @@ public class InfoAlojaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_aloja);
 
-        Alojamiento alojamiento = (Alojamiento) getIntent().getExtras().getSerializable("alojamiento");
+        final Alojamiento alojamiento = (Alojamiento) getIntent().getExtras().getSerializable("alojamiento");
 
         setTitle(alojamiento.getTitulo());
 
@@ -110,6 +110,7 @@ public class InfoAlojaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent reserv_intent = new Intent( view.getContext(), FechaReservaActivity.class );
+                reserv_intent.putExtra("alojamiento", alojamiento);
                 startActivity( reserv_intent );
             }
         });

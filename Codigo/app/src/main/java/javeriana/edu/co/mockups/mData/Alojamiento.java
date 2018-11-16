@@ -4,7 +4,9 @@ import android.net.Uri;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Alojamiento implements Serializable {
 
@@ -159,5 +161,31 @@ public class Alojamiento implements Serializable {
 
     public void addImage(String image) {
         this.images.add(image);
+    }
+
+    public void addReserva(String reserva) {
+        if (this.reservas == null)
+            this.reservas = new ArrayList<>();
+        this.reservas.add(reserva);
+    }
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("usuario", usuario);
+        result.put("id", id);
+        result.put("titulo", titulo);
+        result.put("ubicacion", ubicacion);
+        result.put("latitud", latitud);
+        result.put("longitud", longitud);
+        result.put("valorNoche", valorNoche);
+        result.put("tipo", tipo);
+        result.put("personas", personas);
+        result.put("camas", camas);
+        result.put("alcobas", alcobas);
+        result.put("banos", banos);
+        result.put("images", images);
+        result.put("reservas", reservas);
+
+        return result;
     }
 }

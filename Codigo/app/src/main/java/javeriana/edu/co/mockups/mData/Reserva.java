@@ -10,6 +10,19 @@ public class Reserva implements Serializable {
     private String fechaFinal;
     private double costo;
 
+    public Reserva() {
+
+    }
+
+    public Reserva(String id, String usuarioId, String alojamientoId, String fechaInicio, double costo) {
+        this.id = id;
+        this.usuarioId = usuarioId;
+        this.alojamientoId = alojamientoId;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinal = fechaInicio;
+        this.costo = costo;
+    }
+
     public Reserva(String id, String usuarioId, String alojamientoId, String fechaInicio,
                    String fechaFinal, double costo) {
         this.id = id;

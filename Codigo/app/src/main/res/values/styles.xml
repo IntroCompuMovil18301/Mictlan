@@ -46,6 +46,8 @@
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:background">@drawable/button_shape</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

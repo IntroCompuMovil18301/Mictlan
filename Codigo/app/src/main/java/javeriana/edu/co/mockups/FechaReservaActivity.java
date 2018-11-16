@@ -57,7 +57,6 @@ public class FechaReservaActivity extends AppCompatActivity {
     private Calendar fechaFin;
     private String fechaFinS;
     private float precio;
-    ArrayList<Calendar> fechas;
 
     private FirebaseDatabase database;
 
@@ -99,8 +98,6 @@ public class FechaReservaActivity extends AppCompatActivity {
         fechaActual.setTime(currentTime);
         calend.travelTo(new DateData(fechaActual.get(Calendar.YEAR), fechaActual.get(Calendar.MONTH),
                 fechaActual.get(Calendar.DAY_OF_MONTH)));
-        calend.unMarkDate(new DateData(fechaActual.get(Calendar.YEAR), fechaActual.get(Calendar.MONTH),
-                fechaActual.get(Calendar.DAY_OF_MONTH)));
         if (alojamiento.getReservas() != null) {
             for (final String reserva : alojamiento.getReservas()) {
                 DatabaseReference reservaRef = database.getReference(PATH_RESE).child(reserva);
@@ -141,8 +138,6 @@ public class FechaReservaActivity extends AppCompatActivity {
 
                     }
                 });
-                Toast.makeText(FechaReservaActivity.this,
-                        "Hay Reservas", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -169,7 +164,7 @@ public class FechaReservaActivity extends AppCompatActivity {
                         fechaFin = new GregorianCalendar(date.getYear() + 1, 0, date.getDay());
                     else
                         fechaFin = new GregorianCalendar(date.getYear(), date.getMonth(), date.getDay());
-                    if (fechaIni.before(fechaFin)) {
+                    if (fechaIni.before(fechaFin) && fechaFinValida()) {
                         fechaFinS = String.format(Locale.getDefault(), "%d/%d/%d",
                                 fechaFin.get(Calendar.DAY_OF_MONTH),
                                 fechaFin.get(Calendar.MONTH) + 1, fechaFin.get(Calendar.YEAR));
@@ -190,8 +185,11 @@ public class FechaReservaActivity extends AppCompatActivity {
                                 (fechaFin.get(Calendar.DAY_OF_YEAR) - fechaIni.get(Calendar.DAY_OF_YEAR));
                         totalRese.setText(String.format(Locale.getDefault(), "Total: $%.2f", precio));
                         ini = 2;
-                    } else
+                    } else {
                         fechaFin = null;
+                        Toast.makeText(FechaReservaActivity.this,
+                                "Hay reservas en el intervalo del inicio hasta el final", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -202,9 +200,10 @@ public class FechaReservaActivity extends AppCompatActivity {
                 ini = 0;
                 fecIni.setText("Fecha Inicio");
                 fecFin.setText("Fecha Fin");
-                if (fechaIni != null && fechaFin != null) {
+                if (fechaIni != null)
                     calend.unMarkDate(new DateData(fechaIni.get(Calendar.YEAR),
                             fechaIni.get(Calendar.MONTH), fechaIni.get(Calendar.DAY_OF_MONTH)));
+                if (fechaIni != null && fechaFin != null) {
                     Calendar aux = (Calendar) fechaIni.clone();
                     aux.add(Calendar.DAY_OF_MONTH, 1);
                     while (aux.before(fechaFin)) {
@@ -299,22 +298,27 @@ public class FechaReservaActivity extends AppCompatActivity {
         return calend.getMarkedDates().getAll().indexOf(date) == -1 && fechaActual.before(aux);
     }
 
+    private boolean fechaFinValida() {
+        boolean valido = true;
+        Calendar aux = (Calendar) fechaIni.clone();
+
+        aux.add(Calendar.DAY_OF_MONTH, 1);
+        while (aux.before(fechaFin)) {
+            DateData fecha = new DateData(aux.get(Calendar.YEAR), aux.get(Calendar.MONTH),
+                    aux.get(Calendar.DAY_OF_MONTH));
+            if (calend.getMarkedDates().getAll().indexOf(fecha) != -1)
+                valido = false;
+            aux.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        return valido;
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
-        if (fechaIni != null)
-            calend.unMarkDate(new DateData(fechaIni.get(Calendar.YEAR),
-                    fechaIni.get(Calendar.MONTH), fechaIni.get(Calendar.DAY_OF_MONTH)));
-        if (fechaIni != null && fechaFin != null) {
-            Calendar aux = (Calendar) fechaIni.clone();
-            aux.add(Calendar.DAY_OF_MONTH, 1);
-            while (aux.before(fechaFin)) {
-                calend.unMarkDate(new DateData(aux.get(Calendar.YEAR),
-                        aux.get(Calendar.MONTH), aux.get(Calendar.DAY_OF_MONTH)));
-                aux.add(Calendar.DAY_OF_MONTH, 1);
-            }
-            calend.unMarkDate(new DateData(fechaFin.get(Calendar.YEAR),
-                    fechaFin.get(Calendar.MONTH), fechaFin.get(Calendar.DAY_OF_MONTH)));
-        }
+        ArrayList<DateData> fechas = (ArrayList<DateData>) calend.getMarkedDates().getAll().clone();
+        for (DateData date : fechas)
+            calend.unMarkDate(date);
     }
 }

@@ -110,7 +110,7 @@ public class FechaReservaActivity extends AppCompatActivity {
                             Calendar auxIni = new GregorianCalendar();
                             auxIni.setTime(auxIniDate);
 
-                            Date auxFinDate = new SimpleDateFormat("dd/MM/yyyy").parse(aux.getFechaInicio());
+                            Date auxFinDate = new SimpleDateFormat("dd/MM/yyyy").parse(aux.getFechaFinal());
                             Calendar auxFin = new GregorianCalendar();
                             auxFin.setTime(auxFinDate);
 

@@ -1,6 +1,8 @@
 package javeriana.edu.co.mockups;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -13,12 +15,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javeriana.edu.co.mockups.mData.Alojamiento;
 import javeriana.edu.co.mockups.mData.Usuario;
@@ -64,7 +74,40 @@ public class InfoAlojaActivity extends AppCompatActivity {
         califi_but = findViewById( R.id.iaa_califi_aloj );
         reserv_but = findViewById( R.id.iaa_reserv_aloj );
 
-        foto_aloj.setImageURI(Uri.parse(alojamiento.getImages().get(0)));
+        final File image = new File(getBaseContext().getExternalFilesDir(null),
+                alojamiento.getImages().get(0) + "jpg");
+        if(!image.exists()) {
+            FirebaseStorage.getInstance().getReference("alojamientos")
+                    .child(alojamiento.getId()).child(alojamiento.getImages().get(0)).getFile(image).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 4;
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = BitmapFactory.decodeStream(new FileInputStream(image), null, options);
+                        foto_aloj.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
+        } else {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 4;
+            Bitmap bitmap = null;
+            try {
+                bitmap = BitmapFactory.decodeStream(new FileInputStream(image), null, options);
+                foto_aloj.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
 
         tipo_aloj.setText(tipo_aloj.getText().toString() + alojamiento.getTipo());
         ubicac_aloj.setText(ubicac_aloj.getText().toString() + alojamiento.getUbicacion());

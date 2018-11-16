@@ -4,12 +4,15 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -32,6 +35,8 @@ import android.widget.Spinner;
 
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,8 +47,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javeriana.edu.co.mockups.mAdapterView.ImageAddAdapter;
@@ -67,8 +79,7 @@ public class CrearAlojamientoActivity extends AppCompatActivity
     public static final double upperRigthLongitude = -73.997955;
 
     private FirebaseDatabase database;
-    private DatabaseReference mDatabase;
-    private FirebaseAuth mAuth;
+    private FirebaseStorage storage;
 
     Geocoder mGeocoder;
 
@@ -85,7 +96,8 @@ public class CrearAlojamientoActivity extends AppCompatActivity
     private Button crear;
     private ListView lv_images;
 
-    private List<String> images;
+    private List<String> imagesName;
+    private List<Bitmap> images;
     private ImageAddAdapter adapter;
 
     @Override
@@ -94,7 +106,6 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         setContentView(R.layout.activity_crear_alojamiento);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mAuth = FirebaseAuth.getInstance();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -118,6 +129,7 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         tipoAl.setAdapter(adapterTipo);
 
         database = FirebaseDatabase.getInstance();
+        storage = FirebaseStorage.getInstance();
 
         nombreAlojamiento = findViewById(R.id.eT_NombreAlojamiento);
         tipoAl = findViewById(R.id.spinner_TipoAl);
@@ -132,11 +144,13 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         tomarFoto = findViewById(R.id.cca_tomar_foto);
         crear = findViewById(R.id.btn_CrearAloj);
 
+        imagesName = new ArrayList<String>();
+        images = new ArrayList<>();
+
         lv_images = findViewById(R.id.lv_images);
 
-        final FirebaseUser Fuser = mAuth.getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        Query myTopPostsQuery = mDatabase.child("usuarios").child(Fuser.getUid());
+        final FirebaseUser Fuser = FirebaseAuth.getInstance().getCurrentUser();
+        Query myTopPostsQuery = database.getReference().child("usuarios").child(Fuser.getUid());
         myTopPostsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -150,7 +164,6 @@ public class CrearAlojamientoActivity extends AppCompatActivity
 
             }
         });
-        images = new ArrayList<String>();
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -200,9 +213,30 @@ public class CrearAlojamientoActivity extends AppCompatActivity
                         if (addresses != null && !addresses.isEmpty()) {
                             Address addressResult = addresses.get(0);
                             DatabaseReference crearAlojRef = database.getReference(PATH_ALOJ);
-                            Alojamiento aloja = new Alojamiento(usuario, crearAlojRef.push().getKey(), titulo, ubi, addressResult.getLatitude(), addressResult.getLongitude(), valorNoche, tipo, per,
-                                    cam, alc, bno, images);
-                            crearAlojRef.child(aloja.getId()).setValue(aloja);
+                            final Alojamiento aloja = new Alojamiento(usuario, crearAlojRef.push().getKey(), titulo, ubi, addressResult.getLatitude(), addressResult.getLongitude(), valorNoche, tipo, per,
+                                    cam, alc, bno, imagesName);
+                            crearAlojRef.child(aloja.getId()).setValue(aloja, new
+                                    DatabaseReference.CompletionListener() {
+                                        @Override
+                                        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                                            if (databaseError != null) {
+                                                Toast.makeText(CrearAlojamientoActivity.this,
+                                                        "No se pudo crear el alojamiento", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(CrearAlojamientoActivity.this,
+                                                        "El alojamiento ha sido creada", Toast.LENGTH_SHORT).show();
+                                                StorageReference crearImagenes = storage.getReference(PATH_ALOJ).child(aloja.getId());
+                                                for (int i = 0; i < images.size(); i++) {
+                                                    Bitmap image = images.get(i);
+                                                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                                    image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                                    byte[] data = baos.toByteArray();
+
+                                                    UploadTask uploadTask = crearImagenes.child(imagesName.get(i)).putBytes(data);
+                                                }
+                                            }
+                                        }
+                                    });
                             Intent crear_intent = new Intent(v.getContext(), Home.class);
                             startActivity(crear_intent);
                         }
@@ -335,8 +369,10 @@ public class CrearAlojamientoActivity extends AppCompatActivity
                         final Uri image_uri = data.getData();
                         if (image_uri != null) {
                             String aux = image_uri.toString();
-                            images.add(aux.substring(aux.lastIndexOf("/") + 1));
-
+                            imagesName.add(aux.substring(aux.lastIndexOf("/") + 1));
+                            final InputStream imagenStream =
+                                    getContentResolver().openInputStream(image_uri);
+                            images.add(BitmapFactory.decodeStream(imagenStream));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -346,12 +382,18 @@ public class CrearAlojamientoActivity extends AppCompatActivity
             }
             case REQUEST_IMAGE_CAPTURE: {
                 if (resultCode == RESULT_OK) {
-
+                    Bundle extras = data.getExtras();
+                    if (extras != null) {
+                        images.add((Bitmap) extras.get("data"));
+                        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                        String imageFileName = "JPEG_" + timeStamp + ".jpg";
+                        imagesName.add(imageFileName);
+                    }
                 }
                 break;
             }
         }
-        adapter = new ImageAddAdapter(images, this);
+        adapter = new ImageAddAdapter(imagesName, this);
         lv_images.setAdapter(adapter);
     }
 
@@ -438,8 +480,8 @@ public class CrearAlojamientoActivity extends AppCompatActivity
             banos.setError(null);
         }
 
-        if (images.size() < 4) {
-            Toast.makeText(this,"Necesitas " + (4 - images.size())+ " imagenes",
+        if (imagesName.size() < 4) {
+            Toast.makeText(this,"Necesitas " + (4 - imagesName.size())+ " imagenes",
                     Toast.LENGTH_LONG).show();
             valid = false;
         }

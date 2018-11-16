@@ -38,7 +38,7 @@ public class InfoReseActivity extends AppCompatActivity {
         comoLlegar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),FinalizarActivity.class);
+                Intent intent = new Intent(view.getContext(),ComoLlegarActivity.class);
                 startActivity(intent);
             }
         });

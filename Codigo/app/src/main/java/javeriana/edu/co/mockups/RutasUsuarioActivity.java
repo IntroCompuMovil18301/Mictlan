@@ -23,7 +23,7 @@ public class RutasUsuarioActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent lv_intent = new Intent( view.getContext(), FinalizarActivity.class );
+                Intent lv_intent = new Intent( view.getContext(), ComoLlegarActivity.class );
                 startActivity( lv_intent );
             }
         });

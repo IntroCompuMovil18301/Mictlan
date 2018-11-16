@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -126,7 +125,7 @@ public class Home extends AppCompatActivity
         hospedarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),BuscarActividadActivity.class);
+                Intent intent = new Intent(view.getContext(),BuscarAlojamientoActivity.class);
                 startActivity(intent);
         }
         });

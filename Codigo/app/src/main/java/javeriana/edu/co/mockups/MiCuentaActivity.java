@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -139,7 +138,7 @@ public class MiCuentaActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 if (auxTipo.equals("Huesped")){
-                    Intent consultar_intent = new Intent(view.getContext(), BuscarActividadActivity.class);
+                    Intent consultar_intent = new Intent(view.getContext(), BuscarAlojamientoActivity.class);
                     startActivity(consultar_intent);
                 }else {
                     Intent intent = new Intent(view.getContext(),CrearAlojamientoActivity.class);
@@ -166,7 +165,7 @@ public class MiCuentaActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 if (auxTipo.equals("Huesped")){
-                    Intent reservas_intent = new Intent(view.getContext(), ReservasUsuarios.class);
+                    Intent reservas_intent = new Intent(view.getContext(), ReservasUsuariosActivity.class);
                     startActivity(reservas_intent);
                 }else {
                     Intent alojaReser_intent = new Intent(view.getContext(), ReservasAnfitrionActivity.class);

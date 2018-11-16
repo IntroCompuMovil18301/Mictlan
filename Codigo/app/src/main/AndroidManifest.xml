@@ -59,15 +59,15 @@
             android:name=".Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".FinalizarActivity" />
+        <activity android:name=".ComoLlegarActivity" />
         <activity android:name=".RutaActivity"></activity>
         <activity android:name=".HistoricoAlojamientoActivity"></activity>
         <activity android:name=".AnfitrionAlojamientosActivity" />
         <activity android:name=".ReservasAnfitrionActivity" />
         <activity android:name=".BiografiaAnfitrionActivity" />
-        <activity android:name=".BuscarActividadActivity" />
+        <activity android:name=".BuscarAlojamientoActivity" />
         <activity android:name=".HistorialUsuarioActivity" />
-        <activity android:name=".ReservasUsuarios" />
+        <activity android:name=".ReservasUsuariosActivity" />
         <activity android:name=".RutasUsuarioActivity" />
         <activity android:name=".CalificacionesActivity" />
         <!--

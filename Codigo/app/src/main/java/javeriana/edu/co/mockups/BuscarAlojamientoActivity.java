@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -32,7 +31,6 @@ import java.util.List;
 
 import javeriana.edu.co.mockups.mAdapterView.CustomAdapter;
 import javeriana.edu.co.mockups.mData.Alojamiento;
-import javeriana.edu.co.mockups.mData.ColeccionAlojamientos;
 
 public class BuscarAlojamientoActivity extends AppCompatActivity {
 

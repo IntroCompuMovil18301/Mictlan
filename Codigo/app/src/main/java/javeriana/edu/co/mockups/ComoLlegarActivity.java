@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class FinalizarActivity extends AppCompatActivity {
+public class ComoLlegarActivity extends AppCompatActivity {
     Button ok;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_finalizar);
+        setContentView(R.layout.activity_como_llegar);
 
         ok = (Button)findViewById(R.id.btn_OkFinalizar);
 

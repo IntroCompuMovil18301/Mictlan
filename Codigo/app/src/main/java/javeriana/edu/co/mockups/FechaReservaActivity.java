@@ -286,8 +286,8 @@ public class FechaReservaActivity extends AppCompatActivity {
         crerut_but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent crerut_intent = new Intent(view.getContext(), RutaActivity.class);
-                startActivity(crerut_intent);
+                //Intent crerut_intent = new Intent(view.getContext(), .class);
+                //startActivity(crerut_intent);
             }
         });
     }

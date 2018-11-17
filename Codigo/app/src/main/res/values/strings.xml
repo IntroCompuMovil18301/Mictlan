@@ -45,5 +45,6 @@
         <item>Ubicacion</item>
     </string-array>
     <string name="title_activity_alojamiento_maps">Map</string>
+    <string name="title_activity_como_llegar">Map</string>
 
 </resources>

@@ -176,8 +176,8 @@ public class AlojamientoMapsActivity extends FragmentActivity implements OnMapRe
                 .center(new LatLng(lati,longi))
                 .radius(2000)//metros
                 .strokeWidth(10)
-                .strokeColor(Color.parseColor("#0a70a2"))
-                .fillColor(Color.parseColor("#539ed3"))
+                .strokeColor(Color.parseColor("#CC0a70a2"))
+                .fillColor(Color.parseColor("#40539ed3"))
                 .clickable(true);
         mMap.addCircle(circleOptions);
 

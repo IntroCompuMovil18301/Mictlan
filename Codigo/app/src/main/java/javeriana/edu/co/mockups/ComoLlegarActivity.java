@@ -129,7 +129,7 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.person))
                 .title("Actual");
 
-        alojamiento = (Alojamiento) getIntent().getSerializableExtra("miAlojamiento");
+        alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
 
         mLocationCallback = new LocationCallback() {
             @Override

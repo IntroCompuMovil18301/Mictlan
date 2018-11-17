@@ -38,7 +38,7 @@
             android:theme="@style/AppTheme.ReverseTheme.NoActionBar" />
         <activity
             android:name=".InfoReseActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".InfoAlojaActivity"
             android:theme="@style/AppTheme" />
@@ -58,10 +58,9 @@
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".ComoLlegarActivity" />
-        <activity android:name=".RutaActivity"></activity>
-        <activity android:name=".HistoricoAlojamientoActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".RutaActivity" />
+        <activity android:name=".HistoricoAlojamientoActivity" />
         <activity android:name=".AnfitrionAlojamientosActivity" />
         <activity android:name=".ReservasAnfitrionActivity" />
         <activity android:name=".BiografiaAnfitrionActivity" />
@@ -84,7 +83,10 @@
 
         <activity
             android:name=".AlojamientoMapsActivity"
-            android:label="@string/title_activity_alojamiento_maps"></activity>
+            android:label="@string/title_activity_alojamiento_maps" />
+        <activity
+            android:name=".ComoLlegarActivity"
+            android:label="@string/title_activity_como_llegar"></activity>
     </application>
 
 </manifest>

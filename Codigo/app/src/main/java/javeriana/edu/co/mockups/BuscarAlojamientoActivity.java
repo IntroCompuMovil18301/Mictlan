@@ -173,6 +173,8 @@ public class BuscarAlojamientoActivity extends AppCompatActivity {
         Intent mapas = new Intent(this, AlojamientoMapsActivity.class);
         Bundle paquete = new Bundle();
         paquete.putSerializable("lista", aux);
+        paquete.putDouble("latitud", latitude);
+        paquete.putDouble("longitud", longitude);
         mapas.putExtras(paquete);
         startActivity(mapas);
     }

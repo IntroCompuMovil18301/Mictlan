@@ -2,19 +2,13 @@ package javeriana.edu.co.mockups;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -22,11 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -45,10 +35,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -56,7 +44,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.maps.android.SphericalUtil;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONObject;
 
@@ -67,16 +59,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Date;
+import java.util.Set;
 
 import javeriana.edu.co.mockups.mData.Alojamiento;
 
+public class AlojamientosEnCamino extends FragmentActivity implements OnMapReadyCallback {
 
-public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCallback {
+    private static final String PATH_ALOJ = "alojamientos/";
+    private static final String LEER_TAG = "ALojamientosEnCamino";
 
     final static int MY_PERMISSIONS_REQUEST_LOCATION = 1;
     final static int REQUEST_CHECK_SETTINGS = 2;
@@ -92,35 +85,55 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
     private Geocoder mGeocoder;
+    private FirebaseDatabase database;
     private Location location;
     private MarkerOptions actualMarkerOptions;
     private Marker actualMarker;
     private ArrayList<LatLng> points;
     private Polyline path;
     private PolylineOptions lineOptions;
+    public Set<Alojamiento> alojamientos;
     private LatLng positionOrigin;
     private LatLng positionDest;
     private FloatingActionButton back;
     Alojamiento alojamiento;
 
+    ArrayList<Alojamiento> aloj = new ArrayList<Alojamiento>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_como_llegar);
+        setContentView(R.layout.activity_alojamientos_en_camino);
 
-        back = findViewById(R.id.f_btn_back_Alojamiento);
+        alojamientos =  new HashSet<Alojamiento>();
+        back = findViewById(R.id.f_btn_back_Alojamiento_rutas_b);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
         requestPermission(this, Manifest.permission.ACCESS_FINE_LOCATION,
                 "Se necesita acceder a los ubicacion", MY_PERMISSIONS_REQUEST_LOCATION);
 
-        //turnLocation();
+        database = FirebaseDatabase.getInstance();
 
         mLocationRequest = createLocationRequest();
 
         mGeocoder = new Geocoder(getBaseContext());
 
+        DatabaseReference leerRef = database.getReference(PATH_ALOJ);
+        leerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot singleSnap : dataSnapshot.getChildren()) {
+                    Alojamiento aux = singleSnap.getValue(Alojamiento.class);
+                    aloj.add(aux);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(LEER_TAG, "error en la consulta", databaseError.toException());
+            }
+        });
+        
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         actualMarkerOptions = new MarkerOptions();
@@ -155,7 +168,7 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
         };
 
         turnLocation();
-
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -166,20 +179,6 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
                 finish();
             }
         });
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //startLocationUpdates();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //stopLocationUpdates();
     }
 
 
@@ -206,61 +205,31 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
 
         if (mMap != null) {
             //Agregar Marcador al mapa
-            createMarker(alojamiento.getLatitud(),alojamiento.getLongitud(), alojamiento.getTitulo(), alojamiento.getUbicacion());
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(alojamiento.getLatitud(),alojamiento.getLongitud()))
+                    .anchor(0.5f, 0.5f)
+                    .title(alojamiento.getTitulo())
+                    .snippet(alojamiento.getUbicacion())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.hotel)));
         }
         if (mMap != null && location != null) {
             Toast.makeText(this, "Dibujar Mapa", Toast.LENGTH_LONG).show();
             positionDest = new LatLng(alojamiento.getLatitud(),alojamiento.getLongitud());
             positionOrigin = new LatLng(location.getLatitude(), location.getLongitude());
-            drawPath(positionOrigin, positionDest);
+            markAlojamientosInWay(positionOrigin, positionDest);
         }
 
 
-
-
-        // Add a marker in Sydney and move the camera
-        /*LatLng miCasa = new LatLng(4.653039, -74.088227);
-        mMap.addMarker(new MarkerOptions().position(miCasa).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(miCasa));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
-        mMap.getUiSettings().setZoomGesturesEnabled(true);
-        */
-
     }
 
-    protected Marker createMarker(double latitud, double longitud, String titulo, String ubicacion) {
-
-        return mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(latitud,longitud))
-                .anchor(0.5f, 0.5f)
-                .title(titulo)
-                .snippet(ubicacion)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.hotel)));
-    }
-
-
-    private void loadLocation(){
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
-            mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new
-                    OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null && mMap != null) {
-                                LatLng actualPosition = new LatLng(location.getLatitude(),location.getLongitude());
-                                actualMarkerOptions.position(actualPosition);
-                                actualMarker = mMap.addMarker(actualMarkerOptions);
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(actualPosition));
-                                positionDest = new LatLng(alojamiento.getLatitud(),alojamiento.getLongitud());
-                                positionOrigin = new LatLng(location.getLatitude(), location.getLongitude());
-                                drawPath(positionOrigin, positionDest);
-                            }
-                        }});
-        }
-        else {
-
-        }
-    }
-
+    /**
+     * Solicita el permiso para acceder a la ubucacion
+     *
+     * @param context
+     * @param permission
+     * @param explanation
+     * @param requestId
+     */
     private void requestPermission(Activity context, String permission, String explanation, int requestId ){
         if (ContextCompat.checkSelfPermission(context,permission)!= PackageManager.PERMISSION_GRANTED) {
             // Should we show an explanation?
@@ -271,17 +240,10 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch(requestCode){
-            case MY_PERMISSIONS_REQUEST_LOCATION : {
-                loadLocation();
-                break;
-            }
-        }
-    }
-
+    /** Crea una peticion de localizacion para x tiempo
+     *
+     * @return
+     */
     protected LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000); //tasa de refresco en milisegundos
@@ -290,18 +252,10 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
         return mLocationRequest;
     }
 
-    private void startLocationUpdates(){
-        if(ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
-            mFusedLocationClient.requestLocationUpdates(mLocationRequest,
-                    mLocationCallback, null);
-        }
-    }
-
-    private void stopLocationUpdates(){
-        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-    }
-
+    /**
+     *
+     *  Establece los parametros para las tareas de actualizacion de localizacion
+     */
     private void turnLocation(){
         LocationSettingsRequest.Builder builder = new
                 LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
@@ -326,7 +280,7 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
                         // Location settings are not satisfied, but this can be fixed by showing the user a dialog.
                         try {// Show the dialog by calling startResolutionForResult(), and check the result in onActivityResult().
                             ResolvableApiException resolvable = (ResolvableApiException) e;
-                            resolvable.startResolutionForResult(ComoLlegarActivity.this, REQUEST_CHECK_SETTINGS);
+                            resolvable.startResolutionForResult(AlojamientosEnCamino.this, REQUEST_CHECK_SETTINGS);
                         } catch (IntentSender.SendIntentException sendEx) {
                             // Ignore the error.
                         } break;
@@ -338,6 +292,39 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
         });
     }
 
+    /**
+     * Iniciar servicios de actualizacion de localizacion
+     */
+    private void startLocationUpdates(){
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
+            mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                    mLocationCallback, null);
+        }
+    }
+    /**
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch(requestCode){
+            case MY_PERMISSIONS_REQUEST_LOCATION : {
+                loadLocation();
+                break;
+            }
+        }
+    }
+
+    /**
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -353,44 +340,123 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
             }
         }
     }
-
-    public double distance(double lat1, double long1, double lat2, double long2) {
-        double latDistance = Math.toRadians(lat1 - lat2);
-        double lngDistance = Math.toRadians(long1 - long2);
-        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
-                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double result = RADIUS_OF_EARTH_KM * c;
-        return Math.round(result*100.0)/100.0;
+    /**
+     * Parar servicios de actualizacion
+     */
+    private void stopLocationUpdates(){
+        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
     }
 
-    private String distanceTo(double lat1, double lat2, double lat3, double lat4){
-        double dist = distance(lat1,lat2,lat3,lat4);
-        return "Distancia: " + String.valueOf(dist)+ " km.";
-    }
+    /**
+     * Encuentra los alojamientos más cercanos en un radio de n km
+     * @param latitud
+     * @param longitud
+     * @param radious
+     */
+    public void findAlojamientoInRadius(double latitud, double longitud, double radious){
 
-    private String pathDistance(){
-        if(points != null){
-            return "Distancia: " +
-                    String.valueOf(Math.round(SphericalUtil.computeLength(points))/1000.0)+ " km.";
+        LatLng latLngA = new LatLng(latitud,longitud);
+        LatLng latLngB;
+        for (Alojamiento alojamientoInd:aloj) {
+            if (alojamientoInd != null) {
+                latLngB = new LatLng(alojamientoInd.getLatitud(), alojamientoInd.getLongitud());
+                if (isInradious(latLngA, latLngB, radious)) {
+                    alojamientos.add(alojamientoInd);
+                }
+            }
         }
-        return "Distancia: Error km.";
+
     }
 
-    private void drawPath(LatLng origin, LatLng destination){
+    /**
+     * Crea un markador en una posicion especifica
+     *
+     * @param latitud
+     * @param longitud
+     * @param titulo
+     * @param ubicacion
+     * @return
+     */
+    protected Marker createMarker(double latitud, double longitud, String titulo, String ubicacion) {
+
+        return mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitud,longitud))
+                .anchor(0.5f, 0.5f)
+                .title(titulo)
+                .snippet(ubicacion)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.hotel)));
+    }
+
+    /**
+     * Retorna si esta en el radio especificado
+     *
+     * @param latLngA
+     * @param latLngB
+     * @param radious
+     * @return
+     */
+    private boolean isInradious(LatLng latLngA, LatLng latLngB, double radious){
+
+        Location locationA = new Location("punto A");
+        locationA.setLatitude(latLngA.latitude);
+        locationA.setLongitude(latLngA.longitude);
+
+        Location locationB = new Location("punto B");
+        locationB.setLatitude(latLngB.latitude);
+        locationB.setLongitude(latLngB.longitude);
+
+        double distance = locationA.distanceTo(locationB);
+
+        if (distance < radious){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param origin
+     * @param destination
+     */
+    private void markAlojamientosInWay(LatLng origin, LatLng destination){
         if(path != null){
             path.remove();
         }
         // Getting URL to the Google Directions API
         String url = getUrl(origin, destination);
-        FetchUrl FetchUrl = new FetchUrl();
+        Toast.makeText(AlojamientosEnCamino.this,url.toString(),Toast.LENGTH_LONG).show();
+        AlojamientosEnCamino.FetchUrl FetchUrl = new AlojamientosEnCamino.FetchUrl();
 
         // Start downloading json data from Google Directions API
         FetchUrl.execute(url);
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+    }
+
+    /**
+     *
+     */
+    private void loadLocation(){
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new
+                    OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null && mMap != null) {
+                                LatLng actualPosition = new LatLng(location.getLatitude(),location.getLongitude());
+                                actualMarkerOptions.position(actualPosition);
+                                actualMarker = mMap.addMarker(actualMarkerOptions);
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(actualPosition));
+                                positionDest = new LatLng(alojamiento.getLatitud(),alojamiento.getLongitud());
+                                positionOrigin = new LatLng(location.getLatitude(), location.getLongitude());
+                                markAlojamientosInWay(positionOrigin, positionDest);
+                            }
+                        }});
+        }
+        else {
+
+        }
     }
 
     private String getUrl(LatLng origin, LatLng dest) {
@@ -416,37 +482,6 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
         String url = "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters + "&key=" + "AIzaSyBnelNcSt3akle6dFOuEgMtkzhtCG0Mxf0";
 
         return url;
-    }
-
-    // Fetches data from url passed
-    public class FetchUrl extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... url) {
-
-            // For storing data from web service
-            String data = "";
-
-            try {
-                // Fetching the data from web service
-                data = downloadUrl(url[0]);
-                Log.d("Background Task data", data.toString());
-            } catch (Exception e) {
-                Log.d("Background Task", e.toString());
-            }
-            return data;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            ParserTask parserTask = new ParserTask();
-
-            // Invokes the thread for parsing the JSON data
-            parserTask.execute(result);
-
-        }
     }
 
     private String downloadUrl(String strUrl) throws IOException {
@@ -487,6 +522,38 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
         return data;
     }
 
+
+    public class FetchUrl extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... url) {
+
+            // For storing data from web service
+            String data = "";
+
+            try {
+                // Fetching the data from web service
+                data = downloadUrl(url[0]);
+                Log.d("Background Task data", data.toString());
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            ParserTask parserTask = new ParserTask();
+
+            // Invokes the thread for parsing the JSON data
+            parserTask.execute(result);
+
+        }
+
+    }
+
     public class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
 
         // Parsing the data in non-ui thread
@@ -522,7 +589,6 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
             for (int i = 0; i < result.size(); i++) {
                 points = new ArrayList<>();
                 lineOptions = new PolylineOptions();
-
                 // Fetching i-th route
                 List<HashMap<String, String>> path = result.get(i);
 
@@ -533,21 +599,22 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
                     double lat = Double.parseDouble(point.get("lat"));
                     double lng = Double.parseDouble(point.get("lng"));
                     LatLng position = new LatLng(lat, lng);
-
+                    findAlojamientoInRadius(lat,lng,2000.0);
                     points.add(position);
                 }
 
-                // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
                 lineOptions.width(6);
                 lineOptions.color(Color.RED);
-
                 Log.d("onPostExecute","onPostExecute lineoptions decoded");
 
             }
 
             // Drawing polyline in the Google Map for the i-th route
             if(lineOptions != null  && positionDest!=null && mMap != null) {
+                for(Alojamiento alojamiento: alojamientos){
+                    createMarker(alojamiento.getLatitud(),alojamiento.getLongitud(),alojamiento.getTitulo(),alojamiento.getUbicacion());
+                }
                 path = mMap.addPolyline(lineOptions);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(positionDest, 15));
             }
@@ -556,7 +623,5 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
             }
         }
     }
-
-
 
 }

@@ -46,5 +46,6 @@
     </string-array>
     <string name="title_activity_alojamiento_maps">Map</string>
     <string name="title_activity_como_llegar">Map</string>
+    <string name="title_activity_alojamientos_en_camino">Map</string>
 
 </resources>

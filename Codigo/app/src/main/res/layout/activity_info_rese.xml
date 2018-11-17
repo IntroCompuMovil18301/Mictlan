@@ -29,21 +29,12 @@
 
 
             <TextView
-                android:id="@+id/ira_titulo_aloj"
-                style="@style/Titles"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="Casa Bonita en Alderwood Ave"
-                android:textAlignment="textStart" />
-
-            <TextView
                 android:id="@+id/ira_tipo_aloj"
                 style="@style/Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Tipo: Casa"
+                android:text="Tipo:"
                 android:textSize="18sp" />
 
             <TextView
@@ -52,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Direccion: 7433 Alderwood Ave Summerfield, FL 34491"
+                android:text="Direccion:"
                 android:textSize="18sp" />
 
             <android.support.constraint.ConstraintLayout
@@ -73,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:text="6 Personas"
+                        android:text="Personas"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView5"
@@ -100,7 +91,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="5 Camas"
+                        android:text="Camas"
                         app:layout_constraintBottom_toBottomOf="@+id/iV_BiografiaAnfitrion"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/iV_BiografiaAnfitrion"
@@ -131,12 +122,12 @@
                     app:layout_constraintTop_toTopOf="@+id/constraintLayout8">
 
                     <TextView
-                        android:id="@+id/ira_numbañ_aloj"
+                        android:id="@+id/ira_numban_aloj"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:text="3 Baños"
+                        android:text="Baños"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView7"
@@ -163,7 +154,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="4 Alcobas"
+                        android:text="Alcobas"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView8"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView8"
@@ -194,20 +185,50 @@
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="59dp" />
 
-            <Button
+            <android.support.v7.widget.CardView
                 android:id="@+id/ira_biogra_anfi"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
                 android:drawableEnd="@android:drawable/btn_star_big_on"
-                android:gravity="start|center_vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:text="Ron Swanson Perez"
-                android:textAlignment="gravity"
                 android:textColor="@color/secondaryColor"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/ira_nombre_anfi"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/secondaryColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ira_foto_anfi"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="0.7"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ira_foto_anfi"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="0.3"
+                        app:layout_constraintStart_toEndOf="@+id/ira_nombre_anfi"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
 
             <TextView
                 android:id="@+id/textView5"
@@ -284,7 +305,7 @@
                 android:text="Inicia el: " />
 
             <TextView
-                android:id="@+id/ifa_fecfin_rese"
+                android:id="@+id/ira_fecfin_rese"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
@@ -310,7 +331,7 @@
         android:id="@+id/ira_total_rese"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Total: $60"
+        android:text="Total: $"
         android:textAlignment="center"
         android:textColor="@color/primaryColor"
         android:textSize="36sp"

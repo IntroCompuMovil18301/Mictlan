@@ -49,7 +49,7 @@ public class Home extends AppCompatActivity
 
     private ListView lv;
 
-    ArrayList<Alojamiento> aloj;
+    private ArrayList<Alojamiento> aloj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalificarActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/cal_nomb_aloj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/cal_nomb_hues"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+    <com.iarcuschin.simpleratingbar.SimpleRatingBar
+        android:id="@+id/cal_rating_aloj"
+        android:layout_width="147dp"
+        android:layout_height="28dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:layout_marginStart="0.5dp"
+        android:layout_marginBottom="8dp"
+        android:padding="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iaa_precio_aloj"
+        app:layout_constraintTop_toBottomOf="@+id/iaa_precio_aloj"
+        app:srb_borderColor="@color/primaryColor"
+        app:srb_fillColor="@color/primaryColor"
+        app:srb_isIndicator="false"
+        app:srb_numberOfStars="5"
+        app:srb_rating="3"
+        app:srb_starBorderWidth="3"
+        app:srb_starSize="25dp"
+        app:srb_stepSize="0.7" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/cal_res_aloj"
+                    android:layout_width="match_parent"
+                    android:layout_height="227dp"
+                    android:hint="hint" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/cal_env_aloj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_shape"
+                android:text="Button"
+                android:textColor="@color/primaryTextColor" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>
+

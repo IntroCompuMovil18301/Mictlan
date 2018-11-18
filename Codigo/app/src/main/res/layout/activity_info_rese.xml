@@ -243,39 +243,62 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <com.iarcuschin.simpleratingbar.SimpleRatingBar
-                    android:id="@+id/iaa_rating_aloj"
-                    android:layout_width="147dp"
-                    android:layout_height="28dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="10dp"
-                    android:layout_marginStart="0.5dp"
-                    android:layout_marginBottom="8dp"
-                    android:padding="2dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/iaa_precio_aloj"
-                    app:layout_constraintTop_toBottomOf="@+id/iaa_precio_aloj"
-                    app:srb_borderColor="@color/primaryColor"
-                    app:srb_fillColor="@color/primaryColor"
-                    app:srb_numberOfStars="5"
-                    app:srb_rating="3"
-                    app:srb_starBorderWidth="3"
-                    app:srb_starSize="25dp"
-                    app:srb_isIndicator="true"
-                    app:srb_stepSize="0.7" />
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <Button
-                    android:id="@+id/ira_califi_aloj"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:gravity="start|center_vertical"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text="Ver Calificaciones"
-                    android:textColor="@color/secondaryColor"
-                    android:textSize="12sp" />
+                    <Button
+                        android:id="@+id/ira_califi_aloj"
+                        android:layout_width="162dp"
+                        android:layout_height="52dp"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="start|center_vertical"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="Ver Calificaciones"
+                        android:textColor="@color/secondaryColor"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/iaa_rating_aloj"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/iaa_rating_aloj"
+                        app:layout_constraintTop_toTopOf="@+id/iaa_rating_aloj" />
+
+                    <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                        android:id="@+id/iaa_rating_aloj"
+                        android:layout_width="147dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="10dp"
+                        android:layout_marginStart="0.5dp"
+                        android:layout_marginBottom="8dp"
+                        android:padding="2dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/iaa_precio_aloj"
+                        app:layout_constraintTop_toBottomOf="@+id/iaa_precio_aloj"
+                        app:srb_borderColor="@color/primaryColor"
+                        app:srb_fillColor="@color/primaryColor"
+                        app:srb_isIndicator="true"
+                        app:srb_numberOfStars="5"
+                        app:srb_rating="3"
+                        app:srb_starBorderWidth="3"
+                        app:srb_starSize="25dp"
+                        app:srb_stepSize="0.7" />
+                </android.support.constraint.ConstraintLayout>
+
             </LinearLayout>
+
+            <Button
+                android:id="@+id/ira_calificar_aloj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_shape"
+                android:text="Calificar"
+                android:textColor="@color/primaryTextColor" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline"
@@ -296,6 +319,27 @@
                 android:layout_marginLeft="8dp"
                 android:text="Fechas"
                 android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/mesesira"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:text="TextView"
+                android:textSize="24sp" />
+
+            <sun.bob.mcalendarview.views.ExpCalendarView
+                android:id="@+id/ira_calend"
+                android:layout_width="wrap_content"
+                android:layout_height="340dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/fra_fecini"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fra_caltit"
+                app:layout_constraintVertical_weight="0.9"
+                tools:context=".FechaReservaActivity" />
 
             <TextView
                 android:id="@+id/ira_fecini_rese"

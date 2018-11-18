@@ -7,6 +7,7 @@
     tools:context=".CalificacionesActivity">
 
     <ListView
+        android:id="@+id/list_cal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"

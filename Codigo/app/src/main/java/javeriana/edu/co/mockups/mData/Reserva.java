@@ -80,4 +80,5 @@ public class Reserva implements Serializable {
     public void setCosto(double costo) {
         this.costo = costo;
     }
+
 }

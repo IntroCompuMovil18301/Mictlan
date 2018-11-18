@@ -86,7 +86,8 @@
             android:label="@string/title_activity_alojamiento_maps" />
         <activity
             android:name=".ComoLlegarActivity"
-            android:label="@string/title_activity_como_llegar"></activity>
+            android:label="@string/title_activity_como_llegar" />
+        <activity android:name=".CalificarActivity"></activity>
     </application>
 
 </manifest>

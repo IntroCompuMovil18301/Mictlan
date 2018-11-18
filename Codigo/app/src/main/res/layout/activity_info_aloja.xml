@@ -285,6 +285,7 @@
             app:srb_fillColor="@color/primaryColor"
             app:srb_numberOfStars="5"
             app:srb_rating="3"
+            app:srb_isIndicator="true"
             app:srb_starBorderWidth="0.6"
             app:srb_starSize="13dp"
             app:srb_stepSize="0.7" />

@@ -1,7 +1,5 @@
 package javeriana.edu.co.mockups.mData;
 
-import android.net.Uri;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Alojamiento implements Serializable {
+
 
     private String usuario;
     private String id;
@@ -162,6 +161,7 @@ public class Alojamiento implements Serializable {
     public void addImage(String image) {
         this.images.add(image);
     }
+
 
     public void addReserva(String reserva) {
         if (this.reservas == null)

@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+
     TextView correo;
     TextView password;
     Button crearCuenta;

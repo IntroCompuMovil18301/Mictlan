@@ -98,8 +98,9 @@ public class FechaReservaActivity extends AppCompatActivity {
         fechaActual.setTime(currentTime);
         calend.travelTo(new DateData(fechaActual.get(Calendar.YEAR), fechaActual.get(Calendar.MONTH),
                 fechaActual.get(Calendar.DAY_OF_MONTH)));
-        if (!alojamiento.getReservas().isEmpty()) {
-            for (final String reserva : alojamiento.getReservas()) {
+        if (alojamiento.getReservas() != null) {
+            for (String reserva : alojamiento.getReservas()) {
+                System.out.println("Reserva: " + reserva);
                 DatabaseReference reservaRef = database.getReference(PATH_RESE).child(reserva);
                 reservaRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -269,12 +270,10 @@ public class FechaReservaActivity extends AppCompatActivity {
                                                 "La reserva ha sido creada", Toast.LENGTH_SHORT).show();
                                         alojamiento.addReserva(reserva.getId());
                                         actualizarAloja.child(alojamiento.getId()).updateChildren(alojamiento.toMap());
+                                        goHome();
                                     }
-
                                 }
                             });
-                    Intent finali_intent = new Intent(view.getContext(), Home.class);
-                    startActivity(finali_intent);
                 } else {
                     Toast.makeText(FechaReservaActivity.this,
                             "No se ha seleccionado una fecha para la reserva", Toast.LENGTH_SHORT)
@@ -320,5 +319,10 @@ public class FechaReservaActivity extends AppCompatActivity {
         ArrayList<DateData> fechas = (ArrayList<DateData>) calend.getMarkedDates().getAll().clone();
         for (DateData date : fechas)
             calend.unMarkDate(date);
+    }
+
+    private void goHome() {
+        Intent finali_intent = new Intent(this, Home.class);
+        startActivity(finali_intent);
     }
 }

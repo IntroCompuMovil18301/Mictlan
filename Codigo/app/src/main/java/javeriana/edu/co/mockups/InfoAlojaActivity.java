@@ -58,6 +58,7 @@ public class InfoAlojaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info_aloja);
 
         final Alojamiento alojamiento = (Alojamiento) getIntent().getExtras().getSerializable("alojamiento");
+        System.out.println("InfoAlojaActivity: " + alojamiento);
 
 
         setTitle(alojamiento.getTitulo());

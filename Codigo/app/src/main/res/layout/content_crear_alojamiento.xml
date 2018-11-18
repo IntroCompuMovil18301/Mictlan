@@ -89,31 +89,57 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="Ubicación:"
-                app:layout_constraintBottom_toBottomOf="@+id/eT_Ubicacion"
-                app:layout_constraintEnd_toStartOf="@+id/eT_Ubicacion"
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/eT_Ubicacion" />
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
-            <EditText
-                android:id="@+id/eT_Ubicacion"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="0dp"
-                android:layout_height="41dp"
-                android:layout_marginStart="8dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/secondaryColor"
-                android:ems="10"
-                android:hint="Calle 70 # 13 - 50"
-                android:inputType="textPersonName"
-                android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.7"
                 app:layout_constraintStart_toEndOf="@+id/tV_Ubicación"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_TipoAl" />
+                app:layout_constraintTop_toBottomOf="@+id/spinner_TipoAl"
+                app:layout_constraintHorizontal_weight="0.7">
+
+                <EditText
+                    android:id="@+id/eT_Ubicacion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/secondaryColor"
+                    android:ems="10"
+                    android:hint="Calle 70 # 13 - 50"
+                    android:inputType="textPersonName"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/fABLocation"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_weight="0.8"/>
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fABLocation"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:clickable="true"
+                    app:layout_constraintBottom_toBottomOf="@+id/eT_Ubicacion"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/eT_Ubicacion"
+                    app:layout_constraintTop_toTopOf="@+id/eT_Ubicacion"
+                    app:layout_constraintHorizontal_weight="0.2"
+                    app:srcCompat="@drawable/baseline_map_24" />
+            </android.support.constraint.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tV_PrecioNoche"
@@ -131,7 +157,7 @@
             <EditText
                 android:id="@+id/eT_Precio"
                 android:layout_width="0dp"
-                android:layout_height="41dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
@@ -144,7 +170,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.7"
                 app:layout_constraintStart_toEndOf="@+id/tV_PrecioNoche"
-                app:layout_constraintTop_toBottomOf="@+id/eT_Ubicacion" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
             <ImageView
                 android:id="@+id/iV_Personas"
@@ -367,13 +393,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cca_cargar_img" />
+
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
     <Button
         android:id="@+id/btn_CrearAloj"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"

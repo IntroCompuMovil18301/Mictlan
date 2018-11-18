@@ -104,6 +104,8 @@ public class CustomAdapter extends BaseAdapter {
             }
         }
 
+        System.out.println( "CustomAdapter: " + s);
+
         return view;
     }
 }

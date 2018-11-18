@@ -162,10 +162,10 @@ public class Alojamiento implements Serializable {
         this.images.add(image);
     }
 
-
     public void addReserva(String reserva) {
-        if (this.reservas == null)
+        if (this.reservas == null) {
             this.reservas = new ArrayList<>();
+        }
         this.reservas.add(reserva);
     }
 
@@ -187,5 +187,25 @@ public class Alojamiento implements Serializable {
         result.put("reservas", reservas);
 
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Alojamiento{" +
+                "usuario='" + usuario + '\'' +
+                ", id='" + id + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", ubicacion='" + ubicacion + '\'' +
+                ", latitud=" + latitud +
+                ", longitud=" + longitud +
+                ", valorNoche=" + valorNoche +
+                ", tipo='" + tipo + '\'' +
+                ", personas=" + personas +
+                ", camas=" + camas +
+                ", alcobas=" + alcobas +
+                ", banos=" + banos +
+                ", images=" + images +
+                ", reservas=" + reservas +
+                '}';
     }
 }

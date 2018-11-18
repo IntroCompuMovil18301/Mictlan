@@ -384,7 +384,7 @@ public class AlojamientosEnCamino extends FragmentActivity implements OnMapReady
                 .anchor(0.5f, 0.5f)
                 .title(titulo)
                 .snippet(ubicacion)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.hotel)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.hotel_marker)));
     }
 
     /**
@@ -424,7 +424,6 @@ public class AlojamientosEnCamino extends FragmentActivity implements OnMapReady
         }
         // Getting URL to the Google Directions API
         String url = getUrl(origin, destination);
-        Toast.makeText(AlojamientosEnCamino.this,url.toString(),Toast.LENGTH_LONG).show();
         AlojamientosEnCamino.FetchUrl FetchUrl = new AlojamientosEnCamino.FetchUrl();
 
         // Start downloading json data from Google Directions API
@@ -612,8 +611,10 @@ public class AlojamientosEnCamino extends FragmentActivity implements OnMapReady
 
             // Drawing polyline in the Google Map for the i-th route
             if(lineOptions != null  && positionDest!=null && mMap != null) {
-                for(Alojamiento alojamiento: alojamientos){
-                    createMarker(alojamiento.getLatitud(),alojamiento.getLongitud(),alojamiento.getTitulo(),alojamiento.getUbicacion());
+                for(Alojamiento alojamientoEnc: alojamientos){
+                    if(alojamiento.getLatitud() != alojamientoEnc.getLatitud() && alojamiento.getLongitud() != alojamientoEnc.getLongitud()){
+                        createMarker(alojamientoEnc.getLatitud(),alojamientoEnc.getLongitud(),alojamientoEnc.getTitulo(),alojamientoEnc.getUbicacion());
+                    }
                 }
                 path = mMap.addPolyline(lineOptions);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(positionDest, 15));

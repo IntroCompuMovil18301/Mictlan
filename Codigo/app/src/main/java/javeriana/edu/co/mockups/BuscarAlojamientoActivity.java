@@ -49,10 +49,17 @@ public class BuscarAlojamientoActivity extends AppCompatActivity {
     private static final String PATH_RESERVA = "reservas/";
     private static final String LEER_TAG = "LeerActivity";
 
+
+    private TextView boton_inicio  ;
+    private TextView boton_final  ;
+
+    public int diain;
+    public int mesin;
+    public int anoin;
+
     public final static double RADIUS_OF_EARTH_KM = 6371;
     Reserva reservaVal;
 
-    private Button boton_fecha;
     TextView fechaSel;
     EditText busquedC;
 
@@ -69,6 +76,7 @@ public class BuscarAlojamientoActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
 
+    boolean date_flag = false;
     private ListView alojamientos;
 
     ArrayList<Alojamiento> aloj;
@@ -79,14 +87,15 @@ public class BuscarAlojamientoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar);
 
-        this.boton_fecha = (Button) findViewById(R.id.boton_de_fecha);
-        this.fechaSel = (TextView) findViewById(R.id.mostrar_rango);
+        this.boton_inicio = findViewById(R.id.boton_de_fecha_inicio);
+        this.boton_final = findViewById(R.id.boton_de_fecha_fin);
+
         this.busquedC = (EditText) findViewById(R.id.searchViewBuscar);
         alojamientos = findViewById(R.id.lvBuscar);
 
         mGeocoder = new Geocoder(getBaseContext());
 
-        boton_fecha.setOnClickListener(new View.OnClickListener() {
+        this.boton_inicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -95,28 +104,51 @@ public class BuscarAlojamientoActivity extends AppCompatActivity {
                 int month = cCalendar.get(Calendar.MONTH);
                 int year = cCalendar.get(Calendar.YEAR);
 
-                dpdFin = new MyDatePickerDialog(BuscarAlojamientoActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int mYear, int mMonth, int mDay) {
-                        fechaFin = Integer.toString(mDay) + "/" + Integer.toString(mMonth) + "/" + Integer.toString(mYear);
-                        fechaSel.setText(fechaIn + " - " + fechaFin);
-                        selectionDate = true;
-                    }
-                }, year, month, day);
-
                 dpdInicio = new MyDatePickerDialog(BuscarAlojamientoActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int mYear, int mMonth, int mDay) {
-                        fechaIn = Integer.toString(mDay) + "/" + Integer.toString(mMonth) + "/" + Integer.toString(mYear);
+                        fechaIn = Integer.toString(mDay) + "/" + Integer.toString(mMonth+1) + "/" + Integer.toString(mYear);
+                        selectionDate = true;
+                        boton_inicio.setText(String.format("%s\n%s", "Fecha Inicio", fechaIn));
+                        diain = mDay;
+                        mesin = mMonth;
+                        anoin = mYear;
+                    }
+                }, year, month, day);
 
-                        dpdFin.setPermanentTitle("Fecha Fin");
-                        dpdFin.show();
+                dpdInicio.setPermanentTitle("Fecha Inicio");
+                dpdInicio.show();
+            }
+        });
+
+        this.boton_final.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cCalendar = Calendar.getInstance();
+                int day = cCalendar.get(Calendar.DAY_OF_MONTH);
+                int month = cCalendar.get(Calendar.MONTH);
+                int year = cCalendar.get(Calendar.YEAR);
+
+                if(selectionDate){
+                    day = diain ;
+                    month = mesin;
+                    year = anoin;
+                }
+
+
+
+                dpdFin = new MyDatePickerDialog(BuscarAlojamientoActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int mYear, int mMonth, int mDay) {
+                        fechaFin = Integer.toString(mDay) + "/" + Integer.toString(mMonth+1) + "/" + Integer.toString(mYear);
+                        selectionDate = false;
+                        boton_final.setText(String.format("%s\n%s", "Fecha Final", fechaFin));
 
                     }
                 }, year, month, day);
-                dpdInicio.setPermanentTitle("Fecha Inicio");
-                dpdInicio.show();
 
+                dpdFin.setPermanentTitle("Fecha Inicio");
+                dpdFin.show();
             }
         });
 
@@ -297,7 +329,8 @@ public class BuscarAlojamientoActivity extends AppCompatActivity {
                     Log.w("FECHA_2",dateSup.toString());
                     Log.w("FECHA_3",selectedDateInf.toString());
                     Log.w("FECHA_4",selectedDateSup.toString());
-                    if (!matchDates(dateInf, dateSup, selectedDateInf, selectedDateSup)) {
+                    Log.w("RESU", String.valueOf(matchDates(dateInf, dateSup, selectedDateInf, selectedDateSup)));
+                    if (matchDates(dateInf, dateSup, selectedDateInf, selectedDateSup)) {
                         flag = true;
                     }
                     reservaaux = null;
@@ -319,6 +352,14 @@ public class BuscarAlojamientoActivity extends AppCompatActivity {
     private boolean matchDates(Date cotaInf, Date CotaSup, Date FechaSearchInf, Date FechaSearchSup) {
         boolean flag = false;
         if (cotaInf.after(FechaSearchInf) && cotaInf.before(FechaSearchSup)) {
+            flag = true;
+        }
+
+        if(cotaInf.equals(FechaSearchInf) && CotaSup.after(FechaSearchSup)){
+            flag = true;
+        }
+
+        if(CotaSup.equals(FechaSearchSup) && cotaInf.before(FechaSearchInf)){
             flag = true;
         }
 

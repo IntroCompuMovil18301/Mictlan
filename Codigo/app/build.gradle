@@ -30,6 +30,8 @@ dependencies {
     implementation 'sun.bob:mcalendarview:1.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services-auth:16.0.0'
+    implementation 'com.google.android.gms:play-services-places:16.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -38,4 +40,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.0.5'
     implementation 'com.google.maps.android:android-maps-utils:0.4.4'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.shobhitpuri.custombuttons:google-signin:1.0.0'
 }

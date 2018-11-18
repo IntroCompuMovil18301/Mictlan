@@ -52,12 +52,16 @@ public class InfoAlojaActivity extends AppCompatActivity {
     private Button califi_but;
     private Button reserv_but;
 
+    String idAloj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_aloja);
 
         final Alojamiento alojamiento = (Alojamiento) getIntent().getExtras().getSerializable("alojamiento");
+        System.out.println("InfoAlojaActivity: " + alojamiento);
+
 
         setTitle(alojamiento.getTitulo());
 

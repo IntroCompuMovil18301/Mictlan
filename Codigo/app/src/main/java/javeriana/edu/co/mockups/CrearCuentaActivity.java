@@ -2,6 +2,7 @@ package javeriana.edu.co.mockups;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -27,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Response;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -40,6 +42,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,6 +59,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
     private static final int REQUEST_CAMERA = 485;
     private static final int REQUEST_IMAGE_CAPTURE = 615;
     private static final int IMAGE_PICKER_REQUEST = 31;
+    private static final String TAG = "CREAR_CUENTA_ACTIVITY";
 
     private FirebaseAuth mAuth;
     private FirebaseStorage storage;
@@ -154,10 +161,12 @@ public class CrearCuentaActivity extends AppCompatActivity {
                                         int selectedId = tipoGroup.getCheckedRadioButtonId();
                                         tipo = (RadioButton) findViewById(selectedId);
                                         Usuario usuario;
+                                        sendRegistrationLink();
                                         if (tipo.getText().toString().equals("Huesped")) {
                                             Log.i("-------", "onComplete: "+resnacionalidad.getText().toString());
                                             Log.i("-------", "onComplete: "+sItems.getSelectedItem().toString());
                                             usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),resnacionalidad.getText().toString(),sItems.getSelectedItem().toString(),imageName,tipo.getText().toString());
+
                                         }
                                         else {
                                             usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),null,null,imageName,tipo.getText().toString());
@@ -171,6 +180,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
                                                 if (task.isSuccessful()) {
                                                     Toast.makeText(CrearCuentaActivity.this, "success", Toast.LENGTH_LONG).show();
 
+
                                                     StorageReference crearImagenes = storage.getReference("usuarios").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
                                                         Bitmap image = imagen;
                                                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -179,6 +189,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
 
                                                         UploadTask uploadTask = crearImagenes.child(imageName).putBytes(data);
                                                     startActivity(new Intent(CrearCuentaActivity.this, Home.class));
+
 
                                                 } else {
                                                     Toast.makeText(CrearCuentaActivity.this,"error",Toast.LENGTH_SHORT).show();
@@ -223,8 +234,6 @@ public class CrearCuentaActivity extends AppCompatActivity {
                 huesped = false;
             }
         });
-
-
 
     }
 
@@ -378,5 +387,34 @@ public class CrearCuentaActivity extends AppCompatActivity {
 
         return valid;
     }
+
+    private void sendRegistrationLink() {
+        final FirebaseUser user = mAuth.getCurrentUser();
+        user.sendEmailVerification()
+                .addOnCompleteListener(CrearCuentaActivity.this, new OnCompleteListener() {
+
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+
+                        if (task.isSuccessful()) {
+                            Toast.makeText(CrearCuentaActivity.this,"Verification email sent to " + user.getEmail(),Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(CrearCuentaActivity.this, MainActivity.class));
+                            finish();
+                        } else {
+                            Log.e(TAG, "sendEmailVerification", task.getException());
+                            Toast.makeText(CrearCuentaActivity.this,"Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                            overridePendingTransition(0, 0);
+                            finish();
+                            overridePendingTransition(0, 0);
+                            startActivity(getIntent());
+
+
+                        }
+                    }
+                });
+    }
+
+    //****************************************************************************************************************************************************************
+
 }
 

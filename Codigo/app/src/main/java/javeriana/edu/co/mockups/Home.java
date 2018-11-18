@@ -69,7 +69,6 @@ public class Home extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Usuario aux = dataSnapshot.getValue(Usuario.class);
                 setUsuario(aux);
-
             }
 
             @Override
@@ -84,6 +83,7 @@ public class Home extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot singleSnap : dataSnapshot.getChildren()) {
                     Alojamiento aux = singleSnap.getValue(Alojamiento.class);
+                    System.out.println("Home: " +  aux);
                     aloj.add(aux);
                 }
                 updateListView();

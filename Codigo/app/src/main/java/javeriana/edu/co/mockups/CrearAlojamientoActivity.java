@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -22,10 +23,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,12 +36,16 @@ import android.widget.Spinner;
 
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -66,12 +71,14 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int REQUEST_READ_EXTERNAL_STORAGE = 392;
-    private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 758;
+    private static final int REQUEST_LOCATION = 758;
     private static final int REQUEST_CAMERA = 485;
-    private static final int REQUEST_IMAGE_CAPTURE = 615;
+    private static final int IMAGE_CAPTURE_REQUEST = 615;
     private static final int IMAGE_PICKER_REQUEST = 31;
+    private static final int PLACE_PICKER_REQUEST = 997;
 
     private static final String PATH_ALOJ = "alojamientos/";
+    private static final String TAG = "CrearAlojamiento";
 
     public static final double lowerLeftLatitude = 4.475113;
     public static final double lowerLeftLongitude = -74.216308;
@@ -94,8 +101,10 @@ public class CrearAlojamientoActivity extends AppCompatActivity
     private Button cargarImagen;
     private Button tomarFoto;
     private Button crear;
+    private FloatingActionButton getLocation;
     private ListView lv_images;
 
+    private LatLng latLng;
     private List<String> imagesName;
     private List<Bitmap> images;
     private ImageAddAdapter adapter;
@@ -125,7 +134,7 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         ArrayAdapter<String> adapterTipo = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_dropdown_item, spinnerArrayTipo);
         adapterTipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        tipoAl = (Spinner)findViewById(R.id.spinner_TipoAl);
+        tipoAl = (Spinner) findViewById(R.id.spinner_TipoAl);
         tipoAl.setAdapter(adapterTipo);
 
         database = FirebaseDatabase.getInstance();
@@ -143,6 +152,7 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         cargarImagen = findViewById(R.id.cca_cargar_img);
         tomarFoto = findViewById(R.id.cca_tomar_foto);
         crear = findViewById(R.id.btn_CrearAloj);
+        getLocation = findViewById(R.id.fABLocation);
 
         imagesName = new ArrayList<String>();
         images = new ArrayList<>();
@@ -176,15 +186,21 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         }
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED) {
             requestPermission(this, Manifest.permission.CAMERA,
                     "Para tomar una foto", REQUEST_CAMERA);
-            requestPermission(this, Manifest.permission.CAMERA,
-                    "Para tomar una foto", REQUEST_WRITE_EXTERNAL_STORAGE);
         } else {
             updateTomarFoto();
+        }
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermission(this, Manifest.permission.ACCESS_FINE_LOCATION,
+                    "Para seleccionar una localizacion desde el mapa",
+                    REQUEST_LOCATION);
+        } else {
+            updateGetLocation();
         }
 
         mGeocoder = new Geocoder(getBaseContext());
@@ -203,46 +219,50 @@ public class CrearAlojamientoActivity extends AppCompatActivity
                     int alc = Integer.parseInt(alcobas.getText().toString());
                     int bno = Integer.parseInt(banos.getText().toString());
 
-                    try {
-                        List<Address> addresses = mGeocoder.getFromLocationName(
-                                ubi, 2,
-                                lowerLeftLatitude,
-                                lowerLeftLongitude,
-                                upperRightLatitude,
-                                upperRigthLongitude);
-                        if (addresses != null && !addresses.isEmpty()) {
-                            Address addressResult = addresses.get(0);
-                            DatabaseReference crearAlojRef = database.getReference(PATH_ALOJ);
-                            final Alojamiento aloja = new Alojamiento(usuario, crearAlojRef.push().getKey(), titulo, ubi, addressResult.getLatitude(), addressResult.getLongitude(), valorNoche, tipo, per,
-                                    cam, alc, bno, imagesName);
-                            crearAlojRef.child(aloja.getId()).setValue(aloja, new
-                                    DatabaseReference.CompletionListener() {
-                                        @Override
-                                        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                                            if (databaseError != null) {
-                                                Toast.makeText(CrearAlojamientoActivity.this,
-                                                        "No se pudo crear el alojamiento", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                Toast.makeText(CrearAlojamientoActivity.this,
-                                                        "El alojamiento ha sido creada", Toast.LENGTH_SHORT).show();
-                                                StorageReference crearImagenes = storage.getReference(PATH_ALOJ).child(aloja.getId());
-                                                for (int i = 0; i < images.size(); i++) {
-                                                    Bitmap image = images.get(i);
-                                                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                                                    image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                                                    byte[] data = baos.toByteArray();
-
-                                                    UploadTask uploadTask = crearImagenes.child(imagesName.get(i)).putBytes(data);
-                                                }
-                                            }
-                                        }
-                                    });
-                            Intent crear_intent = new Intent(v.getContext(), Home.class);
-                            startActivity(crear_intent);
+                    if (latLng == null) {
+                        try {
+                            List<Address> addresses = mGeocoder.getFromLocationName(
+                                    ubi, 2,
+                                    lowerLeftLatitude,
+                                    lowerLeftLongitude,
+                                    upperRightLatitude,
+                                    upperRigthLongitude);
+                            if (addresses != null && !addresses.isEmpty()) {
+                                Address addressResult = addresses.get(0);
+                                latLng = new LatLng(addressResult.getLatitude(), addressResult.getLongitude());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
+                    DatabaseReference crearAlojRef = database.getReference(PATH_ALOJ);
+                    final Alojamiento aloja = new Alojamiento(usuario, crearAlojRef.push().getKey(), titulo, ubi, latLng.latitude, latLng.longitude, valorNoche, tipo, per,
+                            cam, alc, bno, imagesName);
+                    System.out.println("CrearAlojamientoActivity: " + aloja);
+                    crearAlojRef.child(aloja.getId()).setValue(aloja, new
+                            DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                                    if (databaseError != null) {
+                                        Toast.makeText(CrearAlojamientoActivity.this,
+                                                "No se pudo crear el alojamiento", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(CrearAlojamientoActivity.this,
+                                                "El alojamiento ha sido creada", Toast.LENGTH_LONG).show();
+                                        StorageReference crearImagenes = storage.getReference(PATH_ALOJ).child(aloja.getId());
+                                        for (int i = 0; i < images.size(); i++) {
+                                            Bitmap image = images.get(i);
+                                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                            image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                            byte[] data = baos.toByteArray();
+
+                                            UploadTask uploadTask = crearImagenes.child(imagesName.get(i)).putBytes(data);
+                                        }
+                                    }
+                                }
+                            });
+                    Intent crear_intent = new Intent(v.getContext(), Home.class);
+                    startActivity(crear_intent);
                 }
             }
         });
@@ -253,11 +273,12 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         TextView navUsername = (TextView) navigationView.findViewById(R.id.NombreNavCrear);
         navUsername.setText(usuario.getNombre());
-        if (usuario.getImagen()!= null) {
+        if (usuario.getImagen() != null) {
             ImageView navImage = (ImageView) navigationView.findViewById(R.id.iv_Cuenta);
             navImage.setImageURI(Uri.parse(usuario.getImagen()));
         }
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -297,14 +318,14 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_opciones) {
-            Intent intent = new Intent(this.getBaseContext(),MiCuentaActivity.class);
+            Intent intent = new Intent(this.getBaseContext(), MiCuentaActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_Home) {
-            Intent intent = new Intent(this.getBaseContext(),Home.class);
+            Intent intent = new Intent(this.getBaseContext(), Home.class);
             startActivity(intent);
 
-        }  else if (id == R.id.nav_misDatos) {
-            Intent intent = new Intent(this.getBaseContext(),MiPerfilActivity.class);
+        } else if (id == R.id.nav_misDatos) {
+            Intent intent = new Intent(this.getBaseContext(), MiPerfilActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_Salir) {
@@ -319,10 +340,11 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         return true;
     }
 
-    private void requestPermission(Activity context, String permission, String explanation, int requestId ){
-        if (ContextCompat.checkSelfPermission(context,permission)!= PackageManager.PERMISSION_GRANTED) {
+    private void requestPermission(Activity context, String permission, String explanation,
+                                   int requestId) {
+        if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
             // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(context,permission)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(context, permission)) {
                 Toast.makeText(context, explanation, Toast.LENGTH_LONG).show();
             }
             ActivityCompat.requestPermissions(context, new String[]{permission}, requestId);
@@ -341,7 +363,7 @@ public class CrearAlojamientoActivity extends AppCompatActivity
                 break;
             }
 
-            case REQUEST_WRITE_EXTERNAL_STORAGE: {
+            case REQUEST_CAMERA: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     updateTomarFoto();
@@ -349,10 +371,10 @@ public class CrearAlojamientoActivity extends AppCompatActivity
                 break;
             }
 
-            case REQUEST_CAMERA: {
+            case REQUEST_LOCATION: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    updateTomarFoto();
+                    updateGetLocation();
                 }
                 break;
             }
@@ -372,7 +394,11 @@ public class CrearAlojamientoActivity extends AppCompatActivity
                             imagesName.add(aux.substring(aux.lastIndexOf("/") + 1));
                             final InputStream imagenStream =
                                     getContentResolver().openInputStream(image_uri);
-                            images.add(BitmapFactory.decodeStream(imagenStream));
+                            Bitmap auxBitmap = BitmapFactory.decodeStream(imagenStream);
+                            images.add(Bitmap.createScaledBitmap(auxBitmap, 500, 500, true));
+
+                            adapter = new ImageAddAdapter(imagesName, this);
+                            lv_images.setAdapter(adapter);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -380,21 +406,34 @@ public class CrearAlojamientoActivity extends AppCompatActivity
                 }
                 break;
             }
-            case REQUEST_IMAGE_CAPTURE: {
+            case IMAGE_CAPTURE_REQUEST: {
                 if (resultCode == RESULT_OK) {
                     Bundle extras = data.getExtras();
                     if (extras != null) {
-                        images.add((Bitmap) extras.get("data"));
+                        Bitmap auxBitmap = (Bitmap) extras.get("data");
+                        images.add(Bitmap.createScaledBitmap(auxBitmap, 500, 500, true));
                         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                         String imageFileName = "JPEG_" + timeStamp + ".jpg";
                         imagesName.add(imageFileName);
+
+                        adapter = new ImageAddAdapter(imagesName, this);
+                        lv_images.setAdapter(adapter);
                     }
                 }
                 break;
             }
+            case PLACE_PICKER_REQUEST: {
+                if (resultCode == RESULT_OK) {
+                    Place place = PlacePicker.getPlace(this, data);
+                    ubicacion.setText(place.getAddress());
+                    latLng = place.getLatLng();
+
+                    String toastMsg = String.format("Place: %s", place.getName());
+                    Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+                }
+            }
+
         }
-        adapter = new ImageAddAdapter(imagesName, this);
-        lv_images.setAdapter(adapter);
     }
 
     private void updateCargarImagen() {
@@ -414,7 +453,21 @@ public class CrearAlojamientoActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent tomarFoto_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (tomarFoto_intent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(tomarFoto_intent, REQUEST_IMAGE_CAPTURE);
+                    startActivityForResult(tomarFoto_intent, IMAGE_CAPTURE_REQUEST);
+                }
+            }
+        });
+    }
+
+    private void updateGetLocation() {
+        getLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                try {
+                    startActivityForResult(builder.build(CrearAlojamientoActivity.this), PLACE_PICKER_REQUEST);
+                } catch (Exception e) {
+                    Log.e(TAG, e.getStackTrace().toString());
                 }
             }
         });
@@ -433,7 +486,7 @@ public class CrearAlojamientoActivity extends AppCompatActivity
 
         if (TextUtils.isEmpty(titulo)) {
             nombreAlojamiento.setError("Required.");
-            valid =false;
+            valid = false;
         } else {
             nombreAlojamiento.setError(null);
         }
@@ -481,7 +534,7 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         }
 
         if (imagesName.size() < 4) {
-            Toast.makeText(this,"Necesitas " + (4 - imagesName.size())+ " imagenes",
+            Toast.makeText(this, "Necesitas " + (4 - imagesName.size()) + " imagenes",
                     Toast.LENGTH_LONG).show();
             valid = false;
         }

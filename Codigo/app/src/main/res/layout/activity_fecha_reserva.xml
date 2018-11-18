@@ -50,6 +50,7 @@
         app:layout_constraintBottom_toTopOf="@+id/fra_finali_rese"
         app:layout_constraintEnd_toStartOf="@+id/fra_fecfin"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fra_calend" />
 

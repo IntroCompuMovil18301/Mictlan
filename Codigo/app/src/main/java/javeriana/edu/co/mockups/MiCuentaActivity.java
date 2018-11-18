@@ -88,7 +88,7 @@ public class MiCuentaActivity extends AppCompatActivity
                     TOp1.setText("Consultar Alojamiento");
 
                     IOp2.setImageResource(R.drawable.twotone_map_24);
-                    TOp2.setText("Rutas");
+                    TOp2.setText("Alojamientos en la ruta");
 
                     IOp3.setImageResource(R.drawable.baseline_event_note_24);
                     TOp3.setText("Reservas");

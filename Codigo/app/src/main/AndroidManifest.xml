@@ -88,6 +88,10 @@
             android:name=".ComoLlegarActivity"
             android:label="@string/title_activity_como_llegar" />
         <activity android:name=".CalificarActivity"></activity>
+        <activity
+            android:name=".AlojamientosEnCamino"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/title_activity_alojamientos_en_camino"></activity>
     </application>
 
 </manifest>

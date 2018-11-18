@@ -384,7 +384,6 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
         }
         // Getting URL to the Google Directions API
         String url = getUrl(origin, destination);
-        Toast.makeText(ComoLlegarActivity.this,url.toString(),Toast.LENGTH_LONG).show();
         FetchUrl FetchUrl = new FetchUrl();
 
         // Start downloading json data from Google Directions API

@@ -2,6 +2,7 @@ package javeriana.edu.co.mockups;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -25,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Response;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -32,6 +34,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +48,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
 
     private static final int REQUEST_READ_EXTERNAL_STORAGE = 392;
     private static final int IMAGE_PICKER_REQUEST = 31;
+    private static final String TAG = "CREAR_CUENTA_ACTIVITY";
 
     private FirebaseAuth mAuth;
     private ImageView imagenP;
@@ -126,10 +133,13 @@ public class CrearCuentaActivity extends AppCompatActivity {
                                         int selectedId = tipoGroup.getCheckedRadioButtonId();
                                         tipo = (RadioButton) findViewById(selectedId);
                                         Usuario usuario;
+                                        sendRegistrationLink();
                                         if (tipo.getText().toString().equals("Huesped")) {
                                             Log.i("-------", "onComplete: "+resnacionalidad.getText().toString());
                                             Log.i("-------", "onComplete: "+sItems.getSelectedItem().toString());
+
                                             usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),resnacionalidad.getText().toString(),sItems.getSelectedItem().toString(),imagen,tipo.getText().toString());
+
                                         }
                                         else {
                                             usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),null,null,imagen,tipo.getText().toString());
@@ -142,7 +152,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
                                                     Toast.makeText(CrearCuentaActivity.this, "success", Toast.LENGTH_LONG).show();
-                                                    startActivity(new Intent(CrearCuentaActivity.this, Home.class));
+                                                    //startActivity(new Intent(CrearCuentaActivity.this, LogInActivity.class));
 
                                                 } else {
                                                     Toast.makeText(CrearCuentaActivity.this,"error",Toast.LENGTH_SHORT).show();
@@ -187,8 +197,6 @@ public class CrearCuentaActivity extends AppCompatActivity {
                 huesped = false;
             }
         });
-
-
 
     }
 
@@ -299,5 +307,34 @@ public class CrearCuentaActivity extends AppCompatActivity {
 
         return valid;
     }
+
+    private void sendRegistrationLink() {
+        final FirebaseUser user = mAuth.getCurrentUser();
+        user.sendEmailVerification()
+                .addOnCompleteListener(CrearCuentaActivity.this, new OnCompleteListener() {
+
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+
+                        if (task.isSuccessful()) {
+                            Toast.makeText(CrearCuentaActivity.this,"Verification email sent to " + user.getEmail(),Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(CrearCuentaActivity.this, MainActivity.class));
+                            finish();
+                        } else {
+                            Log.e(TAG, "sendEmailVerification", task.getException());
+                            Toast.makeText(CrearCuentaActivity.this,"Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                            overridePendingTransition(0, 0);
+                            finish();
+                            overridePendingTransition(0, 0);
+                            startActivity(getIntent());
+
+
+                        }
+                    }
+                });
+    }
+
+    //****************************************************************************************************************************************************************
+
 }
 

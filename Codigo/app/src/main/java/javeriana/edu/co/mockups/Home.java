@@ -69,7 +69,6 @@ public class Home extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Usuario aux = dataSnapshot.getValue(Usuario.class);
                 setUsuario(aux);
-
             }
 
             @Override

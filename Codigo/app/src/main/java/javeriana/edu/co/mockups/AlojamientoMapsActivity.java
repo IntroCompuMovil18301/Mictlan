@@ -41,6 +41,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -69,6 +75,11 @@ public class AlojamientoMapsActivity extends FragmentActivity implements OnMapRe
 
     private FloatingActionButton back;
 
+    private final static String PATH_ALOJ = "alojamientos";
+
+    ArrayList<Alojamiento> lista;
+    Alojamiento alojMarker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +98,7 @@ public class AlojamientoMapsActivity extends FragmentActivity implements OnMapRe
 
         actualMarkerOptions
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.person))
-                .title("Actual");
+                .title("Mi posición actual");
 
         mLocationCallback = new LocationCallback() {
             @Override
@@ -161,17 +172,48 @@ public class AlojamientoMapsActivity extends FragmentActivity implements OnMapRe
         loadLocation();
 
 
-        ArrayList<Alojamiento> lista = (ArrayList<Alojamiento>) getIntent().getSerializableExtra("lista");
+        lista = (ArrayList<Alojamiento>) getIntent().getSerializableExtra("lista");
         double lati = getIntent().getDoubleExtra("latitud",0);
         double longi = getIntent().getDoubleExtra("longitud",0);
         for (Alojamiento alojamiento : lista) {
             LatLng position = new LatLng(alojamiento.getLatitud(), alojamiento.getLongitud());
             if (mMap != null) {
                 //Agregar Marcador al mapa
-                createMarker(position, alojamiento.getTitulo(), alojamiento.getUbicacion());
+                createMarker(position,alojamiento.getId(),alojamiento.getTitulo(), alojamiento.getUbicacion());
+
             }
 
         }
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String alojId = marker.getSnippet();
+                if(alojId != null){
+                    DatabaseReference alojaRef= FirebaseDatabase.getInstance().getReference(PATH_ALOJ).child(alojId);
+                    alojaRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            alojMarker = dataSnapshot.getValue(Alojamiento.class);
+                            Intent intent = new Intent(AlojamientoMapsActivity.this, InfoAlojaActivity.class);
+                            Bundle aloj = new Bundle();
+                            aloj.putSerializable("alojamiento",alojMarker);
+                            intent.putExtras(aloj);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    }
+                );
+
+                }
+                return false;
+            }
+        });
+
         CircleOptions circleOptions = new CircleOptions()
                 .center(new LatLng(lati,longi))
                 .radius(2000)//metros
@@ -187,15 +229,16 @@ public class AlojamientoMapsActivity extends FragmentActivity implements OnMapRe
 
     }
 
-    protected Marker createMarker(LatLng position, String titulo, String ubicacion) {
+    protected Marker createMarker(LatLng position, String id, String titulo, String ubicacion) {
 
         return mMap.addMarker(new MarkerOptions()
                 .position(position)
                 .anchor(0.5f, 0.5f)
                 .title(titulo)
-                .snippet(ubicacion)
+                .snippet(id)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.hotel)));
     }
+
     private void loadLocation(){
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
             mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new

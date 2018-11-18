@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -54,6 +55,7 @@ public class InfoReseActivity extends AppCompatActivity {
     private Calendar fechaActual;
     private ExpCalendarView calend;
     private TextView irames;
+    private SimpleRatingBar estrellas;
 
     private CardView biogra_but;
     private TextView nombre_anfi;
@@ -83,6 +85,7 @@ public class InfoReseActivity extends AppCompatActivity {
         total_rese = findViewById(R.id.ira_total_rese);
         calend = findViewById(R.id.ira_calend);
         irames = findViewById(R.id.mesesira);
+        estrellas = (SimpleRatingBar) findViewById(R.id.iaa_rating_reser);
 
         biogra_but = findViewById(R.id.ira_biogra_anfi);
         nombre_anfi = findViewById( R.id.ira_nombre_anfi );
@@ -170,25 +173,25 @@ public class InfoReseActivity extends AppCompatActivity {
 
             calend.markDate(new DateData(auxIni.get(Calendar.YEAR),
                     auxIni.get(Calendar.MONTH), auxIni.get(Calendar.DAY_OF_MONTH))
-                    .setMarkStyle(MarkStyle.BACKGROUND, Color.rgb(0, 148, 243)));
+                    .setMarkStyle(MarkStyle.BACKGROUND, Color.rgb(213, 35, 54)));
 
             auxIni.add(Calendar.DAY_OF_MONTH, 1);
             while (auxIni.before(auxFin)) {
                 calend.markDate(new DateData(auxIni.get(Calendar.YEAR),
                         auxIni.get(Calendar.MONTH), auxIni.get(Calendar.DAY_OF_MONTH))
-                        .setMarkStyle(MarkStyle.BACKGROUND, Color.rgb(0, 148, 243)));
+                        .setMarkStyle(MarkStyle.BACKGROUND, Color.rgb(213, 35, 54)));
                 auxIni.add(Calendar.DAY_OF_MONTH, 1);
             }
 
 
             calend.markDate(new DateData(auxFin.get(Calendar.YEAR),
                     auxFin.get(Calendar.MONTH), auxFin.get(Calendar.DAY_OF_MONTH))
-                    .setMarkStyle(MarkStyle.BACKGROUND, Color.rgb(0, 148, 243)));
+                    .setMarkStyle(MarkStyle.BACKGROUND, Color.rgb(213, 35, 54)));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-
+        estrellas.setRating(alojamiento.getCalificacion());
 
         Date date2= null;
         try {
@@ -230,9 +233,9 @@ public class InfoReseActivity extends AppCompatActivity {
         vercalificacionesInfoRese.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),CalificarActivity.class);
+                Intent intent = new Intent(view.getContext(),CalificacionesActivity.class);
                 Bundle paquete = new Bundle();
-                paquete.putSerializable("reserva",reserva);
+                paquete.putSerializable("alojamiento", alojamiento);
                 intent.putExtras(paquete);
                 startActivity(intent);
             }

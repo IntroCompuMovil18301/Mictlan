@@ -25,6 +25,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,6 +47,7 @@ public class InfoAlojaActivity extends AppCompatActivity {
     private CardView biogra_but;
     private TextView nombre_anfi;
     private ImageView foto_anfi;
+    private SimpleRatingBar estrellas;
 
     private Button califi_but;
     private Button reserv_but;
@@ -73,6 +75,7 @@ public class InfoAlojaActivity extends AppCompatActivity {
 
         califi_but = findViewById( R.id.iaa_califi_aloj );
         reserv_but = findViewById( R.id.iaa_reserv_aloj );
+        estrellas = (SimpleRatingBar) findViewById(R.id.iaa_rating_reser);
 
         final File image = new File(getBaseContext().getExternalFilesDir(null),
                 alojamiento.getImages().get(0) + "jpg");
@@ -115,6 +118,7 @@ public class InfoAlojaActivity extends AppCompatActivity {
         numcam_aloj.setText(Integer.toString(alojamiento.getCamas()) + numcam_aloj.getText().toString());
         numalc_aloj.setText(Integer.toString(alojamiento.getAlcobas()) + numalc_aloj.getText().toString());
         numban_aloj.setText(Integer.toString(alojamiento.getBanos()) + numban_aloj.getText().toString());
+        estrellas.setRating(alojamiento.getCalificacion());
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         final Query anfitrion = mDatabase.child("usuarios").child(alojamiento.getUsuario());
@@ -144,8 +148,11 @@ public class InfoAlojaActivity extends AppCompatActivity {
         califi_but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent califi_intent = new Intent(view.getContext(), CalificacionesActivity.class );
-                startActivity(califi_intent);
+                Intent intent = new Intent(view.getContext(),CalificacionesActivity.class);
+                Bundle paquete = new Bundle();
+                paquete.putSerializable("alojamiento", alojamiento);
+                intent.putExtras(paquete);
+                startActivity(intent);
             }
         });
 

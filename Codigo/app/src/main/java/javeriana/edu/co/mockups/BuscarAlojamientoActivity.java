@@ -1,17 +1,27 @@
 package javeriana.edu.co.mockups;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -19,6 +29,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -30,6 +42,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,18 +53,22 @@ import java.util.List;
 import java.util.Locale;
 
 import javeriana.edu.co.mockups.mAdapterView.CustomAdapter;
+import javeriana.edu.co.mockups.mAdapterView.ImageAddAdapter;
 import javeriana.edu.co.mockups.mData.Alojamiento;
 import javeriana.edu.co.mockups.mData.Reserva;
 
 public class BuscarAlojamientoActivity extends AppCompatActivity {
 
+    private static final int REQUEST_LOCATION = 758;
+    private static final int PLACE_PICKER_REQUEST = 997;
+
     private static final String PATH_ALOJ = "alojamientos/";
     private static final String PATH_RESERVA = "reservas/";
-    private static final String LEER_TAG = "LeerActivity";
-
+    public static final String LEER_TAG = "BuscarAlojamiento";
 
     private TextView boton_inicio  ;
     private TextView boton_final  ;
+    private FloatingActionButton getLocation;
 
     public int diain;
     public int mesin;
@@ -89,6 +106,7 @@ public class BuscarAlojamientoActivity extends AppCompatActivity {
 
         this.boton_inicio = findViewById(R.id.boton_de_fecha_inicio);
         this.boton_final = findViewById(R.id.boton_de_fecha_fin);
+        getLocation = findViewById(R.id.ba_fab_location);
 
         this.busquedC = (EditText) findViewById(R.id.searchViewBuscar);
         alojamientos = findViewById(R.id.lvBuscar);
@@ -206,6 +224,27 @@ public class BuscarAlojamientoActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermission(this, Manifest.permission.ACCESS_FINE_LOCATION,
+                    "Para seleccionar una localizacion desde el mapa",
+                    REQUEST_LOCATION);
+        } else {
+            updateGetLocation();
+        }
+
+        alojamientos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Bundle alojamiento = new Bundle();
+                alojamiento.putSerializable("alojamiento", aloj.get(i));
+                Intent lv_intent = new Intent( view.getContext(), InfoAlojaActivity.class );
+                lv_intent.putExtras(alojamiento);
+                startActivity( lv_intent );
             }
         });
     }
@@ -395,5 +434,61 @@ public class BuscarAlojamientoActivity extends AppCompatActivity {
         paquete.putDouble("longitud", longitude);
         mapas.putExtras(paquete);
         startActivity(mapas);
+    }
+
+    private void requestPermission(Activity context, String permission, String explanation,
+                                   int requestId) {
+        if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(context, permission)) {
+                Toast.makeText(context, explanation, Toast.LENGTH_LONG).show();
+            }
+            ActivityCompat.requestPermissions(context, new String[]{permission}, requestId);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_LOCATION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    updateGetLocation();
+                }
+                break;
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case PLACE_PICKER_REQUEST: {
+                if (resultCode == RESULT_OK) {
+                    Place place = PlacePicker.getPlace(this, data);
+                    busquedC.setText(place.getAddress());
+                    //latLng = place.getLatLng();
+                    String toastMsg = String.format("Place: %s", place.getName());
+                    Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }
+    }
+
+    private void updateGetLocation() {
+        getLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                try {
+                    startActivityForResult(builder.build(BuscarAlojamientoActivity.this), PLACE_PICKER_REQUEST);
+                } catch (Exception e) {
+                    Log.e(LEER_TAG, e.getStackTrace().toString());
+                }
+            }
+        });
     }
 }

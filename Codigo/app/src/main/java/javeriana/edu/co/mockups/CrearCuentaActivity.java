@@ -84,15 +84,12 @@ public class CrearCuentaActivity extends AppCompatActivity {
     RadioButton tipo;
     Spinner sItems;
     TextView genero;
-<<<<<<< HEAD
-    CardView agImagen;
-    List<String> nationalities =  new ArrayList<String>();
-    private String imagen;
-=======
+
     ImageView agImagen;
     private String imageName;
     private Bitmap imagen;
->>>>>>> 5b678926e4a155866acdb22dd4de65af441f1d4b
+
+    List<String> nationalities =  new ArrayList<String>();
 
 
     private boolean huesped;
@@ -177,8 +174,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
                                         if (tipo.getText().toString().equals("Huesped")) {
                                             Log.i("-------", "onComplete: "+resnacionalidad.getSelectedItem().toString());
                                             Log.i("-------", "onComplete: "+sItems.getSelectedItem().toString());
-                                            usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),resnacionalidad.getSelectedItem().toString(),sItems.getSelectedItem().toString(),imagen,tipo.getText().toString());
-
+                                            usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),resnacionalidad.getSelectedItem().toString(),sItems.getSelectedItem().toString(),imageName,tipo.getText().toString());
                                         }
                                         else {
                                             usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),null,null,imageName,tipo.getText().toString());

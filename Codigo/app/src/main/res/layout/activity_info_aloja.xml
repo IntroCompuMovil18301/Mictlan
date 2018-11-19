@@ -265,14 +265,14 @@
             android:layout_marginTop="8dp"
             android:text=" 20 USD Noche"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/iaa_rating_aloj"
+            app:layout_constraintBottom_toTopOf="@+id/iaa_rating_reser"
             app:layout_constraintEnd_toStartOf="@+id/iaa_reserv_aloj"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.iarcuschin.simpleratingbar.SimpleRatingBar
-            android:id="@+id/iaa_rating_aloj"
+            android:id="@+id/iaa_rating_reser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

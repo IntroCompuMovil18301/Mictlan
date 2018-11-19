@@ -18,7 +18,7 @@
         <item name="colorAccent">@color/secondaryColor</item>
         <item name="android:colorBackground">@color/primaryColor</item>
         <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:textColorHint">@color/primaryTextColor</item>
+        <item name="android:textColorHint">#D6D6D6</item>
         <item name="colorError">@color/accentColor</item>
     </style>
 

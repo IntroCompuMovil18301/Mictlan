@@ -98,9 +98,10 @@ public class FechaReservaActivity extends AppCompatActivity {
         fechaActual.setTime(currentTime);
         calend.travelTo(new DateData(fechaActual.get(Calendar.YEAR), fechaActual.get(Calendar.MONTH),
                 fechaActual.get(Calendar.DAY_OF_MONTH)));
+
         if (alojamiento.getReservas() != null) {
-            for (String reserva : alojamiento.getReservas()) {
-                System.out.println("Reserva: " + reserva);
+            for (final String reserva : alojamiento.getReservas()) {
+
                 DatabaseReference reservaRef = database.getReference(PATH_RESE).child(reserva);
                 reservaRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

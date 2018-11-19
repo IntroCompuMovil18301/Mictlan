@@ -12,13 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:backgroundTint="@color/secondaryColor"
         android:hint="Ubicación"
         android:imeOptions="actionDone"
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/boton_de_fecha_inicio"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ba_fab_location"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,15 +27,17 @@
         style="@style/SubTitle"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:gravity="center_vertical"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
         android:text="Fecha Inicio"
         android:textColor="@color/secondaryColor"
 
         app:layout_constraintBottom_toTopOf="@+id/lvBuscar"
+        app:layout_constraintEnd_toStartOf="@+id/boton_de_fecha_fin"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewBuscar" />
 
@@ -46,17 +47,16 @@
         style="@style/SubTitle"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
         android:gravity="center_vertical"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+
         android:text="Fecha Fin"
         android:textColor="@color/secondaryColor"
-
-        app:layout_constraintBottom_toTopOf="@+id/lvBuscar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewBuscar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBottom_toBottomOf="@+id/boton_de_fecha_inicio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/boton_de_fecha_inicio"
+        app:layout_constraintTop_toTopOf="@+id/boton_de_fecha_inicio" />
 
     <ListView
         android:id="@+id/lvBuscar"
@@ -71,6 +71,20 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/boton_de_fecha_inicio" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/ba_fab_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/searchViewBuscar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/searchViewBuscar"
+        app:layout_constraintTop_toTopOf="@+id/searchViewBuscar"
+        app:srcCompat="@drawable/baseline_map_24" />
 
 
 </android.support.constraint.ConstraintLayout>

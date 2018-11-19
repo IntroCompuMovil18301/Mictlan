@@ -50,7 +50,8 @@ public class CalificarActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private FirebaseAuth mAuth;
 
-    private static final String PATH_CALIF = "calificaciones/";
+    private static final String PATH_CALIF = "calificaciones";
+    private static final String PATH_ALOJ = "alojamientos";
 
     private DatabaseReference mDatabase;
     private TextView aloj;
@@ -111,6 +112,35 @@ public class CalificarActivity extends AppCompatActivity {
 
                     String reportDate = df.format(today);
 
+
+
+                    DatabaseReference calificacionRef = database.getReference(PATH_CALIF);
+                    final DatabaseReference actualizarAloja = database.getReference(PATH_ALOJ);
+                    calificacionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            float tot=0;
+                            int i=0;
+                            for (DataSnapshot singleSnap : dataSnapshot.getChildren()) {
+                                Calificacion aux = singleSnap.getValue(Calificacion.class);
+
+                                if (aux.getAlojamientoId().equals(alojamiento.getId())) {
+                                    tot += aux.getEstrellas();
+                                    i++;
+                                }
+                            }
+                            tot += estrellas.getRating();
+                            i++;
+                            alojamiento.setCalificacion(tot/i);
+                            actualizarAloja.child(alojamiento.getId()).updateChildren(alojamiento.toMap());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.w("--->", "error en la consulta", databaseError.toException());
+                        }
+                    });
+
                     final Calificacion calif = new Calificacion(Fuser.getUid(),alojamiento.getId(),reserva.getId(),estrellas.getRating(),reseña.getText().toString(),reportDate);
 
                     crearCalifRef.child(calif.getId()).setValue(calif, new
@@ -119,10 +149,10 @@ public class CalificarActivity extends AppCompatActivity {
                                 public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                                     if (databaseError != null) {
                                         Toast.makeText(CalificarActivity.this,
-                                                "No se pudo crear el alojamiento", Toast.LENGTH_SHORT).show();
+                                                "No se pudo enviar la calificación.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(CalificarActivity.this,
-                                                "El alojamiento ha sido creada", Toast.LENGTH_SHORT).show();
+                                                "Calificación enviada.", Toast.LENGTH_SHORT).show();
 
                                     }
                                 }

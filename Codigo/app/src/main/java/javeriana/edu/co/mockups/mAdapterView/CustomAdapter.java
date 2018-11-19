@@ -68,6 +68,7 @@ public class CustomAdapter extends BaseAdapter {
         tipoTxt.setText("Tipo: " + s.getTipo());
         ubicacionTxt.setText("Ubicacion: " + s.getUbicacion());
         precioTxt.setText("Precio: " + s.getValorNoche());
+        ratingBar.setText(Float.toString(s.getCalificacion()));
 
 
         final File image = new File(viewGroup.getContext().getExternalFilesDir(null), s.getImages().get(0) + "jpg");

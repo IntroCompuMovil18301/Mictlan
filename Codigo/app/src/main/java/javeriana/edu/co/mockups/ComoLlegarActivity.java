@@ -127,7 +127,7 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
 
         actualMarkerOptions
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.person))
-                .title("Actual");
+                .title("Mi posición actual");
 
         alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
 
@@ -539,8 +539,8 @@ public class ComoLlegarActivity extends FragmentActivity implements OnMapReadyCa
 
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
-                lineOptions.width(6);
-                lineOptions.color(Color.RED);
+                lineOptions.width(8);
+                lineOptions.color(Color.parseColor("#0a70a2"));
 
                 Log.d("onPostExecute","onPostExecute lineoptions decoded");
 

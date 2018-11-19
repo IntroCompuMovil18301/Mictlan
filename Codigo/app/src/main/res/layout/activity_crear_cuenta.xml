@@ -268,8 +268,8 @@
             android:id="@+id/spinner_Genero"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             android:backgroundTint="@color/secondaryColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -283,55 +283,36 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             android:text="Nacionalidad:"
-            app:layout_constraintBottom_toBottomOf="@+id/eT_Nacionalidad"
-            app:layout_constraintEnd_toStartOf="@+id/eT_Nacionalidad"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintBottom_toBottomOf="@+id/spinner_nationality"
             app:layout_constraintHorizontal_weight="0.35"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/eT_Nacionalidad" />
-
-        <EditText
-            android:id="@+id/eT_Nacionalidad"
-            style="@style/Body"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/secondaryColor"
-            android:ems="10"
-            android:hint="Nacionalidad"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_weight="0.65"
-            app:layout_constraintStart_toEndOf="@+id/tV_Nacionalidad"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_Genero" />
+            app:layout_constraintTop_toTopOf="@+id/spinner_nationality" />
 
         <ImageButton
             android:id="@+id/iBtn_Back"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:background="@drawable/round_arrow_back_ios_24"
             app:layout_constraintBottom_toBottomOf="@+id/btn_Crear"
             app:layout_constraintEnd_toStartOf="@+id/btn_Crear"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_Crear" />
+            app:layout_constraintTop_toTopOf="@+id/btn_Crear"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/btn_Crear"
             android:layout_width="150dp"
             android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:background="@drawable/button_shape"
             android:text="Crear Cuenta"
             android:textAlignment="center"
@@ -339,8 +320,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/iBtn_Back"
-            app:layout_constraintTop_toBottomOf="@+id/eT_Nacionalidad" />
+            app:layout_constraintStart_toEndOf="@+id/iBtn_Back" />
+
+        <Spinner
+            android:id="@+id/spinner_nationality"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/secondaryColor"
+            app:layout_constraintBottom_toTopOf="@+id/btn_Crear"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tV_Nacionalidad"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_Genero" />
 
     </android.support.constraint.ConstraintLayout>
 

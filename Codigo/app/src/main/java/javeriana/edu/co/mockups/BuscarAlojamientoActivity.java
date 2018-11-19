@@ -273,7 +273,7 @@ public class BuscarAlojamientoActivity extends AppCompatActivity {
         for (Alojamiento alojamientoSel : aloj) {
             if (distance(latitude, longitude, alojamientoSel.getLatitud(), alojamientoSel.getLongitud()) <= 2) {
                 aux.add(alojamientoSel);
-                Toast.makeText(this, alojamientoSel.getTitulo(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Exiten "+ aux.size()+ "alojamientos en la zona que buscaste. \n Para mas información toca el marcador del alojamiento", Toast.LENGTH_LONG).show();
             }
         }
         Intent mapas = new Intent(this, AlojamientoMapsActivity.class);

@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -26,23 +28,36 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+import com.viewpagerindicator.CirclePageIndicator;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javeriana.edu.co.mockups.mAdapterView.ImageModel;
+import javeriana.edu.co.mockups.mAdapterView.SlidingImage_Adapter;
 import javeriana.edu.co.mockups.mData.Alojamiento;
 import javeriana.edu.co.mockups.mData.Usuario;
 
 public class InfoAlojaActivity extends AppCompatActivity {
 
-    private ImageView foto_aloj;
+
     private TextView tipo_aloj;
     private TextView ubicac_aloj;
     private TextView numper_aloj;
     private TextView numcam_aloj;
     private TextView numban_aloj;
     private TextView numalc_aloj;
+
+    private static ViewPager mPager;
+    private static int currentPage = 0;
+    private static int NUM_PAGES = 0;
+    private ArrayList<ImageModel> imageModelArrayList;
+   // private int[] myImageList = new int[]{R.drawable.descarga, R.drawable.descarga1,R.drawable.descarga2,R.drawable.descarga3};
+    private Bitmap[] myBitList;
 
     private CardView biogra_but;
     private TextView nombre_anfi;
@@ -65,7 +80,13 @@ public class InfoAlojaActivity extends AppCompatActivity {
 
         setTitle(alojamiento.getTitulo());
 
-        foto_aloj = findViewById( R.id.iaa_foto_aloj );
+        imageModelArrayList = new ArrayList<>();
+        imageModelArrayList = populateList(alojamiento);
+
+
+        init();
+
+
         tipo_aloj = findViewById( R.id.iaa_tipo_aloj );
         ubicac_aloj = findViewById( R.id.iaa_ubicac_aloj );
         numper_aloj = findViewById( R.id.iaa_numper_aloj );
@@ -81,7 +102,7 @@ public class InfoAlojaActivity extends AppCompatActivity {
         reserv_but = findViewById( R.id.iaa_reserv_aloj );
         estrellas = (SimpleRatingBar) findViewById(R.id.iaa_rating_reser);
 
-        final File image = new File(getBaseContext().getExternalFilesDir(null),
+      /*  final File image = new File(getBaseContext().getExternalFilesDir(null),
                 alojamiento.getImages().get(0) + "jpg");
         if(!image.exists()) {
             FirebaseStorage.getInstance().getReference("alojamientos")
@@ -114,7 +135,7 @@ public class InfoAlojaActivity extends AppCompatActivity {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
 
         tipo_aloj.setText(tipo_aloj.getText().toString() + alojamiento.getTipo());
         ubicac_aloj.setText(ubicac_aloj.getText().toString() + alojamiento.getUbicacion());
@@ -168,5 +189,113 @@ public class InfoAlojaActivity extends AppCompatActivity {
                 startActivity( reserv_intent );
             }
         });
+    }
+    private ArrayList<ImageModel> populateList(Alojamiento alojamiento) {
+        //TODO llenar la lista con imagenes
+        final ArrayList<ImageModel> list = new ArrayList<>();
+
+        for(int i = 0; i < 4; i++){
+            final File image = new File(getBaseContext().getExternalFilesDir(null),
+                    alojamiento.getImages().get(i));
+            Log.d("imagen----->", "populateList: "+ image);
+            if(!image.exists()) {
+                FirebaseStorage.getInstance().getReference("alojamientos")
+                        .child(alojamiento.getId()).child(alojamiento.getImages().get(i)).getFile(image).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inSampleSize = 4;
+                        Bitmap bitmap = null;
+                        try {
+                            bitmap = BitmapFactory.decodeStream(new FileInputStream(image), null, options);
+                            ImageModel imageModel = new ImageModel();
+                            imageModel.setImage_bitmap(bitmap);
+                            list.add(imageModel);
+                            //foto_aloj.setImageBitmap(bitmap);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                    }
+                });
+            } else {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+                Bitmap bitmap = null;
+                try {
+                    bitmap = BitmapFactory.decodeStream(new FileInputStream(image), null, options);
+                   // foto_aloj.setImageBitmap(bitmap);
+                    ImageModel imageModel = new ImageModel();
+                    imageModel.setImage_bitmap(bitmap);
+                    list.add(imageModel);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return list;
+
+    }
+
+    private void init() {
+
+        mPager = (ViewPager) findViewById(R.id.pager_aloj);
+        mPager.setAdapter(new SlidingImage_Adapter(InfoAlojaActivity.this,imageModelArrayList));
+
+        CirclePageIndicator indicator = (CirclePageIndicator)
+                findViewById(R.id.indicator_aloj);
+
+        indicator.setViewPager(mPager);
+
+        final float density = getResources().getDisplayMetrics().density;
+
+//Set circle indicator radius
+        indicator.setRadius(5 * density);
+
+        NUM_PAGES =imageModelArrayList.size();
+
+        // Auto start of viewpager
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == NUM_PAGES) {
+                    currentPage = 0;
+                }
+                mPager.setCurrentItem(currentPage++, true);
+            }
+        };
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 3000, 3000);
+
+        // Pager listener over indicator
+        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                currentPage = position;
+
+            }
+
+            @Override
+            public void onPageScrolled(int pos, float arg1, int arg2) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int pos) {
+
+            }
+        });
+
     }
 }

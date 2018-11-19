@@ -1,6 +1,8 @@
 package javeriana.edu.co.mockups;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +20,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,8 +30,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javeriana.edu.co.mockups.mData.Usuario;
+
+import static java.lang.Thread.sleep;
 
 public class MiCuentaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -104,7 +116,7 @@ public class MiCuentaActivity extends AppCompatActivity
                     IOp3.setImageResource(R.drawable.baseline_event_available_24);
                     TOp3.setText("Reservas");
                 }
-                setUsuario(aux);
+                setUsuario(aux,Fuser.getUid());
                 setTipo(tipo);
 
             }
@@ -175,14 +187,61 @@ public class MiCuentaActivity extends AppCompatActivity
         });
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(Usuario usuario,String id) {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         TextView navUsername = (TextView) navigationView.findViewById(R.id.NombreNavCuenta);
         navUsername.setText(usuario.getNombre());
         if (usuario.getImagen()!= null) {
-            ImageView navImage = (ImageView) navigationView.findViewById(R.id.iv_Cuenta);
+
+            try {
+                sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            final ImageView navImage = (ImageView) navigationView.findViewById(R.id.iv_Cuenta);
+            final File image = new File(getBaseContext().getExternalFilesDir(null),
+                    usuario.getImagen());
+            if(!image.exists()) {
+                Log.d("user-->", "setUsuario: "+id);
+
+                FirebaseStorage.getInstance().getReference("usuarios")
+                        .child(id).child(usuario.getImagen()).getFile(image).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inSampleSize = 4;
+                        Bitmap bitmap = null;
+                        try {
+                            bitmap = BitmapFactory.decodeStream(new FileInputStream(image), null, options);
+                            navImage.setImageBitmap(bitmap);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                    }
+                });
+            } else {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+                Bitmap bitmap = null;
+                try {
+                    bitmap = BitmapFactory.decodeStream(new FileInputStream(image), null, options);
+                    navImage.setImageBitmap(bitmap);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            /*
+
             navImage.setImageURI(Uri.parse(usuario.getImagen()));
+            */
         }
     }
 

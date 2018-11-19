@@ -6,6 +6,7 @@ import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -41,6 +42,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -152,6 +154,8 @@ public class CrearCuentaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validateForm()) {
+                    Toast.makeText(CrearCuentaActivity.this, "Validando información...", Toast.LENGTH_LONG).show();
+
                     mAuth.createUserWithEmailAndPassword(correo.getText().toString(), contraseña.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
@@ -178,7 +182,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    Toast.makeText(CrearCuentaActivity.this, "success", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(CrearCuentaActivity.this, "Usuario creado", Toast.LENGTH_LONG).show();
 
 
                                                     StorageReference crearImagenes = storage.getReference("usuarios").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -192,7 +196,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
 
 
                                                 } else {
-                                                    Toast.makeText(CrearCuentaActivity.this,"error",Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(CrearCuentaActivity.this,"Error creando usuario",Toast.LENGTH_SHORT).show();
                                                 }
                                             }
                                         });
@@ -277,8 +281,12 @@ public class CrearCuentaActivity extends AppCompatActivity {
                     try {
                         final Uri image_uri = data.getData();
                         if (image_uri != null) {
-                            imageName = image_uri.toString();
+                            String aux = image_uri.toString();
+                            imageName = aux.substring(aux.lastIndexOf("/") + 1);
                             agImagen.setImageURI(image_uri);
+                            final InputStream imagenStream =
+                                    getContentResolver().openInputStream(image_uri);
+                            imagen = BitmapFactory.decodeStream(imagenStream);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

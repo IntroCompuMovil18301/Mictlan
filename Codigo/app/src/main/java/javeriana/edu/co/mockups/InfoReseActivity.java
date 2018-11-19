@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -21,6 +23,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+import com.viewpagerindicator.CirclePageIndicator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,11 +31,16 @@ import java.io.FileNotFoundException;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javeriana.edu.co.mockups.mAdapterView.ImageModel;
+import javeriana.edu.co.mockups.mAdapterView.SlidingImage_Adapter;
 import javeriana.edu.co.mockups.mData.Alojamiento;
 import javeriana.edu.co.mockups.mData.Reserva;
 import sun.bob.mcalendarview.MarkStyle;
@@ -53,9 +61,21 @@ public class InfoReseActivity extends AppCompatActivity {
     private TextView fechafin_rese;
     private TextView total_rese;
     private Calendar fechaActual;
+
+
     private ExpCalendarView calend;
     private TextView irames;
+
+
+    private static ViewPager mPager;
+    private static int currentPage = 0;
+    private static int NUM_PAGES = 0;
+    private ArrayList<ImageModel> imageModelArrayList;
+
+    private int[] myImageList = new int[]{R.drawable.descarga, R.drawable.descarga1,
+            R.drawable.descarga2,R.drawable.descarga3};
     private SimpleRatingBar estrellas;
+
 
     private CardView biogra_but;
     private TextView nombre_anfi;
@@ -63,6 +83,8 @@ public class InfoReseActivity extends AppCompatActivity {
     Button vercalificacionesInfoRese;
     Button comoLlegar;
     Button calificar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +95,13 @@ public class InfoReseActivity extends AppCompatActivity {
 
         setTitle(alojamiento.getTitulo());
 
-        foto_aloj = findViewById( R.id.ira_foto_aloj );
+        imageModelArrayList = new ArrayList<>();
+        imageModelArrayList = populateList(alojamiento);
+
+
+        init();
+
+
         tipo_aloj = findViewById( R.id.ira_tipo_aloj );
         ubicac_aloj = findViewById( R.id.ira_ubicac_aloj );
         numper_aloj = findViewById( R.id.ira_numper_aloj );
@@ -97,7 +125,7 @@ public class InfoReseActivity extends AppCompatActivity {
         calificar.setEnabled(false);
         calificar.setAlpha(0.0f);
 
-        final File image = new File(getBaseContext().getExternalFilesDir(null),
+        /*final File image = new File(getBaseContext().getExternalFilesDir(null),
                 alojamiento.getImages().get(0) + "jpg");
         if(!image.exists()) {
             FirebaseStorage.getInstance().getReference("alojamientos")
@@ -131,7 +159,7 @@ public class InfoReseActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
+*/
         tipo_aloj.setText(tipo_aloj.getText().toString() + alojamiento.getTipo());
         ubicac_aloj.setText(ubicac_aloj.getText().toString() + alojamiento.getUbicacion());
         numper_aloj.setText(Integer.toString(alojamiento.getPersonas()) + " " + numper_aloj.getText().toString());
@@ -202,7 +230,7 @@ public class InfoReseActivity extends AppCompatActivity {
 
 
         Date c = Calendar.getInstance().getTime();
-        if (c.compareTo(date2) < 0)
+        if (c.compareTo(date2) > 0)
         {
             calificar.setEnabled(true);
             calificar.setAlpha(1.0f);
@@ -249,6 +277,115 @@ public class InfoReseActivity extends AppCompatActivity {
                 paquete.putSerializable("alojamiento", alojamiento);
                 intent.putExtras(paquete);
                 startActivity(intent);
+            }
+        });
+
+    }
+
+    private ArrayList<ImageModel> populateList(Alojamiento alojamiento) {
+        //TODO llenar la lista con imagenes
+        final ArrayList<ImageModel> list = new ArrayList<>();
+
+        for(int i = 0; i < 4; i++){
+            final File image = new File(getBaseContext().getExternalFilesDir(null),
+                    alojamiento.getImages().get(i));
+            Log.d("imagen----->", "populateList: "+ image);
+            if(!image.exists()) {
+                FirebaseStorage.getInstance().getReference("alojamientos")
+                        .child(alojamiento.getId()).child(alojamiento.getImages().get(i)).getFile(image).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inSampleSize = 4;
+                        Bitmap bitmap = null;
+                        try {
+                            bitmap = BitmapFactory.decodeStream(new FileInputStream(image), null, options);
+                            ImageModel imageModel = new ImageModel();
+                            imageModel.setImage_bitmap(bitmap);
+                            list.add(imageModel);
+                            //foto_aloj.setImageBitmap(bitmap);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                    }
+                });
+            } else {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+                Bitmap bitmap = null;
+                try {
+                    bitmap = BitmapFactory.decodeStream(new FileInputStream(image), null, options);
+                    // foto_aloj.setImageBitmap(bitmap);
+                    ImageModel imageModel = new ImageModel();
+                    imageModel.setImage_bitmap(bitmap);
+                    list.add(imageModel);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return list;
+
+    }
+
+    private void init() {
+
+        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager.setAdapter(new SlidingImage_Adapter(InfoReseActivity.this,imageModelArrayList));
+
+        CirclePageIndicator indicator = (CirclePageIndicator)
+                findViewById(R.id.indicator);
+
+        indicator.setViewPager(mPager);
+
+        final float density = getResources().getDisplayMetrics().density;
+
+//Set circle indicator radius
+        indicator.setRadius(5 * density);
+
+        NUM_PAGES =imageModelArrayList.size();
+
+        // Auto start of viewpager
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == NUM_PAGES) {
+                    currentPage = 0;
+                }
+                mPager.setCurrentItem(currentPage++, true);
+            }
+        };
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 3000, 3000);
+
+        // Pager listener over indicator
+        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                currentPage = position;
+
+            }
+
+            @Override
+            public void onPageScrolled(int pos, float arg1, int arg2) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int pos) {
+
             }
         });
 

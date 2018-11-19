@@ -59,6 +59,7 @@ public class CalificarActivity extends AppCompatActivity {
     private SimpleRatingBar estrellas;
     private TextInputEditText reseña;
     private Button ok;
+    private Button cancel;
 
 
     @Override
@@ -78,6 +79,7 @@ public class CalificarActivity extends AppCompatActivity {
         estrellas = (SimpleRatingBar) findViewById(R.id.cal_rating_aloj);
         reseña =  (TextInputEditText) findViewById(R.id.cal_res_aloj);
         ok = (Button) findViewById(R.id.cal_env_aloj);
+        cancel = (Button) findViewById(R.id.Cancelar_cal);
 
 
         aloj.setText(alojamiento.getTitulo());
@@ -88,7 +90,7 @@ public class CalificarActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Usuario aux = dataSnapshot.getValue(Usuario.class);
-                anfitrion.setText(aux.getNombre());
+                anfitrion.setText("Hospedado por: " + aux.getNombre());
 
             }
 
@@ -159,6 +161,20 @@ public class CalificarActivity extends AppCompatActivity {
                     });
 
                 }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                    Intent intent = new Intent(view.getContext(),InfoReseActivity.class);
+                    Bundle paquete = new Bundle();
+                    paquete.putSerializable("alojamiento", alojamiento);
+                    paquete.putSerializable("reserva",reserva);
+                    intent.putExtras(paquete);
+                    startActivity(intent);
+
             }
         });
 

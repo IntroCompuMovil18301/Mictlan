@@ -41,6 +41,8 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -52,11 +54,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,6 +72,8 @@ import java.util.List;
 import javeriana.edu.co.mockups.mAdapterView.ImageAddAdapter;
 import javeriana.edu.co.mockups.mData.Alojamiento;
 import javeriana.edu.co.mockups.mData.Usuario;
+
+import static java.lang.Thread.sleep;
 
 public class CrearAlojamientoActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -165,7 +173,7 @@ public class CrearAlojamientoActivity extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Usuario aux = dataSnapshot.getValue(Usuario.class);
-                setUsuario(aux);
+                setUsuario(aux,Fuser.getUid());
 
             }
 
@@ -268,7 +276,7 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         });
     }
 
-    public void setUsuario(Usuario usuario) {
+   /* public void setUsuario(Usuario usuario) {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         TextView navUsername = (TextView) navigationView.findViewById(R.id.NombreNavCrear);
@@ -277,8 +285,65 @@ public class CrearAlojamientoActivity extends AppCompatActivity
             ImageView navImage = (ImageView) navigationView.findViewById(R.id.iv_Cuenta);
             navImage.setImageURI(Uri.parse(usuario.getImagen()));
         }
-    }
+    }*/
 
+    public void setUsuario(Usuario usuario,String id) {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        TextView navUsername = (TextView) navigationView.findViewById(R.id.NombreNavCrear);
+        navUsername.setText(usuario.getNombre());
+        if (usuario.getImagen()!= null) {
+
+            try {
+                sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            final ImageView navImage = (ImageView) navigationView.findViewById(R.id.iv_Cuenta);
+            final File image = new File(getBaseContext().getExternalFilesDir(null),
+                    usuario.getImagen());
+            if(!image.exists()) {
+                Log.d("user-->", "setUsuario: "+id);
+
+                FirebaseStorage.getInstance().getReference("usuarios")
+                        .child(id).child(usuario.getImagen()).getFile(image).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inSampleSize = 4;
+                        Bitmap bitmap = null;
+                        try {
+                            bitmap = BitmapFactory.decodeStream(new FileInputStream(image), null, options);
+                            navImage.setImageBitmap(bitmap);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                    }
+                });
+            } else {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+                Bitmap bitmap = null;
+                try {
+                    bitmap = BitmapFactory.decodeStream(new FileInputStream(image), null, options);
+                    navImage.setImageBitmap(bitmap);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            /*
+
+            navImage.setImageURI(Uri.parse(usuario.getImagen()));
+            */
+        }
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

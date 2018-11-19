@@ -7,8 +7,15 @@
     tools:context=".CalificarActivity">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/scrollView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,10 +23,18 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Como fue tu experiencia?"
+                android:textSize="24sp" />
+
+            <TextView
                 android:id="@+id/cal_nomb_aloj"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/cal_nomb_hues"
@@ -27,26 +42,33 @@
                 android:layout_height="wrap_content"
                 android:text="TextView" />
 
-    <com.iarcuschin.simpleratingbar.SimpleRatingBar
-        android:id="@+id/cal_rating_aloj"
-        android:layout_width="147dp"
-        android:layout_height="28dp"
-        android:layout_alignParentRight="true"
-        android:layout_margin="10dp"
-        android:layout_marginStart="0.5dp"
-        android:layout_marginBottom="8dp"
-        android:padding="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/iaa_precio_aloj"
-        app:layout_constraintTop_toBottomOf="@+id/iaa_precio_aloj"
-        app:srb_borderColor="@color/primaryColor"
-        app:srb_fillColor="@color/primaryColor"
-        app:srb_isIndicator="false"
-        app:srb_numberOfStars="5"
-        app:srb_rating="3"
-        app:srb_starBorderWidth="3"
-        app:srb_starSize="25dp"
-        app:srb_stepSize="0.7" />
+            <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                android:id="@+id/cal_rating_aloj"
+                android:layout_width="147dp"
+                android:layout_height="28dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10dp"
+                android:layout_marginStart="0.5dp"
+                android:layout_marginBottom="8dp"
+                android:padding="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/iaa_precio_aloj"
+                app:layout_constraintTop_toBottomOf="@+id/iaa_precio_aloj"
+                app:srb_borderColor="@color/primaryColor"
+                app:srb_fillColor="@color/primaryColor"
+                app:srb_isIndicator="false"
+                app:srb_numberOfStars="5"
+                app:srb_rating="0"
+                app:srb_starBorderWidth="3"
+                app:srb_starSize="25dp"
+                app:srb_stepSize="0.7" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Deja un comentario..."
+                android:textSize="16sp" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -57,19 +79,34 @@
                     android:id="@+id/cal_res_aloj"
                     android:layout_width="match_parent"
                     android:layout_height="227dp"
-                    android:hint="hint" />
+                    android:gravity="top" />
 
             </android.support.design.widget.TextInputLayout>
 
-            <Button
-                android:id="@+id/cal_env_aloj"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_shape"
-                android:text="Button"
-                android:textColor="@color/primaryTextColor" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/Cancelar_cal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_shape"
+                    android:text="Cancelar"
+                    android:textColor="@color/primaryTextColor" />
+
+                <Button
+                    android:id="@+id/cal_env_aloj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_shape"
+                    android:text="Enviar"
+                    android:textColor="@color/primaryTextColor" />
+            </LinearLayout>
 
 
         </LinearLayout>

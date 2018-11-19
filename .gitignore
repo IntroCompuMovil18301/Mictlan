@@ -35,6 +35,7 @@ Codigo/captures/
 
 # IntelliJ
 *.iml
+Codigo/app/app.iml
 Codigo/Codigo.iml
 Codigo/.idea/workspace.xml
 Codigo/.idea/tasks.xml

@@ -218,4 +218,5 @@ public class Alojamiento implements Serializable {
                 ", reservas=" + reservas +
                 '}';
     }
+
 }

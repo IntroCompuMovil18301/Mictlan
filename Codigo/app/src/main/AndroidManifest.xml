@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="javeriana.edu.co.mockups">
 
     <!--
@@ -70,6 +71,8 @@
         <activity android:name=".ReservasUsuariosActivity" />
         <activity android:name=".RutasUsuarioActivity" />
         <activity android:name=".CalificacionesActivity" />
+        <activity android:name=".ModificarAlojamientoActivity"
+            tools:ignore="DuplicateActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

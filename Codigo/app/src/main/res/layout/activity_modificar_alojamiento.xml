@@ -130,7 +130,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:background="@drawable/circle_border_icon"
             app:layout_constraintBottom_toBottomOf="@+id/spinner_MPersonas"
             app:layout_constraintStart_toStartOf="@+id/ubicacion_text2"
             app:layout_constraintTop_toTopOf="@+id/spinner_MPersonas"
@@ -140,7 +139,6 @@
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/circle_border_icon"
             app:layout_constraintBottom_toBottomOf="@+id/spinner_MCamas"
             app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/spinner_MCamas"
@@ -151,7 +149,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@drawable/circle_border_icon"
             app:layout_constraintBottom_toBottomOf="@+id/spinner_MAlcobas"
             app:layout_constraintStart_toStartOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="@+id/spinner_MAlcobas"
@@ -162,7 +159,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@drawable/circle_border_icon"
             app:layout_constraintBottom_toBottomOf="@+id/spinner_MBanos"
             app:layout_constraintStart_toStartOf="@+id/imageView3"
             app:layout_constraintTop_toTopOf="@+id/spinner_MBanos"
@@ -211,7 +207,7 @@
             app:layout_constraintEnd_toEndOf="@+id/haa_imagen_aloj"
             app:layout_constraintStart_toStartOf="@+id/haa_imagen_aloj"
             app:layout_constraintTop_toBottomOf="@+id/haa_imagen_aloj"
-            app:rippleColor="@color/primaryLightColor"
+            app:rippleColor="@color/primaryTextColor"
             app:srcCompat="@drawable/baseline_add_24" />
 
         <Spinner

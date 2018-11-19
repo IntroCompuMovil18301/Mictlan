@@ -158,18 +158,6 @@ public class InfoAlojaActivity extends AppCompatActivity {
                 Usuario aux = dataSnapshot.getValue(Usuario.class);
                 nombre_anfi.setText(aux.getNombre());
                 tipo = aux.getTipo();
-                if(tipo.equals("Anfitrión")){
-                    reserv_but.setText("Editar Alojamiento");
-                    reserv_but.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent aloj_intent = new Intent( view.getContext(), ModificarAlojamientoActivity.class );
-                            //aloj_intent.putExtra("alojamiento", alojamiento);
-                            startActivity( aloj_intent );
-                        }
-                    });
-
-                }
                 if ( aux.getImagen() != null )
                     foto_anfi.setImageURI(Uri.parse(aux.getImagen()));
             }

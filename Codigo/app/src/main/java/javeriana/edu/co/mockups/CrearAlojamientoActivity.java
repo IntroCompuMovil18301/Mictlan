@@ -30,12 +30,18 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -58,6 +64,10 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -101,13 +111,14 @@ public class CrearAlojamientoActivity extends AppCompatActivity
     private EditText nombreAlojamiento;
     private Spinner tipoAl;
     private EditText ubicacion;
-    private EditText precio;
+    private Spinner moneda;
+    private EditText valorPrecio;
     private EditText personas;
     private EditText alcobas;
     private EditText camas;
     private EditText banos;
-    private Button cargarImagen;
-    private Button tomarFoto;
+    private ImageButton cargarImagen;
+    private ImageButton tomarFoto;
     private Button crear;
     private FloatingActionButton getLocation;
     private ListView lv_images;
@@ -116,6 +127,8 @@ public class CrearAlojamientoActivity extends AppCompatActivity
     private List<String> imagesName;
     private List<Bitmap> images;
     private ImageAddAdapter adapter;
+
+    List<String> monedas =  new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +164,8 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         nombreAlojamiento = findViewById(R.id.eT_NombreAlojamiento);
         tipoAl = findViewById(R.id.spinner_TipoAl);
         ubicacion = findViewById(R.id.eT_Ubicacion);
-        precio = findViewById(R.id.eT_Precio);
+        moneda = findViewById(R.id.spinner_moneda);
+        valorPrecio = findViewById(R.id.eT_precio);
         personas = findViewById(R.id.spinner_Personas);
         alcobas = findViewById(R.id.spinner_Alcobas);
         camas = findViewById(R.id.spinner_Camas);
@@ -166,6 +180,8 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         images = new ArrayList<>();
 
         lv_images = findViewById(R.id.lv_images);
+
+
 
         final FirebaseUser Fuser = FirebaseAuth.getInstance().getCurrentUser();
         Query myTopPostsQuery = database.getReference().child("usuarios").child(Fuser.getUid());
@@ -220,8 +236,9 @@ public class CrearAlojamientoActivity extends AppCompatActivity
                     String usuario = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     String titulo = nombreAlojamiento.getText().toString();
                     String ubi = ubicacion.getText().toString();
-                    float valorNoche = Float.parseFloat(precio.getText().toString());
+                    float valorNoche = Float.parseFloat(valorPrecio.getText().toString());
                     String tipo = tipoAl.getSelectedItem().toString();
+                    String divisa = moneda.getSelectedItem().toString();
                     int per = Integer.parseInt(personas.getText().toString());
                     int cam = Integer.parseInt(camas.getText().toString());
                     int alc = Integer.parseInt(alcobas.getText().toString());
@@ -274,6 +291,45 @@ public class CrearAlojamientoActivity extends AppCompatActivity
                 }
             }
         });
+        monedas.add("Divisa");
+        RESTdivisas();
+        ArrayAdapter<String> adapterDiv = new ArrayAdapter<String>(this,
+                R.layout.support_simple_spinner_dropdown_item, monedas);
+        moneda.setAdapter(adapterDiv);
+    }
+    private void RESTdivisas () {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String query = "https://restcountries.eu/rest/v2/all?fields=currencies";
+        StringRequest req = new StringRequest(Request.Method.GET, query, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                String data = (String) response;
+                try {
+                    JSONArray divisas= new JSONArray(data);
+                    for (int i = 0; i < divisas.length(); i++) {
+                        JSONObject jo = (JSONObject) divisas.get(i);
+                        JSONArray contentCurrencies = jo.getJSONArray("currencies");
+                        for(int j = 0; j < contentCurrencies.length(); j++){
+                            JSONObject job = contentCurrencies.getJSONObject(j);
+                            String code = (String)job.get("code");
+                            String name = (String)job.get("name");
+                            monedas.add(code+" - "+name);
+                        }
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+                new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("TAG", "Error handling rest invocation"+error.getCause());
+                    }
+                });
+        queue.add(req);
+
     }
 
    /* public void setUsuario(Usuario usuario) {
@@ -543,7 +599,8 @@ public class CrearAlojamientoActivity extends AppCompatActivity
 
         String titulo = nombreAlojamiento.getText().toString();
         String ubi = ubicacion.getText().toString();
-        String valorNoche = precio.getText().toString();
+        String valorNoche = valorPrecio.getText().toString();
+        String divisa = moneda.getSelectedItem().toString();
         String per = personas.getText().toString();
         String alc = alcobas.getText().toString();
         String cam = camas.getText().toString();
@@ -564,10 +621,10 @@ public class CrearAlojamientoActivity extends AppCompatActivity
         }
 
         if (TextUtils.isEmpty(valorNoche)) {
-            precio.setError("Required.");
+           valorPrecio.setError("Required.");
             valid = false;
         } else {
-            precio.setError(null);
+           valorPrecio.setError(null);
         }
 
         if (TextUtils.isEmpty(per)) {

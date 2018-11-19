@@ -29,6 +29,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.Response;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -69,7 +74,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
     Button crear;
     ImageButton backToMain;
     TextView nacionalidad;
-    EditText resnacionalidad;
+    Spinner resnacionalidad;
     RadioButton opAnfitrion;
     RadioButton opHuesped;
     EditText correo;
@@ -81,9 +86,13 @@ public class CrearCuentaActivity extends AppCompatActivity {
     RadioButton tipo;
     Spinner sItems;
     TextView genero;
+
     ImageView agImagen;
     private String imageName;
     private Bitmap imagen;
+
+    List<String> nationalities =  new ArrayList<String>();
+
 
     private boolean huesped;
 
@@ -98,7 +107,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
         crear=(Button)findViewById(R.id.btn_Crear);
         backToMain = (ImageButton)findViewById(R.id.iBtn_Back);
         nacionalidad = (TextView)findViewById(R.id.tV_Nacionalidad);
-        resnacionalidad = (EditText)findViewById(R.id.eT_Nacionalidad);
+        resnacionalidad = (Spinner) findViewById(R.id.spinner_nationality);
         opAnfitrion = (RadioButton)findViewById(R.id.radioButton_Anfitrion);
         opHuesped = (RadioButton)findViewById(R.id.radioButton_Huesped);
         correo = (EditText) findViewById(R.id.eT_Correo);
@@ -167,10 +176,9 @@ public class CrearCuentaActivity extends AppCompatActivity {
                                         Usuario usuario;
                                         sendRegistrationLink();
                                         if (tipo.getText().toString().equals("Huesped")) {
-                                            Log.i("-------", "onComplete: "+resnacionalidad.getText().toString());
+                                            Log.i("-------", "onComplete: "+resnacionalidad.getSelectedItem().toString());
                                             Log.i("-------", "onComplete: "+sItems.getSelectedItem().toString());
-                                            usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),resnacionalidad.getText().toString(),sItems.getSelectedItem().toString(),imageName,tipo.getText().toString());
-
+                                            usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),resnacionalidad.getSelectedItem().toString(),sItems.getSelectedItem().toString(),imageName,tipo.getText().toString());
                                         }
                                         else {
                                             usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),null,null,imageName,tipo.getText().toString());
@@ -238,6 +246,43 @@ public class CrearCuentaActivity extends AppCompatActivity {
                 huesped = false;
             }
         });
+
+
+
+        nationalities.add("Seleccione nacionalidad");
+        RESTcountries();
+        ArrayAdapter<String> adapterNat = new ArrayAdapter<String>(this,
+                R.layout.support_simple_spinner_dropdown_item, nationalities);
+        resnacionalidad.setAdapter(adapterNat);
+
+    }
+
+    private void RESTcountries () {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String query = "https://restcountries.eu/rest/v2/all?fields=name";
+        StringRequest req = new StringRequest(Request.Method.GET, query, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                String data = (String) response;
+                try {
+                    JSONArray nacionalities = new JSONArray(data);
+                    for (int i = 0; i < nacionalities.length(); i++) {
+                        JSONObject jo = (JSONObject) nacionalities.get(i);
+                        String n = (String) jo.get("name");
+                        nationalities.add(n);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+                new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("TAG", "Error handling rest invocation"+error.getCause());
+                    }
+                });
+        queue.add(req);
 
     }
 
@@ -353,7 +398,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
         String nombreAux = nombreCuenta.getText().toString();
         String edadAux = edad.getText().toString();
         String generoAux = sItems.getSelectedItem().toString();
-        String nacionalidad = resnacionalidad.getText().toString();
+        String nacionalidad = resnacionalidad.getSelectedItem().toString();
 
         if (TextUtils.isEmpty(correoAux)) {
             correo.setError("Required.");
@@ -385,10 +430,10 @@ public class CrearCuentaActivity extends AppCompatActivity {
 
         if (huesped) {
             if (TextUtils.isEmpty(nacionalidad)) {
-                resnacionalidad.setError("Required.");
+               // resnacionalidad.("Required.");
                 valid = false;
             } else {
-                resnacionalidad.setError(null);
+                //resnacionalidad.setError(null);
             }
         }
 
@@ -422,7 +467,6 @@ public class CrearCuentaActivity extends AppCompatActivity {
                 });
     }
 
-    //****************************************************************************************************************************************************************
 
 }
 

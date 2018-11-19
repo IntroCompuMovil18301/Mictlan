@@ -187,7 +187,7 @@ public class AlojamientoMapsActivity extends FragmentActivity implements OnMapRe
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
-            public boolean onMarkerClick(Marker marker) {
+            public boolean onMarkerClick(final Marker marker) {
                 String alojId = marker.getSnippet();
                 if(alojId != null){
                     DatabaseReference alojaRef= FirebaseDatabase.getInstance().getReference(PATH_ALOJ).child(alojId);

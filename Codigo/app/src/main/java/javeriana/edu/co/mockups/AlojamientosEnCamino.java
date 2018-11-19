@@ -209,7 +209,7 @@ public class AlojamientosEnCamino extends FragmentActivity implements OnMapReady
                     .position(new LatLng(alojamiento.getLatitud(),alojamiento.getLongitud()))
                     .anchor(0.5f, 0.5f)
                     .title(alojamiento.getTitulo())
-                    .snippet(alojamiento.getUbicacion())
+                    .snippet(alojamiento.getId())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.hotel)));
         }
         if (mMap != null && location != null) {
@@ -218,6 +218,35 @@ public class AlojamientosEnCamino extends FragmentActivity implements OnMapReady
             positionOrigin = new LatLng(location.getLatitude(), location.getLongitude());
             markAlojamientosInWay(positionOrigin, positionDest);
         }
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String alojId = marker.getSnippet();
+                if(alojId != null){
+                    DatabaseReference alojaRef= FirebaseDatabase.getInstance().getReference(PATH_ALOJ).child(alojId);
+                    alojaRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            alojamiento = dataSnapshot.getValue(Alojamiento.class);
+                            Intent intent = new Intent(AlojamientosEnCamino.this, InfoAlojaActivity.class);
+                            Bundle aloj = new Bundle();
+                            aloj.putSerializable("alojamiento",alojamiento);
+                            intent.putExtras(aloj);
+                            startActivity(intent);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                    }
+                    );
+
+                }
+                return false;
+            }
+        });
 
 
     }
@@ -365,6 +394,13 @@ public class AlojamientosEnCamino extends FragmentActivity implements OnMapReady
                 }
             }
         }
+        if(alojamientos.isEmpty()){
+            Toast.makeText(AlojamientosEnCamino.this," No Existen alojamientos entre tu origen y destino.",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(AlojamientosEnCamino.this,"Existen "+alojamientos.size()+" alojamientos entre tu origen y destino. \n" +
+                    "Si deseas descansar presiona el marcador y haz una reserva!",Toast.LENGTH_SHORT).show();
+
+        }
 
     }
 
@@ -377,13 +413,13 @@ public class AlojamientosEnCamino extends FragmentActivity implements OnMapReady
      * @param ubicacion
      * @return
      */
-    protected Marker createMarker(double latitud, double longitud, String titulo, String ubicacion) {
+    protected Marker createMarker(double latitud, double longitud, String id, String titulo, String ubicacion) {
 
         return mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(latitud,longitud))
                 .anchor(0.5f, 0.5f)
                 .title(titulo)
-                .snippet(ubicacion)
+                .snippet(id)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.hotel_marker)));
     }
 
@@ -603,8 +639,8 @@ public class AlojamientosEnCamino extends FragmentActivity implements OnMapReady
                 }
 
                 lineOptions.addAll(points);
-                lineOptions.width(6);
-                lineOptions.color(Color.RED);
+                lineOptions.width(8);
+                lineOptions.color(Color.parseColor("#0a70a2"));
                 Log.d("onPostExecute","onPostExecute lineoptions decoded");
 
             }
@@ -613,7 +649,7 @@ public class AlojamientosEnCamino extends FragmentActivity implements OnMapReady
             if(lineOptions != null  && positionDest!=null && mMap != null) {
                 for(Alojamiento alojamientoEnc: alojamientos){
                     if(alojamiento.getLatitud() != alojamientoEnc.getLatitud() && alojamiento.getLongitud() != alojamientoEnc.getLongitud()){
-                        createMarker(alojamientoEnc.getLatitud(),alojamientoEnc.getLongitud(),alojamientoEnc.getTitulo(),alojamientoEnc.getUbicacion());
+                        createMarker(alojamientoEnc.getLatitud(),alojamientoEnc.getLongitud(),alojamientoEnc.getId(),alojamientoEnc.getTitulo(),alojamientoEnc.getUbicacion());
                     }
                 }
                 path = mMap.addPolyline(lineOptions);

@@ -1,9 +1,6 @@
 package javeriana.edu.co.mockups.mData;
 
 public class Calificacion {
-
-
-
     private String id;
     private String alojamientoId;
     private String reservaId;

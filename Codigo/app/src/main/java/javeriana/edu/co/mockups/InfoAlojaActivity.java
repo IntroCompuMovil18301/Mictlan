@@ -16,9 +16,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -66,8 +69,10 @@ public class InfoAlojaActivity extends AppCompatActivity {
 
     private Button califi_but;
     private Button reserv_but;
+    private FirebaseAuth mAuth;
 
     String idAloj;
+    private String tipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +157,19 @@ public class InfoAlojaActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Usuario aux = dataSnapshot.getValue(Usuario.class);
                 nombre_anfi.setText(aux.getNombre());
+                tipo = aux.getTipo();
+                if(tipo.equals("Anfitrión")){
+                    reserv_but.setText("Editar Alojamiento");
+                    reserv_but.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent aloj_intent = new Intent( view.getContext(), ModificarAlojamientoActivity.class );
+                            //aloj_intent.putExtra("alojamiento", alojamiento);
+                            startActivity( aloj_intent );
+                        }
+                    });
+
+                }
                 if ( aux.getImagen() != null )
                     foto_anfi.setImageURI(Uri.parse(aux.getImagen()));
             }

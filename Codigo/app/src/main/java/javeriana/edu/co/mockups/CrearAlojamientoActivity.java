@@ -30,6 +30,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -108,8 +109,8 @@ public class CrearAlojamientoActivity extends AppCompatActivity
     private EditText alcobas;
     private EditText camas;
     private EditText banos;
-    private Button cargarImagen;
-    private Button tomarFoto;
+    private ImageButton cargarImagen;
+    private ImageButton tomarFoto;
     private Button crear;
     private FloatingActionButton getLocation;
     private ListView lv_images;

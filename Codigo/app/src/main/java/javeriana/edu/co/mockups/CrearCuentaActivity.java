@@ -2,9 +2,12 @@ package javeriana.edu.co.mockups;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -25,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Response;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -32,8 +36,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javeriana.edu.co.mockups.mData.Usuario;
@@ -41,9 +55,14 @@ import javeriana.edu.co.mockups.mData.Usuario;
 public class CrearCuentaActivity extends AppCompatActivity {
 
     private static final int REQUEST_READ_EXTERNAL_STORAGE = 392;
+    private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 758;
+    private static final int REQUEST_CAMERA = 485;
+    private static final int REQUEST_IMAGE_CAPTURE = 615;
     private static final int IMAGE_PICKER_REQUEST = 31;
+    private static final String TAG = "CREAR_CUENTA_ACTIVITY";
 
     private FirebaseAuth mAuth;
+    private FirebaseStorage storage;
     private ImageView imagenP;
     Button crear;
     ImageButton backToMain;
@@ -53,14 +72,16 @@ public class CrearCuentaActivity extends AppCompatActivity {
     RadioButton opHuesped;
     EditText correo;
     EditText contraseña;
+    ImageView tomarFoto;
     EditText nombreCuenta;
     EditText edad;
     RadioGroup tipoGroup;
     RadioButton tipo;
     Spinner sItems;
     TextView genero;
-    CardView agImagen;
-    private String imagen;
+    ImageView agImagen;
+    private String imageName;
+    private Bitmap imagen;
 
     private boolean huesped;
 
@@ -70,6 +91,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crear_cuenta);
 
         mAuth = FirebaseAuth.getInstance();
+        storage = FirebaseStorage.getInstance();
 
         crear=(Button)findViewById(R.id.btn_Crear);
         backToMain = (ImageButton)findViewById(R.id.iBtn_Back);
@@ -83,8 +105,9 @@ public class CrearCuentaActivity extends AppCompatActivity {
         edad = (EditText) findViewById(R.id.eT_Edad);
         tipoGroup = (RadioGroup) findViewById(R.id.radioGroup);
         genero = (TextView) findViewById(R.id.tV_Genero);
-        agImagen = (CardView) findViewById(R.id.cardViewFoto);
-        imagenP = (ImageView) findViewById(R.id.iV_FotoCuenta);
+        agImagen = (ImageView) findViewById(R.id.iV_FotoCuenta);
+        imagenP = (ImageView) findViewById(R.id.tomarfot);
+
 
 
 
@@ -96,6 +119,18 @@ public class CrearCuentaActivity extends AppCompatActivity {
                     REQUEST_READ_EXTERNAL_STORAGE);
         } else {
             updateCargarImagen();
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+            requestPermission(this, Manifest.permission.CAMERA,
+                    "Para tomar una foto", REQUEST_CAMERA);
+            requestPermission(this, Manifest.permission.CAMERA,
+                    "Para tomar una foto", REQUEST_WRITE_EXTERNAL_STORAGE);
+        } else {
+            updateTomarFoto();
         }
 
         List<String> spinnerArray =  new ArrayList<String>();
@@ -111,7 +146,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
         resnacionalidad.setAlpha(0.0f);
         sItems.setAlpha(0.0f);
         genero.setAlpha(0.0f);
-        huesped = true;
+        huesped = false;
 
         crear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,13 +161,15 @@ public class CrearCuentaActivity extends AppCompatActivity {
                                         int selectedId = tipoGroup.getCheckedRadioButtonId();
                                         tipo = (RadioButton) findViewById(selectedId);
                                         Usuario usuario;
+                                        sendRegistrationLink();
                                         if (tipo.getText().toString().equals("Huesped")) {
                                             Log.i("-------", "onComplete: "+resnacionalidad.getText().toString());
                                             Log.i("-------", "onComplete: "+sItems.getSelectedItem().toString());
-                                            usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),resnacionalidad.getText().toString(),sItems.getSelectedItem().toString(),imagen,tipo.getText().toString());
+                                            usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),resnacionalidad.getText().toString(),sItems.getSelectedItem().toString(),imageName,tipo.getText().toString());
+
                                         }
                                         else {
-                                            usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),null,null,imagen,tipo.getText().toString());
+                                            usuario = new Usuario(nombreCuenta.getText().toString(), Integer.parseInt(edad.getText().toString()),null,null,imageName,tipo.getText().toString());
                                         }
                                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                                         DatabaseReference myRef = database.getReference("usuarios");
@@ -142,7 +179,17 @@ public class CrearCuentaActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
                                                     Toast.makeText(CrearCuentaActivity.this, "success", Toast.LENGTH_LONG).show();
+
+
+                                                    StorageReference crearImagenes = storage.getReference("usuarios").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                                        Bitmap image = imagen;
+                                                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                                        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                                        byte[] data = baos.toByteArray();
+
+                                                        UploadTask uploadTask = crearImagenes.child(imageName).putBytes(data);
                                                     startActivity(new Intent(CrearCuentaActivity.this, Home.class));
+
 
                                                 } else {
                                                     Toast.makeText(CrearCuentaActivity.this,"error",Toast.LENGTH_SHORT).show();
@@ -188,8 +235,6 @@ public class CrearCuentaActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     @Override
@@ -204,6 +249,21 @@ public class CrearCuentaActivity extends AppCompatActivity {
                 break;
             }
 
+            case REQUEST_WRITE_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    updateTomarFoto();
+                }
+                break;
+            }
+
+            case REQUEST_CAMERA: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    updateTomarFoto();
+                }
+                break;
+            }
         }
     }
 
@@ -217,14 +277,29 @@ public class CrearCuentaActivity extends AppCompatActivity {
                     try {
                         final Uri image_uri = data.getData();
                         if (image_uri != null) {
-                            imagen = image_uri.toString();
-                            imagenP.setImageURI(image_uri);
+                            imageName = image_uri.toString();
+                            agImagen.setImageURI(image_uri);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
+
+
+            }break;
+            case REQUEST_IMAGE_CAPTURE: {
+                if (resultCode == RESULT_OK) {
+                    Bundle extras = data.getExtras();
+                    if (extras != null) {
+                        imagen =(Bitmap) extras.get("data");
+                        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                        String imageFileName = "JPEG_" + timeStamp + ".jpg";
+                        imageName=imageFileName;
+                        agImagen.setImageBitmap(imagen);
+                    }
+                }
             }
+            break;
 
         }
     }
@@ -246,6 +321,19 @@ public class CrearCuentaActivity extends AppCompatActivity {
                 startActivityForResult(cargarImagen_intent, IMAGE_PICKER_REQUEST);
 
 
+            }
+        });
+    }
+
+
+    private void updateTomarFoto() {
+        imagenP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tomarFoto_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (tomarFoto_intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(tomarFoto_intent, REQUEST_IMAGE_CAPTURE);
+                }
             }
         });
     }
@@ -299,5 +387,34 @@ public class CrearCuentaActivity extends AppCompatActivity {
 
         return valid;
     }
+
+    private void sendRegistrationLink() {
+        final FirebaseUser user = mAuth.getCurrentUser();
+        user.sendEmailVerification()
+                .addOnCompleteListener(CrearCuentaActivity.this, new OnCompleteListener() {
+
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+
+                        if (task.isSuccessful()) {
+                            Toast.makeText(CrearCuentaActivity.this,"Verification email sent to " + user.getEmail(),Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(CrearCuentaActivity.this, MainActivity.class));
+                            finish();
+                        } else {
+                            Log.e(TAG, "sendEmailVerification", task.getException());
+                            Toast.makeText(CrearCuentaActivity.this,"Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                            overridePendingTransition(0, 0);
+                            finish();
+                            overridePendingTransition(0, 0);
+                            startActivity(getIntent());
+
+
+                        }
+                    }
+                });
+    }
+
+    //****************************************************************************************************************************************************************
+
 }
 

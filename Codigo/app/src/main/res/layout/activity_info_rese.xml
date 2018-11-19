@@ -261,14 +261,14 @@
                         android:text="Ver Calificaciones"
                         android:textColor="@color/secondaryColor"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/iaa_rating_aloj"
+                        app:layout_constraintBottom_toBottomOf="@+id/iaa_rating_reser"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/iaa_rating_aloj"
-                        app:layout_constraintTop_toTopOf="@+id/iaa_rating_aloj" />
+                        app:layout_constraintStart_toEndOf="@+id/iaa_rating_reser"
+                        app:layout_constraintTop_toTopOf="@+id/iaa_rating_reser" />
 
                     <com.iarcuschin.simpleratingbar.SimpleRatingBar
-                        android:id="@+id/iaa_rating_aloj"
+                        android:id="@+id/iaa_rating_reser"
                         android:layout_width="147dp"
                         android:layout_height="28dp"
                         android:layout_alignParentRight="true"

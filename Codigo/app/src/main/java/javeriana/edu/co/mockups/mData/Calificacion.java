@@ -11,6 +11,8 @@ public class Calificacion {
     private String comentario;
     private String fecha;
 
+    public Calificacion() {
+    }
 
     public Calificacion(String id, String alojamientoId, String reservaId, float estrellas, String comentario, String fecha) {
         this.id = id;

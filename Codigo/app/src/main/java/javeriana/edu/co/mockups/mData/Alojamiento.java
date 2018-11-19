@@ -21,6 +21,7 @@ public class Alojamiento implements Serializable {
     private int camas;
     private int alcobas;
     private int banos;
+    private float calificacion;
     private List<String> images;
     private List<String> reservas;
 
@@ -162,6 +163,14 @@ public class Alojamiento implements Serializable {
         this.images.add(image);
     }
 
+    public float getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(float calificacion) {
+        this.calificacion = calificacion;
+    }
+
     public void addReserva(String reserva) {
         if (this.reservas == null) {
             this.reservas = new ArrayList<>();
@@ -185,6 +194,7 @@ public class Alojamiento implements Serializable {
         result.put("banos", banos);
         result.put("images", images);
         result.put("reservas", reservas);
+        result.put("calificacion", calificacion);
 
         return result;
     }

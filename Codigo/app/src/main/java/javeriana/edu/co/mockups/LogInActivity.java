@@ -12,7 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-public class LogInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
+public class LogInActivity extends AppCompatActivity{
 
     private Button inicio;
     private Button ingresar;
@@ -42,13 +42,4 @@ public class LogInActivity extends AppCompatActivity implements GoogleApiClient.
         });
     }
 
-    @Override
-    public void onClick(View view) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
 }

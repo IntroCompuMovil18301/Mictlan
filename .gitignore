@@ -34,7 +34,8 @@ Codigo/.navigation/
 Codigo/captures/
 
 # IntelliJ
-Codigo/*.iml
+*.iml
+Codigo/Codigo.iml
 Codigo/.idea/workspace.xml
 Codigo/.idea/tasks.xml
 Codigo/.idea/gradle.xml

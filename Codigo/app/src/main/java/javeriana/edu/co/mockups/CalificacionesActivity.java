@@ -17,6 +17,7 @@ import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 
+import javeriana.edu.co.mockups.mAdapterView.CalificacionAdapter;
 import javeriana.edu.co.mockups.mAdapterView.CustomAdapter;
 import javeriana.edu.co.mockups.mData.Alojamiento;
 import javeriana.edu.co.mockups.mData.Calificacion;
@@ -28,7 +29,7 @@ public class CalificacionesActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private FirebaseAuth mAuth;
 
-    private static final String PATH_CALIF = "calificaciones/";
+    private static final String PATH_CALIF = "calificaciones";
     private static final String PATH_USERS = "usuarios/";
 
     private DatabaseReference mDatabase;
@@ -46,18 +47,19 @@ public class CalificacionesActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-        final Reserva reserva = (Reserva) getIntent().getExtras().getSerializable("reserva");
+        final Alojamiento alojamiento = (Alojamiento) getIntent().getExtras().getSerializable("alojamiento");
         calificaciones = new ArrayList<>();
 
         list_cal = (ListView) findViewById(R.id.list_cal);
 
-        DatabaseReference reservaRef = database.getReference(PATH_CALIF);
-        reservaRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference calificacionRef = database.getReference(PATH_CALIF);
+        calificacionRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot singleSnap : dataSnapshot.getChildren()) {
                     Calificacion aux = singleSnap.getValue(Calificacion.class);
-                    if (aux.getReservaId().equals(reserva.getId())) {
+                    Log.d("---->", "onDataChange: "+aux.getComentario());
+                    if (aux.getAlojamientoId().equals(alojamiento.getId())) {
                         calificaciones.add(aux);
                     }
                 }
@@ -72,6 +74,6 @@ public class CalificacionesActivity extends AppCompatActivity {
 
     }
     private void updateListView() {
-    //    list_cal.setAdapter(new CustomAdapterCal(this,calificaciones));
+        list_cal.setAdapter(new CalificacionAdapter(this,calificaciones));
     }
 }

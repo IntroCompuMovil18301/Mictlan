@@ -200,8 +200,8 @@ public class CrearCuentaActivity extends AppCompatActivity {
                                                         byte[] data = baos.toByteArray();
 
                                                         UploadTask uploadTask = crearImagenes.child(imageName).putBytes(data);
-                                                    startActivity(new Intent(CrearCuentaActivity.this, Home.class));
-
+                                                        startActivity(new Intent(CrearCuentaActivity.this, MainActivity.class));
+                                                        mAuth.signOut();
 
                                                 } else {
                                                     Toast.makeText(CrearCuentaActivity.this,"Error creando usuario",Toast.LENGTH_SHORT).show();
@@ -426,6 +426,9 @@ public class CrearCuentaActivity extends AppCompatActivity {
             valid = false;
         } else {
             edad.setError(null);
+        }
+        if(imageName==null){
+            Toast.makeText(CrearCuentaActivity.this,"Por favor, agregue una imagen...", Toast.LENGTH_LONG).show();
         }
 
         if (huesped) {
